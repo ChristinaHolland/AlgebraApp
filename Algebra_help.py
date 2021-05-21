@@ -1878,7 +1878,7 @@ elif eqn_type == 'Quadratic Equations':
 
         
     if Q1 == 'Vertex':
-        st.write('a(x-h)^2 + k = 0')
+        st.latex('a(x-h)^2 + k = 0')
         
         st.write('Select values in the sidebar')
         
@@ -1958,7 +1958,7 @@ elif eqn_type == 'Quadratic Equations':
                     equation = f'{a}(x + {-1*h})^2 - {-1*k} = 0'
                     equation1 = f'{a}(x + {-1*h})^2 = {-1*k}'
         
-        st.write(equation)
+        st.latex(equation)
         
         if k!=0: 
             st.write('Step 1: Move the constant to the other side')
@@ -1993,7 +1993,7 @@ elif eqn_type == 'Quadratic Equations':
             else:
                 st.write('Step 2 is to divide by "a", but since your a = 1, you can skip that step. Yay!')
                 equation2 = equation1
-            st.write(equation2)
+            st.latex(equation2)
             st.write('Step 3: Take the square root:')
             if h<0:
                 equation3 = f'$x + {-1*h} = \pm \sqrt( {new_rhs} )$'            
