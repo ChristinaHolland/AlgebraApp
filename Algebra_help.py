@@ -1750,33 +1750,33 @@ elif eqn_type == 'Quadratic Equations':
                                         if denom1>1:
                                             if denom2>1:
                                                 if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}/{denom2}')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}/{denom2}')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
                                                 else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1/{denom2}')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1/{denom2}')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1/{denom2}') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1/{denom2}') + ' (after adding the fractions)'
                                             else:
                                                 if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}') + ' (after adding the fractions)'
                                                 else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1') + ' (after adding the fractions)'
                                         else:
                                             if denom2>1:
                                                 if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}/{denom2}')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}/{denom2}')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
                                                 else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + 1/{denom2}')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - 1/{denom2}')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1} + 1/{denom2}') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1} - 1/{denom2}') + ' (after adding the fractions)'
                                             else:
                                                 if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}') + ' (after adding the fractions)'
                                                 else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + 1')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - 1')
+                                                    equation9a = 'x = ' + combine_string(f'{numer1} + 1') + ' (after adding the fractions)'
+                                                    equation9b = 'x = ' + combine_string(f'{numer1} - 1') + ' (after adding the fractions)'
 
                                         st.write(equation9a + ' and ' + equation9b)
                                         st.balloons()
