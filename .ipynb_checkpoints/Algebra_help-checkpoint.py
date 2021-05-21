@@ -1971,135 +1971,53 @@ elif eqn_type == 'Quadratic Equations':
         else:
             st.write('Step 1 is to move the constant to the other side, but since k=0, you can skip that step. Yay!')
             
-            if a!=1:
-                st.write('Step 2: Divide by "a".')
-                options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
-                options = [np.round(c,10) for c in options]
-                options = [c if c!=0 else 0.0 for c in options]
-                options = [int(c) if c%1==0 else c for c in options]
-                new_rhs = options[0]
-                options.sort()
-                new_rhs_in = st.selectbox('What is the right hand side equal to now?',options)
-                if new_rhs_in!=new_rhs:
-                    st.write('Try again.')
-                    equation2 = equation1
-                else:
-                    if h<0:
-                        equation2 = f'(x + {-1*h})^2 = {new_rhs}'
-                    elif h==0:
-                        equation2 = f'x^2 = {new_rhs}'
-                    else:
-                        equation2 = f'(x - {h})^2 = {new_rhs}'
-                    st.write('Good!')
-            else:
-                st.write('Step 2 is to divide by "a", but since your a = 1, you can skip that step. Yay!')
+        if a!=1:
+            st.write('Step 2: Divide by "a".')
+            options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
+            options = [np.round(c,10) for c in options]
+            options = [c if c!=0 else 0.0 for c in options]
+            options = [int(c) if c%1==0 else c for c in options]
+            new_rhs = options[0]
+            options.sort()
+            new_rhs_in = st.selectbox('What is the right hand side equal to now?',options)
+            if new_rhs_in!=new_rhs:
+                st.write('Try again.')
                 equation2 = equation1
-            st.latex(equation2)
-            st.write('Step 3: Take the square root:')
-            if h<0:
-                equation3 = f'$x + {-1*h} = \pm \sqrt( {new_rhs} )$'            
-            elif h==0:
-                equation3 = f'$x = \pm \sqrt( {new_rhs} )$'
             else:
-                equation3 = f'$x - {h} = \pm \sqrt( {new_rhs} )$'
-            st.write(equation3)
-            if new_rhs<0:
-                st.write('Uh oh! There are no REAL numbers that can square to give a negative number.')
-                st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
-                st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
-                cont = st.selectbox('Continue on to find the 2 complex solutions?',['yes', 'no'])
-                if cont == 'no':
-                    st.write('OK, good job on this problem!')
+                if h<0:
+                    equation2 = f'(x + {-1*h})^2 = {new_rhs}'
+                elif h==0:
+                    equation2 = f'x^2 = {new_rhs}'
                 else:
-                    st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative:')
-                    equation4 = equation3.replace(f'\sqrt( {new_rhs}',f'i \sqrt( {-1*new_rhs}')
-                    st.write(equation4)
-                    out_rad, in_rad, denom = simplify_radical(-1*new_rhs)
-                    if in_rad!=-1*new_rhs:
-                        st.write('Can you simplify the radical? You will probably need some scratch paper!')
-                        out_str = f'$\sqrt({-1*new_rhs}) = [ ] \sqrt( [ ] )/ [ ]$'
-                        st.write(out_str)
-                        choices = list(range(1,201))
-                        out1 = st.selectbox('First blank = ',choices)
-                        in1  = st.selectbox('Second blank = ',choices)
-                        den1 = st.selectbox('Last blank = ',choices)
-                        if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
-                            st.write('Try again.')
-                        else:
-                            if out_rad==1:
-                                if in_rad==1:
-                                    if denom==1:
-                                        sqrt_str = 'i'
-                                    else:
-                                        sqrt_str = f'i / {denom}'
-                                else:
-                                    if denom==1:
-                                        sqrt_str = f'i \sqrt( {in_rad} )'
-                                    else:
-                                        sqrt_str = f'i \sqrt( {in_rad} ) / {denom}'
-                            else:
-                                if in_rad==1:
-                                    if denom==1:
-                                        sqrt_str = f'{out_rad}i'
-                                    else:
-                                        sqrt_str = f'{out_rad}i / {denom}'
-                                else:
-                                    if denom==1:
-                                        sqrt_str = f'{out_rad}i \sqrt( {in_rad} )'
-                                    else:
-                                        sqrt_str = f'{out_rad}i \sqrt( {in_rad} ) / {denom}'
-                            equation5 = equation4.replace(f'i \sqrt( {-1*new_rhs}', sqrt_str)
-                            st.write(f'Good! So now we have: ' + equation5)
-                    else:
-                        equation5 = equation4
-                    st.write('Step 4: Almost done! Solve for x.')
-                    soln1 = f'{h} + ' + sqrt_str
-                    soln2 = f'{h} - ' + sqrt_str
-                    wrong1= f'{-1*h} + ' + sqrt_str
-                    wrong2= f'{-1*h} - ' + sqrt_str
-                    solution_options = [soln1, soln2, wrong1, wrong2]
-                    correct = [soln1, soln2]
-                    solution_options.sort()
-                    sel1 = st.checkbox(solution_options[0])
-                    sel2 = st.checkbox(solution_options[1])
-                    sel3 = st.checkbox(solution_options[2])
-                    sel4 = st.checkbox(solution_options[3])
-                    if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
-                    elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
-                    elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
-                    elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
-                    elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
-                    elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
-                    elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
-                    elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
-                    else:
-                        st.write('You did it!')
-                        st.balloons()
-
-            elif new_rhs==0:
-                st.write('Step 4: Almost done! Solve for x.')
-                st.write('(The square root of zero is just zero, and -0 = +0, so there is only one solution.)')
-                soln1 = f'{h}'
-                wrong1= f'{-1*h}'
-                solution_options = [soln1, wrong1]
-                correct = [soln1]
-                solution_options.sort()
-                sel1 = st.checkbox(solution_options[0])
-                sel2 = st.checkbox(solution_options[1])
-                if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
-                elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
-                elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
-                elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
-                else:
-                    st.write('You did it!')
-                    st.balloons()
-                
+                    equation2 = f'(x - {h})^2 = {new_rhs}'
+                st.write('Good!')
+        else:
+            st.write('Step 2 is to divide by "a", but since your a = 1, you can skip that step. Yay!')
+            equation2 = equation1
+        st.latex(equation2)
+        st.write('Step 3: Take the square root:')
+        if h<0:
+            equation3 = f'$x + {-1*h} = \pm \sqrt( {new_rhs} )$'            
+        elif h==0:
+            equation3 = f'$x = \pm \sqrt( {new_rhs} )$'
+        else:
+            equation3 = f'$x - {h} = \pm \sqrt( {new_rhs} )$'
+        st.write(equation3)
+        if new_rhs<0:
+            st.write('Uh oh! There are no REAL numbers that can square to give a negative number.')
+            st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
+            st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
+            cont = st.selectbox('Continue on to find the 2 complex solutions?',['yes', 'no'])
+            if cont == 'no':
+                st.write('OK, good job on this problem!')
             else:
-                equation4 = equation3
-                out_rad, in_rad, denom = simplify_radical(new_rhs)
-                if in_rad!=new_rhs:
+                st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative:')
+                equation4 = equation3.replace(f'\sqrt( {new_rhs}',f'i \sqrt( {-1*new_rhs}')
+                st.write(equation4)
+                out_rad, in_rad, denom = simplify_radical(-1*new_rhs)
+                if in_rad!=-1*new_rhs:
                     st.write('Can you simplify the radical? You will probably need some scratch paper!')
-                    out_str = f'$\sqrt({new_rhs}) = [ ] \sqrt( [ ] )/ [ ]$'
+                    out_str = f'$\sqrt({-1*new_rhs}) = [ ] \sqrt( [ ] )/ [ ]$'
                     st.write(out_str)
                     choices = list(range(1,201))
                     out1 = st.selectbox('First blank = ',choices)
@@ -2111,32 +2029,30 @@ elif eqn_type == 'Quadratic Equations':
                         if out_rad==1:
                             if in_rad==1:
                                 if denom==1:
-                                    sqrt_str = '1'
+                                    sqrt_str = 'i'
                                 else:
-                                    sqrt_str = f'1 / {denom}'
+                                    sqrt_str = f'i / {denom}'
                             else:
                                 if denom==1:
-                                    sqrt_str = f'\sqrt( {in_rad} )'
+                                    sqrt_str = f'i \sqrt( {in_rad} )'
                                 else:
-                                    sqrt_str = f'\sqrt( {in_rad} ) / {denom}'
+                                    sqrt_str = f'i \sqrt( {in_rad} ) / {denom}'
                         else:
                             if in_rad==1:
                                 if denom==1:
-                                    sqrt_str = f'{out_rad}'
+                                    sqrt_str = f'{out_rad}i'
                                 else:
-                                    sqrt_str = f'{out_rad} / {denom}'
+                                    sqrt_str = f'{out_rad}i / {denom}'
                             else:
                                 if denom==1:
-                                    sqrt_str = f'{out_rad} \sqrt( {in_rad} )'
+                                    sqrt_str = f'{out_rad}i \sqrt( {in_rad} )'
                                 else:
-                                    sqrt_str = f'{out_rad} \sqrt( {in_rad} ) / {denom}'
-
-                        equation5 = equation4.replace(f'\sqrt( {new_rhs} )', sqrt_str)
+                                    sqrt_str = f'{out_rad}i \sqrt( {in_rad} ) / {denom}'
+                        equation5 = equation4.replace(f'i \sqrt( {-1*new_rhs}', sqrt_str)
                         st.write(f'Good! So now we have: ' + equation5)
                 else:
                     equation5 = equation4
-                    
-                st.write('Step 4: Almost done! Solve for x by selecting all CORRECT solutions below.')
+                st.write('Step 4: Almost done! Solve for x.')
                 soln1 = f'{h} + ' + sqrt_str
                 soln2 = f'{h} - ' + sqrt_str
                 wrong1= f'{-1*h} + ' + sqrt_str
@@ -2159,6 +2075,92 @@ elif eqn_type == 'Quadratic Equations':
                 else:
                     st.write('You did it!')
                     st.balloons()
+
+        elif new_rhs==0:
+            st.write('Step 4: Almost done! Solve for x.')
+            st.write('(The square root of zero is just zero, and -0 = +0, so there is only one solution.)')
+            soln1 = f'{h}'
+            wrong1= f'{-1*h}'
+            solution_options = [soln1, wrong1]
+            correct = [soln1]
+            solution_options.sort()
+            sel1 = st.checkbox(solution_options[0])
+            sel2 = st.checkbox(solution_options[1])
+            if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+            elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+            elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+            elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+            else:
+                st.write('You did it!')
+                st.balloons()
+                
+        else:
+            equation4 = equation3
+            out_rad, in_rad, denom = simplify_radical(new_rhs)
+            if in_rad!=new_rhs:
+                st.write('Can you simplify the radical? You will probably need some scratch paper!')
+                out_str = f'$\sqrt({new_rhs}) = [ ] \sqrt( [ ] )/ [ ]$'
+                st.write(out_str)
+                choices = list(range(1,201))
+                out1 = st.selectbox('First blank = ',choices)
+                in1  = st.selectbox('Second blank = ',choices)
+                den1 = st.selectbox('Last blank = ',choices)
+                if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                    st.write('Try again.')
+                else:
+                    if out_rad==1:
+                        if in_rad==1:
+                            if denom==1:
+                                sqrt_str = '1'
+                            else:
+                                sqrt_str = f'1 / {denom}'
+                        else:
+                            if denom==1:
+                                sqrt_str = f'\sqrt( {in_rad} )'
+                            else:
+                                sqrt_str = f'\sqrt( {in_rad} ) / {denom}'
+                    else:
+                        if in_rad==1:
+                            if denom==1:
+                                sqrt_str = f'{out_rad}'
+                            else:
+                                sqrt_str = f'{out_rad} / {denom}'
+                        else:
+                            if denom==1:
+                                sqrt_str = f'{out_rad} \sqrt( {in_rad} )'
+                            else:
+                                sqrt_str = f'{out_rad} \sqrt( {in_rad} ) / {denom}'
+
+                    equation5 = equation4.replace(f'\sqrt( {new_rhs} )', sqrt_str)
+                    st.write(f'Good! So now we have: ')
+                    st.latex(equation5)
+            else:
+                equation5 = equation4
+                    
+            st.write('Step 4: Almost done! Solve for x by selecting all CORRECT solutions below.')
+            soln1 = f'{h} + ' + sqrt_str
+            soln2 = f'{h} - ' + sqrt_str
+            
+            wrong1= f'{-1*h} + ' + sqrt_str
+            wrong2= f'{-1*h} - ' + sqrt_str
+            solution_options = [soln1, soln2, wrong1, wrong2]
+            correct = [soln1, soln2]
+            solution_options.sort()
+            sel1 = st.checkbox(solution_options[0])
+            sel2 = st.checkbox(solution_options[1])
+            sel3 = st.checkbox(solution_options[2])
+            sel4 = st.checkbox(solution_options[3])
+            if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+            elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+            elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
+            elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
+            elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+            elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+            elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
+            elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
+            else:
+                st.write('You did it!')
+                st.balloons()
                 
 elif eqn_type == 'Polynomial Equations':
     chk3 = False
