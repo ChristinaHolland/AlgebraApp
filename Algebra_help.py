@@ -1966,7 +1966,8 @@ elif eqn_type == 'Quadratic Equations':
             if rhs_in!=(-1*k):
                 st.write('Try again.')
             else:
-                st.write('Good job. ' + equation1)
+                st.write('Good job!')
+                st.latex(equation1)
         else:
             st.write('Step 1 is to move the constant to the other side, but since k=0, you can skip that step. Yay!')
             
