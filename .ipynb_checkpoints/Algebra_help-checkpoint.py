@@ -1675,20 +1675,19 @@ elif eqn_type == 'Quadratic Equations':
                             else:
                                 if out_rad!=1:
                                     if denom_new!=1:
-                                        equation8a = 'x = ' + combine_str('{negb}/{twoa} + {out_rad} / {denom_new}')
-                                        equation8b = 'x = ' + combine_str('{negb}/{twoa} - {out_rad} / {denom_new}')
+                                        equation8a = 'x = ' + combine_string('{negb}/{twoa} + {out_rad} / {denom_new}')
+                                        equation8b = 'x = ' + combine_string('{negb}/{twoa} - {out_rad} / {denom_new}')
                                     else:    
-                                        equation8a = 'x = ' + combine_str('{negb}/{twoa} + {out_rad}')
-                                        equation8b = 'x = ' + combine_str('{negb}/{twoa} - {out_rad}')
+                                        equation8a = 'x = ' + combine_string('{negb}/{twoa} + {out_rad}')
+                                        equation8b = 'x = ' + combine_string('{negb}/{twoa} - {out_rad}')
                                 else:
                                     if denom_new!=1:
-                                        equation8a = 'x = ' + combine_str('{negb}/{twoa} + 1 / {denom_new}')
-                                        equation8b = 'x = ' + combine_str('{negb}/{twoa} - 1 / {denom_new}')
+                                        equation8a = 'x = ' + combine_string('{negb}/{twoa} + 1 / {denom_new}')
+                                        equation8b = 'x = ' + combine_string('{negb}/{twoa} - 1 / {denom_new}')
                                     else:    
-                                        equation8a = 'x = ' + combine_str('{negb}/{twoa} + 1')
-                                        equation8b = 'x = ' + combine_str('{negb}/{twoa} - 1')
+                                        equation8a = 'x = ' + combine_string('{negb}/{twoa} + 1')
+                                        equation8b = 'x = ' + combine_string('{negb}/{twoa} - 1')
                                 
-                                    
                             denom_new_in = st.selectbox('What goes in the denominator under the radical?',list(range(1,1001)))
                             if denom_new_in!=denom_new: 
                                 st.write('Try again.')
