@@ -993,6 +993,7 @@ elif eqn_type == 'Quadratic Equations':
                     else:
                         disp_a1 = f'{a1}x^2'
                     equation1 = f'{gcf}(' + disp_a1 + f' + {b1}x + {c1}) = 0'
+                    st.latex(equation1)
                     
                 st.write(f'a*c = {a1*c1}, and b = {b1}. Can you find a pair of numbers that multiply to give {a1*c1} and add to give {b1}?')
                 st.write('If so, select them here. If there is no such pair, try another solving method.')
