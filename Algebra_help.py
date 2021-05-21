@@ -1746,7 +1746,7 @@ elif eqn_type == 'Quadratic Equations':
                                                 else:
                                                     equation9a = f'$x = {numer1} + \sqrt( {in_rad} )$'
                                                     equation9b = f'$x = {numer1} - \sqrt( {in_rad} )$'
-                                        else:
+                                    else:
                                         if denom1>1:
                                             if denom2>1:
                                                 if np.abs(numer2)>1:
