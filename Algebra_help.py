@@ -1000,7 +1000,7 @@ elif eqn_type == 'Quadratic Equations':
                 num1 = st.selectbox('1st number',coef_options)
                 num2 = st.selectbox('2nd number',coef_options)
 
-                if (np.abs(num1+num2-b)>0.0001) or (np.abs((num1*num2)-(a*c))>0.0001):
+                if (np.abs(num1+num2-b1)>0.0001) or (np.abs((num1*num2)-(a1*c1))>0.0001):
                     st.write('Not quite. Keep trying or try another method.')
                 else:
                     st.write("You're going great! Scroll down to view the area model and fill in the row and column greatest common factors:")
@@ -1027,7 +1027,7 @@ elif eqn_type == 'Quadratic Equations':
                     })
                     box_df.set_index('0',inplace=True)
                     st.table(box_df)
-                    if (gcfR1*gcfC1!=a) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c):
+                    if (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
                         st.write('Not quite; keep trying!')
                     else:
                         st.write('Good job! Almost there; we have our factors now.')
