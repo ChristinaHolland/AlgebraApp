@@ -1715,36 +1715,69 @@ elif eqn_type == 'Quadratic Equations':
                                     st.write('Try again.')
                                 else:
                                     st.write('You did it!')
-                                    if denom1>1:
-                                        if denom2>1:
-                                            if np.abs(numer2)>1:
-                                                equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
-                                                equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                    if in_rad!=1:
+                                        if denom1>1:
+                                            if denom2>1:
+                                                if np.abs(numer2)>1:
+                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                else:
+                                                    equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} ) / {denom2}$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} ) / {denom2}$'
                                             else:
-                                                equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} ) / {denom2}$'
-                                                equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} ) / {denom2}$'
+                                                if np.abs(numer2)>1:
+                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                else:
+                                                    equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} )$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} )$'
                                         else:
-                                            if np.abs(numer2)>1:
-                                                equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
-                                                equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                            if denom2>1:
+                                                if np.abs(numer2)>1:
+                                                    equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                    equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                else:
+                                                    equation9a = f'$x = {numer1} + \sqrt( {in_rad} ) / {denom2}$'
+                                                    equation9b = f'$x = {numer1} - \sqrt( {in_rad} ) / {denom2}$'
                                             else:
-                                                equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} )$'
-                                                equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} )$'
-                                    else:
-                                        if denom2>1:
-                                            if np.abs(numer2)>1:
-                                                equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
-                                                equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
-                                            else:
-                                                equation9a = f'$x = {numer1} + \sqrt( {in_rad} ) / {denom2}$'
-                                                equation9b = f'$x = {numer1} - \sqrt( {in_rad} ) / {denom2}$'
+                                                if np.abs(numer2)>1:
+                                                    equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                    equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                else:
+                                                    equation9a = f'$x = {numer1} + \sqrt( {in_rad} )$'
+                                                    equation9b = f'$x = {numer1} - \sqrt( {in_rad} )$'
                                         else:
-                                            if np.abs(numer2)>1:
-                                                equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
-                                                equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                        if denom1>1:
+                                            if denom2>1:
+                                                if np.abs(numer2)>1:
+                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)}/{denom2}$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)}/{denom2}$'
+                                                else:
+                                                    equation9a = f'$x = {numer1}/{denom1} + 1/{denom2}$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - 1/{denom2}$'
                                             else:
-                                                equation9a = f'$x = {numer1} + \sqrt( {in_rad} )$'
-                                                equation9b = f'$x = {numer1} - \sqrt( {in_rad} )$'
+                                                if np.abs(numer2)>1:
+                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)}$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)}$'
+                                                else:
+                                                    equation9a = f'$x = {numer1}/{denom1} + 1$'
+                                                    equation9b = f'$x = {numer1}/{denom1} - 1$'
+                                        else:
+                                            if denom2>1:
+                                                if np.abs(numer2)>1:
+                                                    equation9a = combine_string(f'$x = {numer1} + {np.abs(numer2)}/{denom2}$')
+                                                    equation9b = combine_string(f'$x = {numer1} - {np.abs(numer2)}/{denom2}$')
+                                                else:
+                                                    equation9a = combine_string(f'$x = {numer1} + 1/{denom2}$')
+                                                    equation9b = combine_string(f'$x = {numer1} - 1/{denom2}$')
+                                            else:
+                                                if np.abs(numer2)>1:
+                                                    equation9a = combine_string(f'$x = {numer1} + {np.abs(numer2)}$')
+                                                    equation9b = combine_string(f'$x = {numer1} - {np.abs(numer2)}$')
+                                                else:
+                                                    equation9a = combine_string(f'$x = {numer1} + 1$')
+                                                    equation9b = combine_string(f'$x = {numer1} - 1$')
+
                                         st.write(equation9a + ' and ' + equation9b)
                                         st.balloons()
     
