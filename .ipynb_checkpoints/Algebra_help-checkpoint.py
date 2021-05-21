@@ -1678,6 +1678,7 @@ elif eqn_type == 'Quadratic Equations':
                                         equation8a = 'x = ' + combine_string('{negb}/{twoa} + {out_rad} / {denom_new}')
                                         equation8b = 'x = ' + combine_string('{negb}/{twoa} - {out_rad} / {denom_new}')
                                     else:    
+                                        st.write('Trouble')
                                         equation8a = 'x = ' + combine_string('{negb}/{twoa} + {out_rad}')
                                         equation8b = 'x = ' + combine_string('{negb}/{twoa} - {out_rad}')
                                 else:
