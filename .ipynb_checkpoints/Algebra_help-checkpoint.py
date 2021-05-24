@@ -1085,7 +1085,9 @@ elif eqn_type == 'Quadratic Equations':
                             })
                             box_df.set_index('0',inplace=True)
                             st.table(box_df)
-                            if (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
+                            if (gcfR1=='SELECT') or (gcfR2=='SELECT') or (gcfC1=='SELECT') or (gcfC2=='SELECT')
+                                st.write()
+                            elif (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
                                 st.write('Not quite; keep trying!')
                             elif (gcfR1*gcfC1==a1) and (gcfR1*gcfC2==num1) and (gcfR2*gcfC1==num2) and (gcfR2*gcfC2==c1):
                                 st.write('Good job! Almost there; we have our factors now.')
