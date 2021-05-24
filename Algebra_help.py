@@ -944,10 +944,11 @@ elif eqn_type == 'Quadratic Equations':
     Q1 = st.sidebar.selectbox('What form of equation to start?',['Standard', 'Factored', 'Vertex'])
     
     if Q1 == 'Standard':
-        coef_options = list(range(-10,11))
+        coef_options  = list(range(-10,11))
+        coef_options2 = list(range(-20,21))
         a = st.sidebar.selectbox('Enter "a" (the quadratic coefficient):',coef_options)
         b = st.sidebar.selectbox('Enter "b" (the linear coefficient):',coef_options)
-        c = st.sidebar.selectbox('Enter "c" (the constant term):',coef_options)
+        c = st.sidebar.selectbox('Enter "c" (the constant term):',coef_options2)
         if a == 1:
             disp_a = 'x^2'
         else:
