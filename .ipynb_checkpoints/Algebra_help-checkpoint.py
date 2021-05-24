@@ -964,7 +964,9 @@ elif eqn_type == 'Quadratic Equations':
                 factorlist = [c for c in coef_options if c>0]
                 
             if c==0:
+                st.write(f'{c}')
                 common = [f for f in factorlist if (a%f==0) and (b%f==0)]
+                st.write(common)
                 if len(common>0): gcf = max(common)
                 else: gcf = 1
                 st.write('It looks like c = 0, so you can factor this with a simple GCF')
