@@ -966,10 +966,10 @@ elif eqn_type == 'Quadratic Equations':
             if (c==0) and (b==0):
                 st.write(f'Since b = 0 and c = 0, we just have ${a}x^2 = 0$.')
                 st.write("You don't even need to factor this, actually. What is always the solution, when you have $ax^n = 0$?")
-                soln1_in = st.selectbox('Solution: ',coef_options)
+                soln1_in = st.selectbox('Solution: ',['SELECT'] + coef_options)
                 if soln1_in != 0:
                     st.write('Try again.')
-                else:
+                elif soln1_in ==0:
                     st.write('Great job; you solved it!')
                     st.balloons()
                
@@ -979,10 +979,10 @@ elif eqn_type == 'Quadratic Equations':
                 if len(common)>0: gcf = max(common)
                 else: gcf = 1
                 st.write('It looks like c = 0, so you can factor this with a simple GCF')
-                gcf_in = st.selectbox('How many x can you take out in the GCF?',coef_options)
+                gcf_in = st.selectbox('How many x can you take out in the GCF?',['SELECT'] + coef_options)
                 if (gcf_in!=gcf):
                     st.write('Not quite. Try again.')
-                else:
+                elif gcf_in==gcf:
                     st.write('Great job!')
                     if b>0:    equation1 = f'{gcf}x({a//gcf}x + {b//gcf})'
                     elif b==0: equation1 = f'${a}x^2$'
@@ -990,32 +990,32 @@ elif eqn_type == 'Quadratic Equations':
                     st.write(equation1)
                     if b==0:
                         st.write('There is only one solution. What is it?')
-                        soln1_in = st.selectbox('Solution: ',coef_options)
+                        soln1_in = st.selectbox('Solution: ',['SELECT'] + coef_options)
                         if soln1_in != 0:
                             st.write('Try again.')
-                        else:
+                        elif soln1_in == 0:
                             st.write('Great job; you solved it!')
                             st.balloons()
                     else:
                         st.write(f'One equation is {gcf}x = 0. What is the solution to that equation?')
-                        soln1_in = st.selectbox('Solution: ',coef_options)
+                        soln1_in = st.selectbox('Solution: ',['SELECT'] + coef_options)
                         if soln1_in != 0:
                             st.write('Try again.')
-                        else:
+                        elif soln1_in ==0:
                             st.write('Great job; now what is the other equation?')
                             factor_eqn1 = f'{a//gcf}x + {b//gcf} = 0'
                             if b < 0: factor_eqn1 = factor_eqn1.replace(f'+ {b//gcf}', f'- {-1*b//gcf}')
-                            f_eqn1_in = st.selectbox('Which of these equations should you solve?',[factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
+                            f_eqn1_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
                             if (f_eqn1_in!=factor_eqn1):
                                 st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
-                            else:
+                            elif f_eqn1_in==factor_eqn1:
                                 st.write('Good! Now solve it:')
                                 ans = list({b//gcf, -1*b//gcf, a//gcf, -1*a//gcf, gcf, -1*gcf, a, -1*a, b, -1*b})
                                 ans.sort()
-                                soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',ans)
+                                soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',['SELECT'] + ans)
                                 if (soln1_in!=(-1*b//gcf)):
                                     st.write('Try again.')
-                                else:
+                                elif soln1_in==-1*b//gcf:
                                     st.write('Great job! You solved it!')
                                     st.balloons()
 
@@ -1030,10 +1030,10 @@ elif eqn_type == 'Quadratic Equations':
                 else:
                     gcf = 1
 
-                gcf_in = st.selectbox('What is the GCF (if there is no GCF besides 1, select "1")',coef_options)
+                gcf_in = st.selectbox('What is the GCF (if there is no GCF besides 1, select "1")',['SELECT'] + coef_options)
                 if (gcf_in!=gcf):
                     st.write('Not quite. Try again.')
-                else:
+                elif gcf_in==gcf:
                     st.write('Great job!')
                     if gcf==1:
                         a1 = a
@@ -1055,17 +1055,17 @@ elif eqn_type == 'Quadratic Equations':
 
                     st.write(f'a*c = {a1*c1}, and b = {b1}. Can you find a pair of numbers that multiply to give {a1*c1} and add to give {b1}?')
                     st.write('If so, select them here. If there is no such pair, try another solving method.')
-                    num1 = st.selectbox('1st number',coef_options)
-                    num2 = st.selectbox('2nd number',coef_options)
+                    num1 = st.selectbox('1st number',['SELECT'] + coef_options)
+                    num2 = st.selectbox('2nd number',['SELECT'] + coef_options)
 
                     if (np.abs(num1+num2-b1)>0.0001) or (np.abs((num1*num2)-(a1*c1))>0.0001):
                         st.write('Not quite. Keep trying or try another method.')
-                    else:
+                    elif (np.abs(num1+num2-b1)<=0.0001) and (np.abs((num1*num2)-(a1*c1))<=0.0001):
                         st.write("You're going great! Scroll down to view the area model and fill in the row and column greatest common factors:")
-                        gcfR1 = st.selectbox('How many "x" can you factor out of the first row?',coef_options)
-                        gcfR2 = st.selectbox('What is the greatest common factor of the second row?',coef_options)
-                        gcfC1 = st.selectbox('How many "x" can you factor out of the first column?',coef_options)
-                        gcfC2 = st.selectbox('What is the greatest common factor of the second column?',coef_options)
+                        gcfR1 = st.selectbox('How many "x" can you factor out of the first row?',['SELECT'] + coef_options)
+                        gcfR2 = st.selectbox('What is the greatest common factor of the second row?',['SELECT'] + coef_options)
+                        gcfC1 = st.selectbox('How many "x" can you factor out of the first column?',['SELECT'] + coef_options)
+                        gcfC2 = st.selectbox('What is the greatest common factor of the second column?',['SELECT'] + coef_options)
 
 
                         if gcfR1 == 1:
@@ -1087,7 +1087,7 @@ elif eqn_type == 'Quadratic Equations':
                         st.table(box_df)
                         if (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
                             st.write('Not quite; keep trying!')
-                        else:
+                        elif (gcfR1*gcfC1==a1) and (gcfR1*gcfC2==num1) and (gcfR2*gcfC1==num2) and (gcfR2*gcfC2==c1):
                             st.write('Good job! Almost there; we have our factors now.')
                             if gcfR2<0:
                                 dispR2 = f' - {-1*gcfR2}'
@@ -1106,19 +1106,19 @@ elif eqn_type == 'Quadratic Equations':
 
                             factor_eqn1 = dispR1 + dispR2 + ' = 0'
                             factor_eqn2 = dispC1 + dispC2 + ' = 0'
-                            f_eqn1_in = st.selectbox('Which of these equations should you solve?',[factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
-                            f_eqn2_in = st.selectbox('Which of these equations should you solve?',[factor_eqn2.replace('-','+'), factor_eqn2.replace('+','-')])
+                            f_eqn1_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
+                            f_eqn2_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn2.replace('-','+'), factor_eqn2.replace('+','-')])
                             if (f_eqn1_in!=factor_eqn1) or (f_eqn2_in!=factor_eqn2):
                                 st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
-                            else:
+                            elif (f_eqn1_in==factor_eqn1) and (f_eqn2_in==factor_eqn2):
                                 st.write('Good! Now solve them:')
                                 ans = list({gcfR1*gcfR2, gcfR2, gcfR2/gcfR1, gcfR1, -1*gcfR1*gcfR2, -1*gcfR2, -1*gcfR2/gcfR1, -1*gcfR1, gcfC1*gcfC2, gcfC2, gcfC2/gcfC1, gcfC1, -1*gcfC1*gcfC2, -1*gcfC2, -1*gcfC2/gcfC1, -1*gcfC1})
                                 ans.sort()
-                                soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',ans)
-                                soln2_in = st.selectbox('Solution to '+factor_eqn2+ ':',ans)
+                                soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',['SELECT'] + ans)
+                                soln2_in = st.selectbox('Solution to '+factor_eqn2+ ':',['SELECT'] + ans)
                                 if (soln1_in!=(-1*gcfR2/gcfR1)) or (soln2_in!=(-1*gcfC2/gcfC1)):
                                     st.write('Try again.')
-                                else:
+                                elif (soln1_in==(-1*gcfR2/gcfR1)) and (soln2_in==(-1*gcfC2/gcfC1)):
                                     st.write('Great job! You solved it!')
                                     st.balloons()
 
@@ -1127,14 +1127,14 @@ elif eqn_type == 'Quadratic Equations':
             st.write('Step 1: Move the constant to the other side.')
             rhs_choices = [c, -1*c]
             rhs_choices.sort()
-            rhs = st.selectbox('What number goes on the right?',rhs_choices)
+            rhs = st.selectbox('What number goes on the right?',['SELECT'] + rhs_choices)
             
             equation1 = disp_a + f' + {b}x = {rhs}'
             
             
             if rhs!=(-1*c):
                 st.write('What happens to the sign of a number when you add or subtract to move it to the other side?')
-            else:
+            elif rhs==(-1*c):
                 st.latex(equation1)
                 if a!=1:
                     st.write('Since a is not 1, we need to factor it out of the left hand side.')
@@ -1144,10 +1144,10 @@ elif eqn_type == 'Quadratic Equations':
                     b1_choices = list({b, -1*b, b1, -1*b1, a})
                     b1_choices.sort()
                     msg_a = f'When you factor out {a}, what is the new coefficient of x?'
-                    b1_in = st.selectbox(msg_a,b1_choices)
+                    b1_in = st.selectbox(msg_a,['SELECT'] + b1_choices)
                     if b1_in!=(b/a):
                         st.write('Try again.')
-                    else:
+                    elif b1_in==(b/a):
                         st.write('Nicely done!')
                         st.latex(equation2)
                 else:
@@ -1164,13 +1164,13 @@ elif eqn_type == 'Quadratic Equations':
 
                 add_opt = list({b1, -1*b1, bover2, -1*bover2, bover2sq, rhs/2, rhs*rhs/4, a*bover2, abover2sq})
                 add_opt.sort()
-                add_inL = st.selectbox('What should you add on the left?',add_opt)
+                add_inL = st.selectbox('What should you add on the left?',['SELECT'] + add_opt)
                 if a!=1:
                     st.write(f"Be careful on the right hand side, don't forget we have that factor of {a}!")
-                add_inR = st.selectbox('What should you add on the right?',add_opt)
+                add_inR = st.selectbox('What should you add on the right?',['SELECT'] + add_opt)
                 if (add_inL!=bover2sq) or (add_inR!=abover2sq):
                     st.write('Try again.')
-                else:
+                elif (add_inL==bover2sq) and (add_inR==abover2sq):
                     st.write('Great!')
                     st.latex(equation3)
                     st.write('We now have a "perfect square trinomial" on the left.')
@@ -1182,10 +1182,10 @@ elif eqn_type == 'Quadratic Equations':
                         equation4 = f'(x + {bover2})^2 = {rhs1}'
 
 
-                    binom_in = st.selectbox('What should go in the blank?',add_opt)
+                    binom_in = st.selectbox('What should go in the blank?',['SELECT'] + add_opt)
                     if binom_in!=bover2:
                         st.write('Try again.')
-                    else:
+                    elif binom_in==bover2:
                         st.write('Nice.')
                         st.latex(equation4)
                         if a!=1:
@@ -1195,11 +1195,11 @@ elif eqn_type == 'Quadratic Equations':
                             st.write('This is a good time to divide by "a".')
                             rhs_opt = list({rhs1, rhs2, rhs1*a, rhs2/2, b/a, b/(2*a)})
                             rhs_opt.sort()
-                            new_rhs_in = st.selectbox('What would be on the right hand side after dividing by "a"?',rhs_opt)
+                            new_rhs_in = st.selectbox('What would be on the right hand side after dividing by "a"?',['SELECT'] + rhs_opt)
                             
                             if new_rhs_in!=rhs2:
                                 st.write('Try again.')
-                            else: 
+                            elif new_rhs_in==rhs2: 
                                 st.write('Good job!')
                                 st.latex(equation5)
                         else:
@@ -1211,19 +1211,19 @@ elif eqn_type == 'Quadratic Equations':
                         if rhs2<0: soln = soln_opt[2]
                         elif rhs2==0: soln = soln_opt[1]
                         else: soln = soln_opt[0]
-                        num_sol = st.selectbox('Look at the right hand side -- how many and what type of solutions will this give?', soln_opt)
+                        num_sol = st.selectbox('Look at the right hand side -- how many and what type of solutions will this give?', ['SELECT'] + soln_opt)
                         if num_sol!=soln:
                             st.write('Try again.')
-                        else:
+                        elif num_sol==soln:
                             if rhs2<0:
                                 st.write('Uh oh! The right hand side is negative.')
                                 st.write('There are no REAL numbers that can square to give a negative number.')
                                 st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
                                 st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
-                                cont = st.selectbox('Continue on to find the 2 complex solutions?',['yes', 'no'])
+                                cont = st.selectbox('Continue on to find the 2 complex solutions?',['SELECT', 'yes', 'no'])
                                 if cont == 'no':
                                     st.write('OK, good job on this problem!')
-                                else:
+                                elif cont== 'yes':
                                     st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative.')
                                     equation6 = f'$x + {bover2} = \pm \sqrt({rhs2})$'
                                     equation7 = f'$x + {bover2} = \pm i \sqrt({-1*rhs2})$'
@@ -1274,12 +1274,12 @@ elif eqn_type == 'Quadratic Equations':
                                         out_str = f'$i \sqrt({-1*rhs2}) = [ ] i \sqrt( [ ] )/ [ ]$'
                                         st.write(out_str)
                                         choices = list(range(1,201))
-                                        out1 = st.selectbox('First blank = ',choices)
-                                        in1  = st.selectbox('Second blank = ',choices)
-                                        den1 = st.selectbox('Last blank = ',choices) 
+                                        out1 = st.selectbox('First blank = ',['SELECT'] + choices)
+                                        in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
+                                        den1 = st.selectbox('Last blank = ',['SELECT'] + choices) 
                                         if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                             st.write('Try again.')
-                                        else:
+                                        elif (out1==out_rad) and (in1==in_rad) and (den1==denom):
                                             st.write('Great! So now we have: ' + equation8a + ' and ' + equation8b + '.')
                                     else:
                                         in_rad = -1*rhs2
