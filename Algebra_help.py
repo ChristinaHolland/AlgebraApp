@@ -1003,8 +1003,8 @@ elif eqn_type == 'Quadratic Equations':
                                 if (soln1_in!=(-1*gcfR2/gcfR1)):
                                     st.write('Try again.')
                                 else:
-                                st.write('Great job! You solved it!')
-                                st.balloons()
+                                    st.write('Great job! You solved it!')
+                                    st.balloons()
 
             else:
 
