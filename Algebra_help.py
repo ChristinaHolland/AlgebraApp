@@ -1092,9 +1092,9 @@ elif eqn_type == 'Quadratic Equations':
                                 st.write('Not quite; keep trying!')
                             elif (gcfR1==gcfC1) and (gcfR2==-1*gcfC2):
                                 st.write('This looks like a special case, called "difference of squares". Select all correct solutions:')
-                                solution_options = [{gcfR2/gcfR1, -1*gcfR2/gcfR1, gcfC2/gcfC1, -1*gcfC2/gcfC1}]
+                                solution_options = list({gcfR2/gcfR1, -1*gcfR2/gcfR1, gcfR1/gcfR2, -1*gcfR1/gcfR2})
                                 solution_options.sort()
-                                correct = [-1*gcfR2/gcfR1, -1*gcfC2/gcfC1]
+                                correct = [-1*gcfR2/gcfR1, gcfR2/gcfR1]
 
                                 sel1 = st.checkbox(solution_options[0])
                                 sel2 = st.checkbox(solution_options[1])
