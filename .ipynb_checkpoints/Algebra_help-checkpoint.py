@@ -999,10 +999,10 @@ elif eqn_type == 'Quadratic Equations':
                                 st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
                             else:
                                 st.write('Good! Now solve it:')
-                                ans = list({b//gcf, -1*b/gcf, a/gcf, -1*a/gcf, gcf, -1*gcf, a, -1*a, b, -1*b})
+                                ans = list({b//gcf, -1*b//gcf, a//gcf, -1*a//gcf, gcf, -1*gcf, a, -1*a, b, -1*b})
                                 ans.sort()
                                 soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',ans)
-                                if (soln1_in!=(-1*gcfR2/gcfR1)):
+                                if (soln1_in!=(-1*b//gcf)):
                                     st.write('Try again.')
                                 else:
                                     st.write('Great job! You solved it!')
