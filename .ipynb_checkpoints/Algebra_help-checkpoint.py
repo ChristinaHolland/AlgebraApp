@@ -990,7 +990,7 @@ elif eqn_type == 'Quadratic Equations':
                             st.write('Try again.')
                         else:
                             st.write('Great job; now what is the other equation?')
-                            factor_eqn1 = f'{a//gcf}x + {b//gcf}' = 0'
+                            factor_eqn1 = f'{a//gcf}x + {b//gcf} = 0'
                             if b < 0: factor_eqn1 = factor_eqn1.replace(f'+ {b//gcf}', f'- {-1*b//gcf}')
                             f_eqn1_in = st.selectbox('Which of these equations should you solve?',[factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
                             if (f_eqn1_in!=factor_eqn1) or (f_eqn2_in!=factor_eqn2):
