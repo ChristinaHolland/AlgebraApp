@@ -1057,70 +1057,70 @@ elif eqn_type == 'Quadratic Equations':
                     st.write('If so, select them here. If there is no such pair, try another solving method.')
                     num1 = st.selectbox('1st number',['SELECT'] + coef_options)
                     num2 = st.selectbox('2nd number',['SELECT'] + coef_options)
+                    if (num1!='SELECT') and (num2!='SELECT'):
+                        if (np.abs(num1+num2-b1)>0.0001) or (np.abs((num1*num2)-(a1*c1))>0.0001):
+                            st.write('Not quite. Keep trying or try another method.')
+                        elif (np.abs(num1+num2-b1)<=0.0001) and (np.abs((num1*num2)-(a1*c1))<=0.0001):
+                            st.write("You're going great! Scroll down to view the area model and fill in the row and column greatest common factors:")
+                            gcfR1 = st.selectbox('How many "x" can you factor out of the first row?',['SELECT'] + coef_options)
+                            gcfR2 = st.selectbox('What is the greatest common factor of the second row?',['SELECT'] + coef_options)
+                            gcfC1 = st.selectbox('How many "x" can you factor out of the first column?',['SELECT'] + coef_options)
+                            gcfC2 = st.selectbox('What is the greatest common factor of the second column?',['SELECT'] + coef_options)
 
-                    if (np.abs(num1+num2-b1)>0.0001) or (np.abs((num1*num2)-(a1*c1))>0.0001):
-                        st.write('Not quite. Keep trying or try another method.')
-                    elif (np.abs(num1+num2-b1)<=0.0001) and (np.abs((num1*num2)-(a1*c1))<=0.0001):
-                        st.write("You're going great! Scroll down to view the area model and fill in the row and column greatest common factors:")
-                        gcfR1 = st.selectbox('How many "x" can you factor out of the first row?',['SELECT'] + coef_options)
-                        gcfR2 = st.selectbox('What is the greatest common factor of the second row?',['SELECT'] + coef_options)
-                        gcfC1 = st.selectbox('How many "x" can you factor out of the first column?',['SELECT'] + coef_options)
-                        gcfC2 = st.selectbox('What is the greatest common factor of the second column?',['SELECT'] + coef_options)
 
-
-                        if gcfR1 == 1:
-                            dispR1 = 'x'
-                        else:
-                            dispR1 = f'{gcfR1}x'
-                        if gcfC1 == 1:
-                            dispC1 = 'x'
-                        else:
-                            dispC1 = f'{gcfC1}x'
-
-                        box_df = pd.DataFrame({
-                            '0': ['', '', dispR1, gcfR2],
-                            ' ': ['', '', '|', '|'],
-                            '  ': [dispC1, '____________', disp_a1, f'{num2}x'],
-                            '   ': [gcfC2, '____________', f'{num1}x', f'{c}']
-                        })
-                        box_df.set_index('0',inplace=True)
-                        st.table(box_df)
-                        if (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
-                            st.write('Not quite; keep trying!')
-                        elif (gcfR1*gcfC1==a1) and (gcfR1*gcfC2==num1) and (gcfR2*gcfC1==num2) and (gcfR2*gcfC2==c1):
-                            st.write('Good job! Almost there; we have our factors now.')
-                            if gcfR2<0:
-                                dispR2 = f' - {-1*gcfR2}'
+                            if gcfR1 == 1:
+                                dispR1 = 'x'
                             else:
-                                dispR2 = f' + {gcfR2}'
-                            if gcfC2<0:
-                                dispC2 = f' - {-1*gcfC2}'
+                                dispR1 = f'{gcfR1}x'
+                            if gcfC1 == 1:
+                                dispC1 = 'x'
                             else:
-                                dispC2 = f' + {gcfC2}'
-                            if gcf==1:
-                                equation2 = '(' + dispR1 + dispR2 + ')(' + dispC1 + dispC2 + ') = 0'
-                            else:
-                                equation2 = f'{gcf}(' + dispR1 + dispR2 + ')(' + dispC1 + dispC2 + ') = 0'
-                            st.write(equation2)
-                            st.write('Scroll down to select and solve the 2 linear equations:')
+                                dispC1 = f'{gcfC1}x'
 
-                            factor_eqn1 = dispR1 + dispR2 + ' = 0'
-                            factor_eqn2 = dispC1 + dispC2 + ' = 0'
-                            f_eqn1_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
-                            f_eqn2_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn2.replace('-','+'), factor_eqn2.replace('+','-')])
-                            if (f_eqn1_in!=factor_eqn1) or (f_eqn2_in!=factor_eqn2):
-                                st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
-                            elif (f_eqn1_in==factor_eqn1) and (f_eqn2_in==factor_eqn2):
-                                st.write('Good! Now solve them:')
-                                ans = list({gcfR1*gcfR2, gcfR2, gcfR2/gcfR1, gcfR1, -1*gcfR1*gcfR2, -1*gcfR2, -1*gcfR2/gcfR1, -1*gcfR1, gcfC1*gcfC2, gcfC2, gcfC2/gcfC1, gcfC1, -1*gcfC1*gcfC2, -1*gcfC2, -1*gcfC2/gcfC1, -1*gcfC1})
-                                ans.sort()
-                                soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',['SELECT'] + ans)
-                                soln2_in = st.selectbox('Solution to '+factor_eqn2+ ':',['SELECT'] + ans)
-                                if (soln1_in!=(-1*gcfR2/gcfR1)) or (soln2_in!=(-1*gcfC2/gcfC1)):
-                                    st.write('Try again.')
-                                elif (soln1_in==(-1*gcfR2/gcfR1)) and (soln2_in==(-1*gcfC2/gcfC1)):
-                                    st.write('Great job! You solved it!')
-                                    st.balloons()
+                            box_df = pd.DataFrame({
+                                '0': ['', '', dispR1, gcfR2],
+                                ' ': ['', '', '|', '|'],
+                                '  ': [dispC1, '____________', disp_a1, f'{num2}x'],
+                                '   ': [gcfC2, '____________', f'{num1}x', f'{c}']
+                            })
+                            box_df.set_index('0',inplace=True)
+                            st.table(box_df)
+                            if (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
+                                st.write('Not quite; keep trying!')
+                            elif (gcfR1*gcfC1==a1) and (gcfR1*gcfC2==num1) and (gcfR2*gcfC1==num2) and (gcfR2*gcfC2==c1):
+                                st.write('Good job! Almost there; we have our factors now.')
+                                if gcfR2<0:
+                                    dispR2 = f' - {-1*gcfR2}'
+                                else:
+                                    dispR2 = f' + {gcfR2}'
+                                if gcfC2<0:
+                                    dispC2 = f' - {-1*gcfC2}'
+                                else:
+                                    dispC2 = f' + {gcfC2}'
+                                if gcf==1:
+                                    equation2 = '(' + dispR1 + dispR2 + ')(' + dispC1 + dispC2 + ') = 0'
+                                else:
+                                    equation2 = f'{gcf}(' + dispR1 + dispR2 + ')(' + dispC1 + dispC2 + ') = 0'
+                                st.write(equation2)
+                                st.write('Scroll down to select and solve the 2 linear equations:')
+
+                                factor_eqn1 = dispR1 + dispR2 + ' = 0'
+                                factor_eqn2 = dispC1 + dispC2 + ' = 0'
+                                f_eqn1_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
+                                f_eqn2_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn2.replace('-','+'), factor_eqn2.replace('+','-')])
+                                if (f_eqn1_in!=factor_eqn1) or (f_eqn2_in!=factor_eqn2):
+                                    st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
+                                elif (f_eqn1_in==factor_eqn1) and (f_eqn2_in==factor_eqn2):
+                                    st.write('Good! Now solve them:')
+                                    ans = list({gcfR1*gcfR2, gcfR2, gcfR2/gcfR1, gcfR1, -1*gcfR1*gcfR2, -1*gcfR2, -1*gcfR2/gcfR1, -1*gcfR1, gcfC1*gcfC2, gcfC2, gcfC2/gcfC1, gcfC1, -1*gcfC1*gcfC2, -1*gcfC2, -1*gcfC2/gcfC1, -1*gcfC1})
+                                    ans.sort()
+                                    soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',['SELECT'] + ans)
+                                    soln2_in = st.selectbox('Solution to '+factor_eqn2+ ':',['SELECT'] + ans)
+                                    if (soln1_in!=(-1*gcfR2/gcfR1)) or (soln2_in!=(-1*gcfC2/gcfC1)):
+                                        st.write('Try again.')
+                                    elif (soln1_in==(-1*gcfR2/gcfR1)) and (soln2_in==(-1*gcfC2/gcfC1)):
+                                        st.write('Great job! You solved it!')
+                                        st.balloons()
 
         if slv_mthd == 'Completing the square':
             
