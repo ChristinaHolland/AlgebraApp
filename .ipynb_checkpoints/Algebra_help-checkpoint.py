@@ -1120,7 +1120,9 @@ elif eqn_type == 'Quadratic Equations':
                                     ans.sort()
                                     soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',['SELECT'] + ans)
                                     soln2_in = st.selectbox('Solution to '+factor_eqn2+ ':',['SELECT'] + ans)
-                                    if (soln1_in!=(-1*gcfR2/gcfR1)) or (soln2_in!=(-1*gcfC2/gcfC1)):
+                                    if (soln1_in=='SELECT') or (soln2_in=='SELECT'):
+                                        st.write()
+                                    elif (soln1_in!=(-1*gcfR2/gcfR1)) or (soln2_in!=(-1*gcfC2/gcfC1)):
                                         st.write('Try again.')
                                     elif (soln1_in==(-1*gcfR2/gcfR1)) and (soln2_in==(-1*gcfC2/gcfC1)):
                                         st.write('Great job! You solved it!')
