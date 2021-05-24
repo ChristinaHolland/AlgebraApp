@@ -964,7 +964,7 @@ elif eqn_type == 'Quadratic Equations':
                 factorlist = [c for c in coef_options if c>0]
             
             if (c==0) and (b==0):
-                st.write("You don't even need to factor this actually. What is always the solution, when you have $ax^n = 0$?)
+                st.write("You don't even need to factor this actually. What is always the solution, when you have $ax^n = 0$?")
                 soln1_in = st.selectbox('Solution: ',coef_options)
                 if soln1_in != 0:
                     st.write('Try again.')
