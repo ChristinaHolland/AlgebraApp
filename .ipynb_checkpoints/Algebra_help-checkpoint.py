@@ -1110,7 +1110,9 @@ elif eqn_type == 'Quadratic Equations':
                                 factor_eqn2 = dispC1 + dispC2 + ' = 0'
                                 f_eqn1_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
                                 f_eqn2_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn2.replace('-','+'), factor_eqn2.replace('+','-')])
-                                if (f_eqn1_in!=factor_eqn1) or (f_eqn2_in!=factor_eqn2):
+                                if (f_eqn1_in=='SELECT') or (f_eqn2_in=='SELECT'):
+                                    st.write()
+                                elif (f_eqn1_in!=factor_eqn1) or (f_eqn2_in!=factor_eqn2):
                                     st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
                                 elif (f_eqn1_in==factor_eqn1) and (f_eqn2_in==factor_eqn2):
                                     st.write('Good! Now solve them:')
