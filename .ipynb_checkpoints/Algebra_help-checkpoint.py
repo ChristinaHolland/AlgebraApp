@@ -1090,6 +1090,29 @@ elif eqn_type == 'Quadratic Equations':
                                 st.write()
                             elif (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
                                 st.write('Not quite; keep trying!')
+                            elif (gcfR1==gcfC1) and (gcfR2==-1*gcfC2):
+                                st.write('This looks like a special case, called "difference of squares". Select all correct solutions:')
+                                solution_options = [{gcfR2/gcfR1, -1*gcfR2/gcfR1, gcfC2/gcfC1, -1*gcfC2/gcfC1}]
+                                solution_options.sort()
+                                correct = [-1*gcfR2/gcfR1, -1*gcfC2/gcfC1]
+
+                                sel1 = st.checkbox(solution_options[0])
+                                sel2 = st.checkbox(solution_options[1])
+                                sel3 = st.checkbox(solution_options[2])
+                                sel4 = st.checkbox(solution_options[3])
+
+                                if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+                                elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+                                elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
+                                elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
+                                elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+                                elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+                                elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
+                                elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
+                                else:
+                                    st.write('You did it!')
+                                    st.balloons()
+
                             elif (gcfR1*gcfC1==a1) and (gcfR1*gcfC2==num1) and (gcfR2*gcfC1==num2) and (gcfR2*gcfC2==c1):
                                 st.write('Good job! Almost there; we have our factors now.')
                                 if gcfR2<0:
@@ -1345,6 +1368,11 @@ elif eqn_type == 'Quadratic Equations':
                                         
                                     solution_options = [soln1, soln2, wrong1, wrong2]
                                     correct = [soln1, soln2]
+
+                                    sel1 = st.checkbox(solution_options[0])
+                                    sel2 = st.checkbox(solution_options[1])
+                                    sel3 = st.checkbox(solution_options[2])
+                                    sel4 = st.checkbox(solution_options[3])
 
                                     if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
                                     elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
