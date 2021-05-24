@@ -1051,7 +1051,7 @@ elif eqn_type == 'Quadratic Equations':
                         f_eqn1_in = st.selectbox('Which of these equations should you solve?',[factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
                         f_eqn2_in = st.selectbox('Which of these equations should you solve?',[factor_eqn2.replace('-','+'), factor_eqn2.replace('+','-')])
                         if (f_eqn1_in!=factor_eqn1) or (f_eqn2_in!=factor_eqn2):
-                            st.write('Try again. Hint: What happens to the sign of a number when you add or subtract it from both sides?')
+                            st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
                         else:
                             st.write('Good! Now solve them:')
                             ans = list({gcfR1*gcfR2, gcfR2, gcfR2/gcfR1, gcfR1, -1*gcfR1*gcfR2, -1*gcfR2, -1*gcfR2/gcfR1, -1*gcfR1, gcfC1*gcfC2, gcfC2, gcfC2/gcfC1, gcfC1, -1*gcfC1*gcfC2, -1*gcfC2, -1*gcfC2/gcfC1, -1*gcfC1})
