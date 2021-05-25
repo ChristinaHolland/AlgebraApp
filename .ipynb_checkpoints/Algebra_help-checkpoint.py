@@ -2445,6 +2445,7 @@ elif eqn_type == 'Polynomial Equations':
         rat_root_list += [-1*c for c in rat_root_list]
         st.write(rat_root_list)
         roots = [r for r in rat_root_list if np.round(c5*np.power(r,5)+c4*np.power(r,4)+c3*np.power(r,3)+c2*np.power(r,2)+c1*r+c0,6)==0]
+        st.write(roots)
         if c0==0: roots.append(0)
 
         if ((c5!=0) and (len(roots)<3)):
