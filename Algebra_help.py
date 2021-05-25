@@ -2977,12 +2977,14 @@ elif eqn_type == 'Polynomial Equations':
                     else:
                         sqrt_str = str2
                         wrong = str1
-                    st.write(sqrt_str,wrong)
+                    st.write(sqrt_str)
+                    st.write(wrong)
+                    st.write(vert_str)
                     if vertex_x == 0:
                         correct = [sqrt_str, '-' + sqrt_str]
                     else:
                         correct = [vert_str + ' + ' + sqrt_str, vert_str + ' - ' + sqrt_str]
-                    
+                    st.write(correct)
                     correct = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
                     incorrect = [vert_str + ' + ' + wrong, vert_str + ' - ' + wrong]
                     incorrect = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
