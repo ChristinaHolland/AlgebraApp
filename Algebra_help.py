@@ -1243,7 +1243,7 @@ elif eqn_type == 'Quadratic Equations':
 
                                 if new_rhs_in=='SELECT':
                                     st.write()
-                                if new_rhs_in!=rhs2:
+                                elif new_rhs_in!=rhs2:
                                     st.write('Try again.')
                                 elif new_rhs_in==rhs2: 
                                     st.write('Good job!')
