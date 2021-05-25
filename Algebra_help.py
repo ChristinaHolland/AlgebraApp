@@ -1786,7 +1786,9 @@ elif eqn_type == 'Quadratic Equations':
 
                         out_rad, in_rad, denom = simplify_radical(disc)
 
-
+                        st.write(out_rad)
+                        st.write(in_rad)
+                        st.write(denom)
                         if (out_rad!=None) and (in_rad!=disc):
 
                             st.write('Can you simplify the radical? You will probably need some scratch paper!')
