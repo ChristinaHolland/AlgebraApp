@@ -3049,6 +3049,17 @@ elif eqn_type == 'Polynomial Equations':
                     sqrt_str = ''
                     wrong = f'{b0}'
                     correct = [vert_str]
+                    solution_options = [vert_str, wrong]
+                    solution_options.sort()
+                    sel1 = st.checkbox(solution_options[0])
+                    sel2 = st.checkbox(solution_options[1])
+                    if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+                    elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+                    elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+                    elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+                    else:
+                        st.write('You did it!')
+                        st.balloons()
                 else:
                     if disc>0:
                         out_rad, in_rad, denom = simplify_radical(disc/(twoa*twoa))
