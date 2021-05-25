@@ -1094,9 +1094,9 @@ elif eqn_type == 'Quadratic Equations':
                                 st.write('This looks like a special case, called "difference of squares". Select all correct solutions:')
                                 solution_options = list({gcfR2/gcfR1, -1*gcfR2/gcfR1, gcfR1/gcfR2, -1*gcfR1/gcfR2})
                                 solution_options.sort()
-                                st.write(solution_options)
+                                solution_options = [np.round(s,4) for s in solution_options]
                                 correct = [-1*gcfR2/gcfR1, gcfR2/gcfR1]
-                                st.write(correct)
+                                correct = [np.round(s,4) for s in correct]
                                 
                                 sel1 = st.checkbox(solution_options[0])
                                 sel2 = st.checkbox(solution_options[1])
