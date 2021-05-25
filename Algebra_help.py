@@ -2663,10 +2663,10 @@ elif eqn_type == 'Polynomial Equations':
                         b1 = b2*root + c2
                         b0 = b1*root + c1
                         chk4 = False
-                        b3_in = st.text_input('1st blank',value = '')
-                        b2_in = st.text_input('2nd blank',value = '')
-                        b1_in = st.text_input('3rd blank',value = '')
-                        b0_in = st.text_input('4th blank',value = '')
+                        b3_in = st.text_input(' 1st blank',value = '')
+                        b2_in = st.text_input(' 2nd blank',value = '')
+                        b1_in = st.text_input(' 3rd blank',value = '')
+                        b0_in = st.text_input(' 4th blank',value = '')
                         if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                             b3_in = int(b3_in)
                             b2_in = int(b2_in)
@@ -2716,9 +2716,9 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             chk3 = False
-                            b2_in = st.text_input('1st blank',value = '')
-                            b1_in = st.text_input('2nd blank',value = '')
-                            b0_in = st.text_input('3rd blank',value = '')
+                            b2_in = st.text_input(' 1st blank ',value = '')
+                            b1_in = st.text_input(' 2nd blank ',value = '')
+                            b0_in = st.text_input(' 3rd blank ',value = '')
                             if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                                 b2_in = int(b2_in)
                                 b1_in = int(b1_in)
@@ -2748,9 +2748,9 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             chk3 = False
-                            b2_in = st.text_input('1st blank',value = '')
-                            b1_in = st.text_input('2nd blank',value = '')
-                            b0_in = st.text_input('3rd blank',value = '')
+                            b2_in = st.text_input(' 1st blank ',value = '')
+                            b1_in = st.text_input(' 2nd blank ',value = '')
+                            b0_in = st.text_input(' 3rd blank ',value = '')
                             if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                                 b2_in = int(b2_in)
                                 b1_in = int(b1_in)
@@ -2795,10 +2795,10 @@ elif eqn_type == 'Polynomial Equations':
                         b1 = b2*root + c2
                         b0 = b1*root + c1
                         chk4 = False
-                        b3_in = st.text_input('1st blank', value = '')
-                        b2_in = st.text_input('2nd blank', value = '')
-                        b1_in = st.text_input('3rd blank', value = '')
-                        b0_in = st.text_input('4th blank', value = '')
+                        b3_in = st.text_input(' 1st blank', value = '')
+                        b2_in = st.text_input(' 2nd blank', value = '')
+                        b1_in = st.text_input(' 3rd blank', value = '')
+                        b0_in = st.text_input(' 4th blank', value = '')
                     
                         if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):      
                             b3_in = int(b3_in)
@@ -2832,10 +2832,10 @@ elif eqn_type == 'Polynomial Equations':
                         b1 = int(b2*root + c2)
                         b0 = int(b1*root + c1)
                         chk4 = False
-                        b3_in = st.text_input('1st blank', value= '')
-                        b2_in = st.text_input('2nd blank', value= '')
-                        b1_in = st.text_input('3rd blank', value= '')
-                        b0_in = st.text_input('4th blank', value= '')
+                        b3_in = st.text_input(' 1st blank', value= '')
+                        b2_in = st.text_input(' 2nd blank', value= '')
+                        b1_in = st.text_input(' 3rd blank', value= '')
+                        b0_in = st.text_input(' 4th blank', value= '')
                          
                         if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):        
                             b3_in = int(b3_in)
@@ -2886,9 +2886,9 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             chk3 = False
-                            b2_in = st.text_input('1st blank', value = '')
-                            b1_in = st.text_input('2nd blank', value = '')
-                            b0_in = st.text_input('3rd blank', value = '')
+                            b2_in = st.text_input(' 1st blank ', value = '')
+                            b1_in = st.text_input(' 2nd blank ', value = '')
+                            b0_in = st.text_input(' 3rd blank ', value = '')
                             if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                                 b2_in = int(b2_in)
                                 b1_in = int(b1_in)
@@ -2923,9 +2923,9 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             chk3 = False
-                            b2_in = st.text_input('1st blank', value = '')
-                            b1_in = st.text_input('2nd blank', value = '')
-                            b0_in = st.text_input('3rd blank', value = '')
+                            b2_in = st.text_input(' 1st blank ', value = '')
+                            b1_in = st.text_input(' 2nd blank ', value = '')
+                            b0_in = st.text_input(' 3rd blank ', value = '')
                             if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                                 b2_in = int(b2_in)
                                 b1_in = int(b1_in)
@@ -2977,9 +2977,9 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             chk3 = False
-                            b2_in = st.text_input('1st blank', value = '')
-                            b1_in = st.text_input('2nd blank', value = '')
-                            b0_in = st.text_input('3rd blank', value = '')
+                            b2_in = st.text_input(' 1st blank ', value = '')
+                            b1_in = st.text_input(' 2nd blank ', value = '')
+                            b0_in = st.text_input(' 3rd blank ', value = '')
                             if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                                 b2_in = int(b2_in)
                                 b1_in = int(b1_in)
@@ -3009,9 +3009,9 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             chk3 = False
-                            b2_in = st.text_input('1st blank', value= '')
-                            b1_in = st.text_input('2nd blank', value= '')
-                            b0_in = st.text_input('3rd blank', value= '')
+                            b2_in = st.text_input(' 1st blank ', value= '')
+                            b1_in = st.text_input(' 2nd blank ', value= '')
+                            b0_in = st.text_input(' 3rd blank ', value= '')
                             if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                                 b2_in = int(b2_in)
                                 b1_in = int(b1_in)
