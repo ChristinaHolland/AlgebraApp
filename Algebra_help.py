@@ -2201,17 +2201,19 @@ elif eqn_type == 'Quadratic Equations':
                         else:
                             st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative:')
                             equation4 = equation3.replace(f'\sqrt( {new_rhs}',f'i \sqrt( {-1*new_rhs}')
-                            st.write(equation4)
+                            st.latex(equation4)
                             out_rad, in_rad, denom = simplify_radical(-1*new_rhs)
                             if in_rad!=-1*new_rhs:
                                 st.write('Can you simplify the radical? You will probably need some scratch paper!')
                                 out_str = f'$\sqrt({-1*new_rhs}) = [ ] \sqrt( [ ] )/ [ ]$'
                                 st.write(out_str)
                                 choices = list(range(1,201))
-                                out1 = st.selectbox('First blank = ',choices)
-                                in1  = st.selectbox('Second blank = ',choices)
-                                den1 = st.selectbox('Last blank = ',choices)
-                                if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                                out1 = st.selectbox('First blank = ',['SELECT'] + choices)
+                                in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
+                                den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
+                                if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
+                                    st.write()
+                                elif (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                     st.write('Try again.')
                                 else:
                                     if out_rad==1:
