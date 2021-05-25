@@ -2540,8 +2540,6 @@ elif eqn_type == 'Polynomial Equations':
                     b2 = b3*root + c3
                     b1 = b2*root + c2
                     b0 = b1*root + c1
-                    m = max([b4, b3, b2, b1, b0, 10])
-                    options = list(range(-1*m,m+1))
                     b4_in = st.text_input('1st blank',value='') 
                     b3_in = st.text_input('2nd blank',value='')
                     b2_in = st.text_input('3rd blank',value='')
@@ -2582,8 +2580,6 @@ elif eqn_type == 'Polynomial Equations':
                     b2 = b3*root + c3
                     b1 = b2*root + c2
                     b0 = b1*root + c1
-                    m = max([b4, b3, b2, b1, b0, 12])
-                    options = list(range(-1*m,m+1))
                     b4_in = st.text_input('1st blank',value = '')
                     b3_in = st.text_input('2nd blank',value = '')
                     b2_in = st.text_input('3rd blank',value = '')
@@ -2632,8 +2628,6 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0])
-                        options = list(range(-1*m,m+1))
                         b3_in = st.text_intput('1st blank',value = '')
                         b2_in = st.text_intput('2nd blank',value = '')
                         b1_in = st.text_intput('3rd blank',value = '')
@@ -2668,8 +2662,6 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0])
-                        options = list(range(-1*m,m+1))
                         chk4 = False
                         b3_in = st.text_input('1st blank',value = '')
                         b2_in = st.text_input('2nd blank',value = '')
@@ -2723,9 +2715,6 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b2, b1, b0])
-                            options = list(range(-1*m,m+1))
-                            opt = ['SELECT'] + options
                             chk3 = False
                             b2_in = st.text_input('1st blank',value = '')
                             b1_in = st.text_input('2nd blank',value = '')
@@ -2758,8 +2747,6 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b3, b2, b1, b0])
-                            options = list(range(-1*m,m+1))
                             chk3 = False
                             b2_in = st.text_input('1st blank',value = '')
                             b1_in = st.text_input('2nd blank',value = '')
@@ -2807,8 +2794,6 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0])
-                        options = list(range(-1*m,m+1))
                         chk4 = False
                         b3_in = st.text_input('1st blank', value = '')
                         b2_in = st.text_input('2nd blank', value = '')
@@ -2846,9 +2831,6 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = int(b3*root + c3)
                         b1 = int(b2*root + c2)
                         b0 = int(b1*root + c1)
-                        m = max([b3, b2, b1, b0])
-
-                        options = list(range(-1*m,m+1))
                         chk4 = False
                         b3_in = st.text_input('1st blank', value= '')
                         b2_in = st.text_input('2nd blank', value= '')
@@ -2903,8 +2885,6 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b2, b1, b0])
-                            options = list(range(-1*m,m+1))
                             chk3 = False
                             b2_in = st.text_input('1st blank', value = '')
                             b1_in = st.text_input('2nd blank', value = '')
@@ -2942,8 +2922,6 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b3, b2, b1, b0])
-                            options = list(range(-1*m,m+1))
                             chk3 = False
                             b2_in = st.text_input('1st blank', value = '')
                             b1_in = st.text_input('2nd blank', value = '')
@@ -2998,8 +2976,6 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b2, b1, b0])
-                            options = list(range(-1*m,m+1))
                             chk3 = False
                             b2_in = st.text_input('1st blank', value = '')
                             b1_in = st.text_input('2nd blank', value = '')
@@ -3032,8 +3008,6 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b3, b2, b1, b0])
-                            options = list(range(-1*m,m+1))
                             chk3 = False
                             b2_in = st.text_input('1st blank', value= '')
                             b1_in = st.text_input('2nd blank', value= '')
