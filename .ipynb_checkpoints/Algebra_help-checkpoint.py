@@ -2688,9 +2688,9 @@ elif eqn_type == 'Polynomial Equations':
                             st.write('testing')
                             b2_in = st.selectbox('1st blank',options)
                             st.write('testing 1')
-                            b1_in = st.selectbox('2nd blank',['SELECT']+options)
+                            b1_in = st.selectbox('2nd blank',options)
                             st.write('testing 12')
-                            b0_in = st.selectbox('3rd blank',['SELECT']+options)
+                            b0_in = st.selectbox('3rd blank',options)
                             st.write('testing 123')
                             if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
                                 st.write()
