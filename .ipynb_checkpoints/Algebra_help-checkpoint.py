@@ -2066,8 +2066,8 @@ elif eqn_type == 'Quadratic Equations':
 
         st.write('')
         
-        if (a=='SELECT') or (h=='SELECT') or (k=='SELECT'):
-            st.write()
+        if (a!='SELECT') or (h!='SELECT') or (k!='SELECT'):
+            
             if a==1: 
                 if h>0:
                     if k>0:
