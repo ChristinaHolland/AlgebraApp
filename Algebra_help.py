@@ -2933,6 +2933,7 @@ elif eqn_type == 'Polynomial Equations':
                     numer, denom = decimal_to_fraction(vertex_x)
                     vert_str = f'{numer}/{denom}'
                 st.write(numer,denom)
+                st.write(vert_str)
                 if disc==0:
                     sqrt_str = ''
                     wrong = f'{b0}'
