@@ -2162,6 +2162,8 @@ elif eqn_type == 'Quadratic Equations':
                     new_rhs = options[0]
                     options.sort()
                     new_rhs_in = st.selectbox('What is the right hand side equal to now?',['SELECT'] + options)
+                    st.write(new_rhs)
+                    st.write(h)
                     if new_rhs_in !='SELECT':
                         if new_rhs_in!=new_rhs:
                             st.write('Try again.')

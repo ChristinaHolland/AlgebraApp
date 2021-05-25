@@ -2102,7 +2102,7 @@ elif eqn_type == 'Quadratic Equations':
                         equation = f'(x + {-1*h})^2 - {-1*k} = 0'
                         equation1 = f'(x + {-1*h})^2 = {-1*k}'
 
-            else: 
+            elif a!=1: 
                 if h>0:
                     if k>0:
                         equation = f'{a}(x - {h})^2 + {k} = 0'
@@ -2162,6 +2162,8 @@ elif eqn_type == 'Quadratic Equations':
                     new_rhs = options[0]
                     options.sort()
                     new_rhs_in = st.selectbox('What is the right hand side equal to now?',['SELECT'] + options)
+                    st.write(new_rhs)
+                    st.write(h)
                     if new_rhs_in !='SELECT':
                         if new_rhs_in!=new_rhs:
                             st.write('Try again.')
@@ -2174,7 +2176,7 @@ elif eqn_type == 'Quadratic Equations':
                                 equation2 = f'(x - {h})^2 = {new_rhs}'
                             st.write('Good!')
                             step2 = True
-                else:
+                elif a==1:
                     st.write('Step 2 is to divide by "a", but since your a = 1, you can skip that step. Yay!')
                     equation2 = equation1
                     new_rhs = -1*k
