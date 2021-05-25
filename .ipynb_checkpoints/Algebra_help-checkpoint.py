@@ -2941,7 +2941,6 @@ elif eqn_type == 'Polynomial Equations':
                         out_rad, in_rad, denom = simplify_radical(disc/(twoa*twoa))
                     else:
                         out_rad, in_rad, denom = simplify_radical(-1*disc/(twoa*twoa))
-                    st.write(out_rad,in_rad,denom)
                     if out_rad==1:
                         if in_rad==1:
                             if denom==1:
@@ -2972,13 +2971,13 @@ elif eqn_type == 'Polynomial Equations':
                             else:
                                 str1 = f'{out_rad} square_root( {in_rad} ) / {denom}'
                                 str2 = f'{out_rad}i square_root( {in_rad} ) / {denom}'
-                    st.write(str1,str2)
                     if disc>0:
                         sqrt_str = str1
                         wrong = str2
                     else:
                         sqrt_str = str2
                         wrong = str1
+                    st.write(sqrt_str,wrong)
                     if vertex_x == 0:
                         correct = [sqrt_str, '-' + sqrt_str]
                     else:
