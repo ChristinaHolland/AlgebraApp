@@ -1413,8 +1413,8 @@ elif eqn_type == 'Quadratic Equations':
                                                 sel1 = st.checkbox(correct[0])
                                                 sel2 = st.checkbox(correct[1])
 
-                                                if (sel1!=True)   st.write('Try again.')
-                                                elif (sel2!=True) st.write('Try again.')
+                                                if (sel1!=True):   st.write('Try again.')
+                                                elif (sel2!=True): st.write('Try again.')
                                                 else:
                                                     st.write('You did it!')
                                                     st.balloons()
@@ -1583,8 +1583,8 @@ elif eqn_type == 'Quadratic Equations':
                                             
                                             sel1 = st.checkbox(correct[0])
                                             sel2 = st.checkbox(correct[1])
-                                            if (sel1!=True)   st.write('Try again.')
-                                            elif (sel2!=True) st.write('Try again.')
+                                            if (sel1!=True):   st.write('Try again.')
+                                            elif (sel2!=True): st.write('Try again.')
                                             else:
                                                 st.write('You did it!')
                                                 st.balloons()
