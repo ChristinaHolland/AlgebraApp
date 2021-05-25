@@ -2181,6 +2181,7 @@ elif eqn_type == 'Quadratic Equations':
                     equation2 = equation1
                     new_rhs = -1*k
                     step2 = True
+                st.write(equation2)
                 st.latex(equation2)
                 if step2:
                     st.write('Step 3: Take the square root:')
