@@ -2628,10 +2628,10 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        b3_in = st.text_input('1st blank',value = '')
-                        b2_in = st.text_input('2nd blank',value = '')
-                        b1_in = st.text_input('3rd blank',value = '')
-                        b0_in = st.text_input('4th blank',value = '')
+                        b3_in = st.text_input(' 1st blank',value = '')
+                        b2_in = st.text_input(' 2nd blank',value = '')
+                        b1_in = st.text_input(' 3rd blank',value = '')
+                        b0_in = st.text_input(' 4th blank',value = '')
                         if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
                             b3_in = int(b3_in)
                             b2_in = int(b2_in)
