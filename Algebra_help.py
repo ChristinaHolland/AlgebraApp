@@ -1409,164 +1409,164 @@ elif eqn_type == 'Quadratic Equations':
                                                 st.write('You did it!')
                                                 st.balloons()
 
-                                elif rhs2==0:
-                                    st.write('Interesting -  The right hand side is zero.')
-                                    st.write('The square root of zero is still zero, and negative zero is still zero.')
-                                    st.write("So, there's only one equation (the 'plus or minus' part is gone), and only one solution!")
+                                    elif rhs2==0:
+                                        st.write('Interesting -  The right hand side is zero.')
+                                        st.write('The square root of zero is still zero, and negative zero is still zero.')
+                                        st.write("So, there's only one equation (the 'plus or minus' part is gone), and only one solution!")
 
-                                    equation6 = f'x + {bover2} = 0'
-                                    st.write(equation6)
+                                        equation6 = f'x + {bover2} = 0'
+                                        st.write(equation6)
 
-                                    st.write('Step 4: Last step! Get x by itself on the left side of both equations.')
-                                    st.write('Select the correct solution:')
+                                        st.write('Step 4: Last step! Get x by itself on the left side of both equations.')
+                                        st.write('Select the correct solution:')
 
-                                    soln1 = f'{-1*bover2}'
-                                    wrong1= f'{bover2}'
-                                    solution_options = [soln1, wrong1]
+                                        soln1 = f'{-1*bover2}'
+                                        wrong1= f'{bover2}'
+                                        solution_options = [soln1, wrong1]
 
-                                    solution_options.sort()
-                                    sel0 = st.checkbox('impossible to solve')
-                                    sel1 = st.checkbox(solution_options[0])
-                                    sel2 = st.checkbox(solution_options[1])
-                                    if sel0==True: st.write('Try again.')
-                                    elif (sel1==True) and (solution_options[0] != soln1): st.write('Try again.')
-                                    elif (sel2==True) and (solution_options[1] != soln1): st.write('Try again.')
-                                    elif (sel1!=True) and (solution_options[0] == soln1): st.write('Try again.')
-                                    elif (sel2!=True) and (solution_options[1] == soln1): st.write('Try again.')
+                                        solution_options.sort()
+                                        sel0 = st.checkbox('impossible to solve')
+                                        sel1 = st.checkbox(solution_options[0])
+                                        sel2 = st.checkbox(solution_options[1])
+                                        if sel0==True: st.write('Try again.')
+                                        elif (sel1==True) and (solution_options[0] != soln1): st.write('Try again.')
+                                        elif (sel2==True) and (solution_options[1] != soln1): st.write('Try again.')
+                                        elif (sel1!=True) and (solution_options[0] == soln1): st.write('Try again.')
+                                        elif (sel2!=True) and (solution_options[1] == soln1): st.write('Try again.')
+                                        else:
+                                            st.write('You did it!')
+                                            st.balloons()
                                     else:
-                                        st.write('You did it!')
-                                        st.balloons()
-                                else:
-                                    st.write('Correct, the right hand side is positive.')
-                                    st.write("There is no problem taking the square root of a positive number, so we will have 2 REAL solutions because of the 'plus or minus'.")
-                                    equation6 = f'$x + {bover2} = \pm \sqrt({rhs2})$'
-                                    equation6a= f'$x + {bover2} =  \sqrt({rhs2})$'
-                                    equation6b= f'$x + {bover2} = - \sqrt({rhs2})$'
-                                    st.write(equation6 + ' is actually two equations:')
-                                    st.write(equation6a + ' and ' + equation6b + '.')
+                                        st.write('Correct, the right hand side is positive.')
+                                        st.write("There is no problem taking the square root of a positive number, so we will have 2 REAL solutions because of the 'plus or minus'.")
+                                        equation6 = f'$x + {bover2} = \pm \sqrt({rhs2})$'
+                                        equation6a= f'$x + {bover2} =  \sqrt({rhs2})$'
+                                        equation6b= f'$x + {bover2} = - \sqrt({rhs2})$'
+                                        st.write(equation6 + ' is actually two equations:')
+                                        st.write(equation6a + ' and ' + equation6b + '.')
 
-                                    out_rad, in_rad, denom = simplify_radical(rhs2)
+                                        out_rad, in_rad, denom = simplify_radical(rhs2)
 
 
-                                    if (out_rad!=None) and (in_rad!=rhs2):
+                                        if (out_rad!=None) and (in_rad!=rhs2):
+                                            if in_rad!=1:
+                                                if out_rad!=1:
+                                                    if denom!=1:
+                                                        equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})/{denom}$'
+                                                        equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})/{denom}$'
+                                                    else:
+                                                        equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})$'
+                                                        equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})$'
+
+                                                else:
+                                                    if denom!=1:
+                                                        equation8a= f'$x + {bover2} = \sqrt({in_rad})/{denom}$'
+                                                        equation8b= f'$x + {bover2} = -\sqrt({in_rad})/{denom}$'
+                                                    else:
+                                                        equation8a= f'$x + {bover2} = \sqrt({in_rad})$'
+                                                        equation8b= f'$x + {bover2} = -\sqrt({in_rad})$'
+
+                                            else:
+                                                if out_rad!=1:
+                                                    if denom!=1:
+                                                        equation8a= f'$x + {bover2} = {out_rad}/{denom}$'
+                                                        equation8b= f'$x + {bover2} = -{out_rad}/{denom}$'
+                                                    else:
+                                                        equation8a= f'$x + {bover2} = {out_rad}$'
+                                                        equation8b= f'$x + {bover2} = -{out_rad}$'
+                                                else:
+                                                    if denom!=1:
+                                                        equation8a= f'$x + {bover2} = 1/{denom}$'
+                                                        equation8b= f'$x + {bover2} = -1/{denom}$'
+                                                    else:
+                                                        equation8a= f'$x + {bover2} = 1$'
+                                                        equation8b= f'$x + {bover2} = -1$'
+
+
+                                            st.write('Can you simplify the radical? You will probably need some scratch paper!')
+                                            out_str = f'\sqrt({rhs2}) = [ ] \sqrt( [ ] )/ [ ]'
+                                            st.latex(out_str)
+                                            choices = list(range(1,201))
+                                            out1 = st.selectbox('First blank = ',['SELECT'] + choices)
+                                            in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
+                                            den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
+                                            if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
+                                                st.write()
+                                            if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                                                st.write('Try again.')
+                                            else:
+                                                st.write('Great! So now we have: ' + equation8a + ' and ' + equation8b + '.')
+                                        else:
+                                            in_rad = rhs2
+                                            out_rad = 1
+                                            denom = 1
+                                            equation8a = equation6a
+                                            equation8b = equation6b
+
+                                        st.write('Step 4: Last step! Get x by itself on the left side of both equations.')
+                                        st.write('Select all correct solutions:')
                                         if in_rad!=1:
-                                            if out_rad!=1:
-                                                if denom!=1:
-                                                    equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})/{denom}$'
-                                                    equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})/{denom}$'
-                                                else:
-                                                    equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})$'
-                                                    equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})$'
-
+                                            if (out_rad!=1) and (denom!=1):
+                                                soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})/{denom}'
+                                                soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})/{denom}'
+                                                wrong1= f'{bover2} + {out_rad} square_root({in_rad})/{denom}'
+                                                wrong2= f'{bover2} - {out_rad} square_root({in_rad})/{denom}'
+                                            elif out_rad!=1:
+                                                soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})'
+                                                soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})'
+                                                wrong1= f'{bover2} + {out_rad} square_root({in_rad})'
+                                                wrong2= f'{bover2} - {out_rad} square_root({in_rad})'
+                                            elif denom!=1:
+                                                soln1 = f'{-1*bover2} + square_root({in_rad})/{denom}'
+                                                soln2 = f'{-1*bover2} - square_root({in_rad})/{denom}'
+                                                wrong1= f'{bover2} + square_root({in_rad})/{denom}'
+                                                wrong2= f'{bover2} - square_root({in_rad})/{denom}'
                                             else:
-                                                if denom!=1:
-                                                    equation8a= f'$x + {bover2} = \sqrt({in_rad})/{denom}$'
-                                                    equation8b= f'$x + {bover2} = -\sqrt({in_rad})/{denom}$'
-                                                else:
-                                                    equation8a= f'$x + {bover2} = \sqrt({in_rad})$'
-                                                    equation8b= f'$x + {bover2} = -\sqrt({in_rad})$'
-
+                                                soln1 = f'{-1*bover2} + square_root({in_rad})'
+                                                soln2 = f'{-1*bover2} - square_root({in_rad})'
+                                                wrong1= f'{bover2} + square_root({in_rad})'
+                                                wrong2= f'{bover2} - square_root({in_rad})'
                                         else:
-                                            if out_rad!=1:
-                                                if denom!=1:
-                                                    equation8a= f'$x + {bover2} = {out_rad}/{denom}$'
-                                                    equation8b= f'$x + {bover2} = -{out_rad}/{denom}$'
-                                                else:
-                                                    equation8a= f'$x + {bover2} = {out_rad}$'
-                                                    equation8b= f'$x + {bover2} = -{out_rad}$'
+                                            if (out_rad!=1) and (denom!=1):
+                                                soln1 = combine_string(f'{-1*bover2} + {out_rad}/{denom}')                                        
+                                                soln2 = combine_string(f'{-1*bover2} - {out_rad}/{denom}')
+                                                wrong1= combine_string(f'{bover2} + {out_rad}/{denom}')
+                                                wrong2= combine_string(f'{bover2} - {out_rad}/{denom}')
+                                            elif out_rad!=1:
+                                                soln1 = combine_string(f'{-1*bover2} + {out_rad}')
+                                                soln2 = combine_string(f'{-1*bover2} - {out_rad}')
+                                                wrong1= combine_string(f'{bover2} + {out_rad}')
+                                                wrong2= combine_string(f'{bover2} - {out_rad}')
+                                            elif denom!=1:
+                                                soln1 = combine_string(f'{-1*bover2} + 1')
+                                                soln2 = combine_string(f'{-1*bover2} - 1')
+                                                wrong1= combine_string(f'{bover2} + 1')
+                                                wrong2= combine_string(f'{bover2} - 1')
                                             else:
-                                                if denom!=1:
-                                                    equation8a= f'$x + {bover2} = 1/{denom}$'
-                                                    equation8b= f'$x + {bover2} = -1/{denom}$'
-                                                else:
-                                                    equation8a= f'$x + {bover2} = 1$'
-                                                    equation8b= f'$x + {bover2} = -1$'
+                                                soln1 = combine_string(f'{-1*bover2} + 1')
+                                                soln2 = combine_string(f'{-1*bover2} - 1')
+                                                wrong1= combine_string(f'{bover2} + 1')
+                                                wrong2= combine_string(f'{bover2} - 1')
 
+                                        solution_options = [soln1, soln2, wrong1, wrong2]
+                                        correct = [soln1, soln2]
 
-                                        st.write('Can you simplify the radical? You will probably need some scratch paper!')
-                                        out_str = f'\sqrt({rhs2}) = [ ] \sqrt( [ ] )/ [ ]'
-                                        st.latex(out_str)
-                                        choices = list(range(1,201))
-                                        out1 = st.selectbox('First blank = ',['SELECT'] + choices)
-                                        in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
-                                        den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
-                                        if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
-                                            st.write()
-                                        if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
-                                            st.write('Try again.')
+                                        solution_options.sort()
+                                        sel1 = st.checkbox(solution_options[0])
+                                        sel2 = st.checkbox(solution_options[1])
+                                        sel3 = st.checkbox(solution_options[2])
+                                        sel4 = st.checkbox(solution_options[3])
+                                        if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+                                        elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+                                        elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
+                                        elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
+                                        elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+                                        elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+                                        elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
+                                        elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
                                         else:
-                                            st.write('Great! So now we have: ' + equation8a + ' and ' + equation8b + '.')
-                                    else:
-                                        in_rad = rhs2
-                                        out_rad = 1
-                                        denom = 1
-                                        equation8a = equation6a
-                                        equation8b = equation6b
-
-                                    st.write('Step 4: Last step! Get x by itself on the left side of both equations.')
-                                    st.write('Select all correct solutions:')
-                                    if in_rad!=1:
-                                        if (out_rad!=1) and (denom!=1):
-                                            soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})/{denom}'
-                                            soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})/{denom}'
-                                            wrong1= f'{bover2} + {out_rad} square_root({in_rad})/{denom}'
-                                            wrong2= f'{bover2} - {out_rad} square_root({in_rad})/{denom}'
-                                        elif out_rad!=1:
-                                            soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})'
-                                            soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})'
-                                            wrong1= f'{bover2} + {out_rad} square_root({in_rad})'
-                                            wrong2= f'{bover2} - {out_rad} square_root({in_rad})'
-                                        elif denom!=1:
-                                            soln1 = f'{-1*bover2} + square_root({in_rad})/{denom}'
-                                            soln2 = f'{-1*bover2} - square_root({in_rad})/{denom}'
-                                            wrong1= f'{bover2} + square_root({in_rad})/{denom}'
-                                            wrong2= f'{bover2} - square_root({in_rad})/{denom}'
-                                        else:
-                                            soln1 = f'{-1*bover2} + square_root({in_rad})'
-                                            soln2 = f'{-1*bover2} - square_root({in_rad})'
-                                            wrong1= f'{bover2} + square_root({in_rad})'
-                                            wrong2= f'{bover2} - square_root({in_rad})'
-                                    else:
-                                        if (out_rad!=1) and (denom!=1):
-                                            soln1 = combine_string(f'{-1*bover2} + {out_rad}/{denom}')                                        
-                                            soln2 = combine_string(f'{-1*bover2} - {out_rad}/{denom}')
-                                            wrong1= combine_string(f'{bover2} + {out_rad}/{denom}')
-                                            wrong2= combine_string(f'{bover2} - {out_rad}/{denom}')
-                                        elif out_rad!=1:
-                                            soln1 = combine_string(f'{-1*bover2} + {out_rad}')
-                                            soln2 = combine_string(f'{-1*bover2} - {out_rad}')
-                                            wrong1= combine_string(f'{bover2} + {out_rad}')
-                                            wrong2= combine_string(f'{bover2} - {out_rad}')
-                                        elif denom!=1:
-                                            soln1 = combine_string(f'{-1*bover2} + 1')
-                                            soln2 = combine_string(f'{-1*bover2} - 1')
-                                            wrong1= combine_string(f'{bover2} + 1')
-                                            wrong2= combine_string(f'{bover2} - 1')
-                                        else:
-                                            soln1 = combine_string(f'{-1*bover2} + 1')
-                                            soln2 = combine_string(f'{-1*bover2} - 1')
-                                            wrong1= combine_string(f'{bover2} + 1')
-                                            wrong2= combine_string(f'{bover2} - 1')
-
-                                    solution_options = [soln1, soln2, wrong1, wrong2]
-                                    correct = [soln1, soln2]
-
-                                    solution_options.sort()
-                                    sel1 = st.checkbox(solution_options[0])
-                                    sel2 = st.checkbox(solution_options[1])
-                                    sel3 = st.checkbox(solution_options[2])
-                                    sel4 = st.checkbox(solution_options[3])
-                                    if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
-                                    elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
-                                    elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
-                                    elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
-                                    elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
-                                    elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
-                                    elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
-                                    elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
-                                    else:
-                                        st.write('You did it!')
-                                        st.balloons()
+                                            st.write('You did it!')
+                                            st.balloons()
                                              
         if slv_mthd == 'Quadratic Formula':
 
