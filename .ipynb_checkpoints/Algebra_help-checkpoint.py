@@ -2684,8 +2684,8 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             m = max([b2, b1, b0, 10])
-                            options = list(range(-2*m,2*m+1))
-                            options.append('SELECT')
+                            options = list(range(-2*m,2*m))
+                            options = options.replace(-2*m,'SELECT')
                             st.write(options)
                             st.write('testing')
                             b2_in = st.selectbox('1st blank',options)
