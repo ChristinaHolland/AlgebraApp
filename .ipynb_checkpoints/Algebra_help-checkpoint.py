@@ -2438,14 +2438,11 @@ elif eqn_type == 'Polynomial Equations':
             p = np.abs(c5)
 
         st.latex(equation)
-        st.write(p, q)
         q_list = [j for j in range(1,(q+1)) if q%j==0]
         p_list = [j for j in range(1,(p+1)) if p%j==0]
         rat_root_list = [p1/q1 for q1 in q_list for p1 in p_list]
         rat_root_list += [-1*c for c in rat_root_list]
-        st.write(rat_root_list)
         roots = [r for r in rat_root_list if np.round(c5*np.power(r,5)+c4*np.power(r,4)+c3*np.power(r,3)+c2*np.power(r,2)+c1*r+c0,6)==0]
-        st.write(roots)
         if c0==0: roots.append(0)
 
         if ((c5!=0) and (len(roots)<3)):
@@ -2847,7 +2844,7 @@ elif eqn_type == 'Polynomial Equations':
                         c2 = b2
                         c1 = b1
                         c0 = b0
-                        root = roots
+                        root = roots[0]
                         if root==0:
                             st.write(f'Another rational root is 0. So we can just divide the equation by x:')
                             b2 = c3
