@@ -2571,6 +2571,7 @@ elif eqn_type == 'Polynomial Equations':
                             st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
                             chk4 = True
                     else:
+                        st.write(root)
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'Another rational root is {root}, or {numer}/{denom}.')
                         st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
