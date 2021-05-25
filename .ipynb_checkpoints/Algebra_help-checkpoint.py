@@ -2846,7 +2846,7 @@ elif eqn_type == 'Polynomial Equations':
                         c0 = b0
                         root = roots[0]
                         if root==0:
-                            st.write(f'Another rational root is 0. So we can just divide the equation by x:')
+                            st.write(f'One rational root is 0. So we can just divide the equation by x:')
                             b2 = c3
                             b1 = c2
                             b0 = c1
@@ -2872,16 +2872,17 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b2, b1, b0, 10])
                             options = list(range(-2*m,2*m+1))
-                            b2_in = st.selectbox('1st blank',options)
-                            b1_in = st.selectbox('2nd blank',options)
-                            b0_in = st.selectbox('3rd blank',options)
-                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                                st.write('Try again.')
-                                chk3 = False
-                            else:
-                                st.write('Nicely done! We now have a quadratic equation:')
-                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                chk3 = True
+                            b2_in = st.selectbox('1st blank',['SELECT'] + options)
+                            b1_in = st.selectbox('2nd blank',['SELECT'] + options)
+                            b0_in = st.selectbox('3rd blank',['SELECT'] + options)
+                            if (b2_in!='SELECT') and (b1_in!='SELECT') and (b0_in!='SELECT'):
+                                if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                    st.write('Try again.')
+                                    chk3 = False
+                                else:
+                                    st.write('Nicely done! We now have a quadratic equation:')
+                                    st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                    chk3 = True
                         elif (root!=0):
                             numer, denom = decimal_to_fraction(root)
                             st.write(f'One rational root is {root}, or {numer}/{denom}.')
