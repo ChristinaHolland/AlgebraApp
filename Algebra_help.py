@@ -2155,21 +2155,14 @@ elif eqn_type == 'Quadratic Equations':
                 step2 = False
                 if a!=1:
                     st.write('Step 2: Divide by "a".')
-                    st.write(k)
-                    st.write(a)
-                    st.write(-1*k/a)
+                    new_rhs = np.round(-1*k/a,4)
+                    if new_rhs%1==0: new_rhs = int(new_rhs)
                     options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
-                    st.write(options)
                     options = [c if c!=0 else 0.0 for c in options]
-                    st.write(options)
                     options = [int(c) if c%1==0 else np.round(c,4) for c in options]
-                    st.write(options)
-                    new_rhs = options[0]
                     options.sort()
                     new_rhs_in = st.selectbox('What is the right hand side equal to now?',['SELECT'] + options)
                     if new_rhs_in !='SELECT':
-                        st.write(new_rhs_in)
-                        st.write(new_rhs)
                         if new_rhs_in!=new_rhs:
                             st.write('Try again.')
                         else:
