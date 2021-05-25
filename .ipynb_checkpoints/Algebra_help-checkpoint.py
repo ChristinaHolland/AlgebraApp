@@ -2977,9 +2977,6 @@ elif eqn_type == 'Polynomial Equations':
                     else:
                         sqrt_str = str2
                         wrong = str1
-                    st.write(sqrt_str)
-                    st.write(wrong)
-                    st.write(vert_str)
                     if vertex_x == 0:
                         correct = [sqrt_str, '-' + sqrt_str]
                     else:
@@ -2990,7 +2987,8 @@ elif eqn_type == 'Polynomial Equations':
                     incorrect = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
                     solution_options = correct + incorrect
                     solution_options.sort()
-
+                    st.write(incorrect)
+                    st.write(solution_options)
                     sel1 = st.checkbox(solution_options[0])
                     sel2 = st.checkbox(solution_options[1])
                     sel3 = st.checkbox(solution_options[2])
