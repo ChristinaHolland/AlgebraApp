@@ -1097,7 +1097,10 @@ elif eqn_type == 'Quadratic Equations':
                                 solution_options = [np.round(s,4) for s in solution_options]
                                 correct = [-1*gcfR2/gcfR1, gcfR2/gcfR1]
                                 correct = [np.round(s,4) for s in correct]
-                                
+                                st.write(solution_options[0])
+                                st.write(solution_options[1])
+                                st.write(solution_options[2])
+                                st.write(solution_options[3])
                                 sel1 = st.checkbox(solution_options[0])
                                 sel2 = st.checkbox(solution_options[1])
                                 sel3 = st.checkbox(solution_options[2])
