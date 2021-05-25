@@ -2322,9 +2322,9 @@ elif eqn_type == 'Quadratic Equations':
                                 st.latex(equation5)
                         else:
                             equation5 = equation4
-
+                            sqrt_str = f' \sqrt( {new_rhs} )'
                         st.write('Step 4: Almost done! Solve for x by selecting all CORRECT solutions below.')
-                        st.write(sqrt_str)
+                        
                         soln1 = f'{h} + ' + sqrt_str
                         soln2 = f'{h} - ' + sqrt_str
 
