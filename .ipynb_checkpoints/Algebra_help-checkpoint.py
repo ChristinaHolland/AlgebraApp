@@ -2288,26 +2288,25 @@ elif eqn_type == 'Quadratic Equations':
                                         st.balloons()
 
                     elif new_rhs==0:
-                        if step3:
-                            st.write('Step 4: Almost done! Solve for x.')
-                            st.write('(The square root of zero is just zero, and -0 = +0, so there is only one solution.)')
-                            soln1 = f'{h}'
-                            if h!=0:
-                                wrong1= f'{-1*h}'
-                            else:
-                                wrong1= f'{a}'
-                            solution_options = [soln1, wrong1]
-                            correct = [soln1]
-                            solution_options.sort()
-                            sel1 = st.checkbox(solution_options[0])
-                            sel2 = st.checkbox(solution_options[1])
-                            if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
-                            elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
-                            elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
-                            elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
-                            else:
-                                st.write('You did it!')
-                                st.balloons()
+                        st.write('Step 4: Almost done! Solve for x.')
+                        st.write('(The square root of zero is just zero, and -0 = +0, so there is only one solution.)')
+                        soln1 = f'{h}'
+                        if h!=0:
+                            wrong1= f'{-1*h}'
+                        else:
+                            wrong1= f'{a}'
+                        solution_options = [soln1, wrong1]
+                        correct = [soln1]
+                        solution_options.sort()
+                        sel1 = st.checkbox(solution_options[0])
+                        sel2 = st.checkbox(solution_options[1])
+                        if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+                        elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+                        elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+                        elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+                        else:
+                            st.write('You did it!')
+                            st.balloons()
 
                     else:
                         equation4 = equation3
