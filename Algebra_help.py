@@ -2193,8 +2193,10 @@ elif eqn_type == 'Quadratic Equations':
                         st.write('Uh oh! There are no REAL numbers that can square to give a negative number.')
                         st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
                         st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
-                        cont = st.selectbox('Continue on to find the 2 complex solutions?',['yes', 'no'])
-                        if cont == 'no':
+                        cont = st.selectbox('Continue on to find the 2 complex solutions?',['SELECT', 'yes', 'no'])
+                        if cont=='SELECT':
+                            st.write()
+                        elif cont == 'no':
                             st.write('OK, good job on this problem!')
                         else:
                             st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative:')
