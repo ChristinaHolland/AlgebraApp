@@ -2396,307 +2396,75 @@ elif eqn_type == 'Polynomial Equations':
     degree = st.sidebar.selectbox('What degree?',['Cubic (x^3)', 'Quartic (x^4)', 'Quintic (x^5)'])
     coef_options = list(range(-40,41))
     if degree == 'Quintic (x^5)':
-        c5 = st.sidebar.selectbox('Enter the x^5 coefficient:',coef_options)
-        c4 = st.sidebar.selectbox('Enter the x^4 coefficient:',coef_options)
+        c5 = st.sidebar.selectbox('Enter the x^5 coefficient:',['SELECT']+coef_options)
+        c4 = st.sidebar.selectbox('Enter the x^4 coefficient:',['SELECT']+coef_options)
     elif degree == 'Quartic (x^4)':
         c5 = 0
-        c4 = st.sidebar.selectbox('Enter the x^4 coefficient:',coef_options)
+        c4 = st.sidebar.selectbox('Enter the x^4 coefficient:',['SELECT']+coef_options)
     else:
         c5 = 0
         c4 = 0
-    c3 = st.sidebar.selectbox('Enter the x^3 coefficient:',coef_options)
-    c2 = st.sidebar.selectbox('Enter the x^2 coefficient):',coef_options)
-    c1 = st.sidebar.selectbox('Enter the linear coefficient:',coef_options)
-    c0 = st.sidebar.selectbox('Enter the constant:',coef_options)
+    c3 = st.sidebar.selectbox('Enter the x^3 coefficient:',['SELECT']+coef_options)
+    c2 = st.sidebar.selectbox('Enter the x^2 coefficient):',['SELECT']+coef_options)
+    c1 = st.sidebar.selectbox('Enter the linear coefficient:',['SELECT']+coef_options)
+    c0 = st.sidebar.selectbox('Enter the constant:',['SELECT']+coef_options)
     b4 = c4
     b3 = c3
     b2 = c2
     b1 = c1
     b0 = c0
-    
-    if c5!=0:
-        equation = f'{c5}x^5 + {c4}x^4 + {c3}x^3 + {c2}x^2 + {c1}x + {c0} = 0'
-        q = np.abs(c5)
-    elif c4!=0:
-        equation = f'{c4}x^4 + {c3}x^3 + {c2}x^2 + {c1}x + {c0} = 0'
-        q = np.abs(c4)
-    else:
-        equation = f'{c3}x^3 + {c2}x^2 + {c1}x + {c0} = 0'
-        q = np.abs(c3)
-    if c0!=0:
-        p = np.abs(c0)
-    elif c1!=0:
-        p = np.abs(c1)
-    elif c2!=0:
-        p = np.abs(c2)
-    elif c3!=0:
-        p = np.abs(c3)
-    elif c4!=0:
-        p = np.abs(c4)
-    else:
-        p = np.abs(c5)
-        
-    st.latex(equation)
-    
-    q_list = [j for j in range(1,(q+1)) if q%j==0]
-    p_list = [j for j in range(1,(p+1)) if p%j==0]
-    rat_root_list = [p1/q1 for q1 in q_list for p1 in p_list]
-    rat_root_list += [-1*c for c in rat_root_list]
-    roots = [r for r in rat_root_list if np.round(c5*np.power(r,5)+c4*np.power(r,4)+c3*np.power(r,3)+c2*np.power(r,2)+c1*r+c0,6)==0]
-    if c0==0: roots.append(0)
-        
-    if ((c5!=0) and (len(roots)<3)):
-        st.write('For a quintic equation, you need to have at least 3 rational roots (from the $\pm$ p/q list).')
-        st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
-    elif ((c4!=0) and (len(roots)<2)):
-        st.write('For a quartic equation, you need to have at least 2 rational roots (from the $\pm$ p/q list).')
-        st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
-    elif (len(roots)<1):
-        st.write('For a cubic equation, you need to have at least 1 rational roots (from the $\pm$ p/q list).')
-        st.write('This equation has none; please change your selections in the sidebar to get a solvable equation.')
-    else:
-        if c5!=0:
-            root = roots[0]
-            if root%1 == 0:
-                root = int(root)
-                st.write(f'One rational root is: {root}')
-                st.write('Use synthetic division to reduce this quintic equation to a quartic:')
-                sdiv_df = pd.DataFrame({
-                    '0': [f'{root} __|', '', '', ''],
-                    '' : [c5, '', '---', '[  ]'],
-                    ' ' : [c4, '', '---', '[  ]'],
-                    '  ' : [c3, '', '---', '[  ]'],
-                    '   ' : [c2, '', '---', '[  ]'],
-                    '    ' : [c1, '', '---', '[  ]'],
-                    '     ' : [c0, '', '---', ''],
-                })
-                sdiv_df.set_index('0',inplace=True)
-                st.table(sdiv_df)
-                b4 = c5
-                b3 = b4*root + c4
-                b2 = b3*root + c3
-                b1 = b2*root + c2
-                b0 = b1*root + c1
-                m = max([b4, b3, b2, b1, b0, 10])
-                options = list(range(-2*m,2*m+1))
-                b4_in = st.selectbox('1st blank',options)
-                b3_in = st.selectbox('2nd blank',options)
-                b2_in = st.selectbox('3rd blank',options)
-                b1_in = st.selectbox('4th blank',options)
-                b0_in = st.selectbox('5th blank',options)
-                if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                    st.write('Try again.')
-                    chk5 = False
-                else:
-                    st.write('Nicely done! We now have a quartic equation:')
-                    st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                    chk5 = True
-            else:
-                numer, denom = decimal_to_fraction(root)
-                st.write(f'One rational root is {root}, or {numer}/{denom}.')
-                st.write('Even though this is a fraction, we can still use synthetic division to reduce this quintic equation to a quartic;')
-                st.write(f' we just have to divide by {denom} at the end.')
-                sdiv_df = pd.DataFrame({
-                    '0': [f'{root} __|', '', '', ''],
-                    '' : [c5, '', '---', '[  ]'],
-                    ' ' : [c4, '', '---', '[  ]'],
-                    '  ' : [c3, '', '---', '[  ]'],
-                    '   ' : [c2, '', '---', '[  ]'],
-                    '    ' : [c1, '', '---', '[  ]'],
-                    '     ' : [c0, '', '---', ''],
-                })
-                sdiv_df.set_index('0',inplace=True)
-                st.table(sdiv_df)
-                b4 = c5
-                b3 = b4*root + c4
-                b2 = b3*root + c3
-                b1 = b2*root + c2
-                b0 = b1*root + c1
-                m = max([b4, b3, b2, b1, b0, 12])
-                options = list(range(-2*m,2*m+1))
-                b4_in = st.selectbox('1st blank',options)
-                b3_in = st.selectbox('2nd blank',options)
-                b2_in = st.selectbox('3rd blank',options)
-                b1_in = st.selectbox('4th blank',options)
-                b0_in = st.selectbox('5th blank',options)
-                if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                    st.write('Try again.')
-                    chk5 = False
-                else:
-                    b4 = int(b4/denom)
-                    b3 = int(b3/denom)
-                    b2 = int(b2/denom)
-                    b1 = int(b1/denom)
-                    b0 = int(b0/denom)
-                    st.write(f'Nicely done! After dividing those all by {denom}, we have a quartic equation:')
-                    st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                    chk5 = True
-            if chk5==True:
-                c4 = b4
-                c3 = b3
-                c2 = b2
-                c1 = b1
-                c0 = b0
-                root = roots[1]
-                if root%1 == 0:
-                    root = int(root)
-                    st.write(f'Another rational root is: {root}')
-                    st.write('Use synthetic division to reduce this quartic equation to a cubic:')
-                    sdiv_df = pd.DataFrame({
-                        '0': [f'{root} __|', '', '', ''],
-                        ' ' : [c4, '', '---', '[  ]'],
-                        '  ' : [c3, '', '---', '[  ]'],
-                        '   ' : [c2, '', '---', '[  ]'],
-                        '    ' : [c1, '', '---', '[  ]'],
-                        '     ' : [c0, '', '---', ''],
-                    })
-                    sdiv_df.set_index('0',inplace=True)
-                    st.table(sdiv_df)
-                    b3 = c4
-                    b2 = b3*root + c3
-                    b1 = b2*root + c2
-                    b0 = b1*root + c1
-                    m = max([b3, b2, b1, b0, 11])
-                    options = list(range(-2*m,2*m+1))
-                    b3_in = st.selectbox('1st blank',options)
-                    b2_in = st.selectbox('2nd blank',options)
-                    b1_in = st.selectbox('3rd blank',options)
-                    b0_in = st.selectbox('4th blank',options)
-                    if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                        st.write('Try again.')
-                        chk4 = False
-                    else:
-                        st.write(f'Nicely done! We now have a cubic equation:')
-                        st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                        chk4 = True
-                else:
-                    numer, denom = decimal_to_fraction(root)
-                    st.write(f'Another rational root is {root}, or {numer}/{denom}.')
-                    st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
-                    st.write(f' we just have to divide by {denom} at the end.')
-                    sdiv_df = pd.DataFrame({
-                        '0': [f'{root} __|', '', '', ''],
-                        ' ' : [c4, '', '---', '[  ]'],
-                        '  ' : [c3, '', '---', '[  ]'],
-                        '   ' : [c2, '', '---', '[  ]'],
-                        '    ' : [c1, '', '---', '[  ]'],
-                        '     ' : [c0, '', '---', ''],
-                    })
-                    sdiv_df.set_index('0',inplace=True)
-                    st.table(sdiv_df)
-                    b3 = c4
-                    b2 = b3*root + c3
-                    b1 = b2*root + c2
-                    b0 = b1*root + c1
-                    m = max([b3, b2, b1, b0, 11])
-                    options = list(range(-2*m,2*m+1))
-                    b3_in = st.selectbox('1st blank',options)
-                    b2_in = st.selectbox('2nd blank',options)
-                    b1_in = st.selectbox('3rd blank',options)
-                    b0_in = st.selectbox('4th blank',options)
-                    if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                        st.write('Try again.')
-                        chk4 = False
-                    else:
-                        b3 = int(b3/denom)
-                        b2 = int(b2/denom)
-                        b1 = int(b1/denom)
-                        b0 = int(b0/denom)
-                        st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
-                        st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                        chk4 = True
-                        
-                if chk4==True:
-                    c3 = b3
-                    c2 = b2
-                    c1 = b1
-                    c0 = b0
-                    root = roots[2]
-                    if root==0:
-                        st.write(f'Another rational root is 0. So we can just divide the equation by x:')
-                        b2 = c3
-                        b1 = c2
-                        b0 = c1
-                        st.write('We now have a quadratic equation:')
-                        st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                        chk3 = True
-                      
-                    if (root%1 == 0) and (root!=0):
-                        root = int(root)
-                        st.write(f'Another rational root is: {root}')
-                        st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
-                        sdiv_df = pd.DataFrame({
-                            '0': [f'{root} __|', '', '', ''],
-                            '  ' : [c3, '', '---', '[  ]'],
-                            '   ' : [c2, '', '---', '[  ]'],
-                            '    ' : [c1, '', '---', '[  ]'],
-                            '     ' : [c0, '', '---', ''],
-                        })
-                        sdiv_df.set_index('0',inplace=True)
-                        st.table(sdiv_df)
-                        b2 = c3
-                        b1 = b2*root + c2
-                        b0 = b1*root + c1
-                        m = max([b2, b1, b0, 10])
-                        options = list(range(-2*m,2*m+1))
-                        b2_in = st.selectbox('1st blank',options)
-                        b1_in = st.selectbox('2nd blank',options)
-                        b0_in = st.selectbox('3rd blank',options)
-                        if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                            st.write('Try again.')
-                            chk3 = False
-                        else:
-                            st.write('Nicely done! We now have a quadratic equation:')
-                            st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                            chk3 = True
-                    elif (root!=0):
-                        numer, denom = decimal_to_fraction(root)
-                        st.write(f'Another rational root is {root}, or {numer}/{denom}.')
-                        st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
-                        st.write(f' we just have to divide by {denom} at the end.')
-                        sdiv_df = pd.DataFrame({
-                            '0': [f'{root} __|', '', '', ''],
-                            '  ' : [c3, '', '---', '[  ]'],
-                            '   ' : [c2, '', '---', '[  ]'],
-                            '    ' : [c1, '', '---', '[  ]'],
-                            '     ' : [c0, '', '---', ''],
-                        })
-                        sdiv_df.set_index('0',inplace=True)
-                        st.table(sdiv_df)
-                        b2 = c3
-                        b1 = b2*root + c2
-                        b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0, 10])
-                        options = list(range(-2*m,2*m+1))
-                        b2_in = st.selectbox('1st blank',options)
-                        b1_in = st.selectbox('2nd blank',options)
-                        b0_in = st.selectbox('3rd blank',options)
-                        if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                            st.write('Try again.')
-                            chk3 = False
-                        else:
-                            b2 = int(b2/denom)
-                            b1 = int(b1/denom)
-                            b0 = int(b0/denom)
-                            st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
-                            st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                            chk3 = True
+    if (c5!='SELECT') and (c4!='SELECT') and (c3!='SELECT') and (c2!='SELECT') and (c1!='SELECT') and (c0!='SELECT'):
 
+        if c5!=0:
+            equation = f'{c5}x^5 + {c4}x^4 + {c3}x^3 + {c2}x^2 + {c1}x + {c0} = 0'
+            q = np.abs(c5)
         elif c4!=0:
-            chk5 = True
-            if chk5==True:
-                c4 = b4
-                c3 = b3
-                c2 = b2
-                c1 = b1
-                c0 = b0
+            equation = f'{c4}x^4 + {c3}x^3 + {c2}x^2 + {c1}x + {c0} = 0'
+            q = np.abs(c4)
+        else:
+            equation = f'{c3}x^3 + {c2}x^2 + {c1}x + {c0} = 0'
+            q = np.abs(c3)
+        if c0!=0:
+            p = np.abs(c0)
+        elif c1!=0:
+            p = np.abs(c1)
+        elif c2!=0:
+            p = np.abs(c2)
+        elif c3!=0:
+            p = np.abs(c3)
+        elif c4!=0:
+            p = np.abs(c4)
+        else:
+            p = np.abs(c5)
+
+        st.latex(equation)
+
+        q_list = [j for j in range(1,(q+1)) if q%j==0]
+        p_list = [j for j in range(1,(p+1)) if p%j==0]
+        rat_root_list = [p1/q1 for q1 in q_list for p1 in p_list]
+        rat_root_list += [-1*c for c in rat_root_list]
+        roots = [r for r in rat_root_list if np.round(c5*np.power(r,5)+c4*np.power(r,4)+c3*np.power(r,3)+c2*np.power(r,2)+c1*r+c0,6)==0]
+        if c0==0: roots.append(0)
+
+        if ((c5!=0) and (len(roots)<3)):
+            st.write('For a quintic equation, you need to have at least 3 rational roots (from the $\pm$ p/q list).')
+            st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
+        elif ((c4!=0) and (len(roots)<2)):
+            st.write('For a quartic equation, you need to have at least 2 rational roots (from the $\pm$ p/q list).')
+            st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
+        elif (len(roots)<1):
+            st.write('For a cubic equation, you need to have at least 1 rational roots (from the $\pm$ p/q list).')
+            st.write('This equation has none; please change your selections in the sidebar to get a solvable equation.')
+        else:
+            if c5!=0:
                 root = roots[0]
                 if root%1 == 0:
                     root = int(root)
                     st.write(f'One rational root is: {root}')
-                    st.write('Use synthetic division to reduce this quartic equation to a cubic:')
+                    st.write('Use synthetic division to reduce this quintic equation to a quartic:')
                     sdiv_df = pd.DataFrame({
                         '0': [f'{root} __|', '', '', ''],
+                        '' : [c5, '', '---', '[  ]'],
                         ' ' : [c4, '', '---', '[  ]'],
                         '  ' : [c3, '', '---', '[  ]'],
                         '   ' : [c2, '', '---', '[  ]'],
@@ -2705,30 +2473,33 @@ elif eqn_type == 'Polynomial Equations':
                     })
                     sdiv_df.set_index('0',inplace=True)
                     st.table(sdiv_df)
-                    b3 = c4
+                    b4 = c5
+                    b3 = b4*root + c4
                     b2 = b3*root + c3
                     b1 = b2*root + c2
                     b0 = b1*root + c1
-                    m = max([b3, b2, b1, b0, 11])
+                    m = max([b4, b3, b2, b1, b0, 10])
                     options = list(range(-2*m,2*m+1))
-                    b3_in = st.selectbox('1st blank',options)
-                    b2_in = st.selectbox('2nd blank',options)
-                    b1_in = st.selectbox('3rd blank',options)
-                    b0_in = st.selectbox('4th blank',options)
-                    if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                    b4_in = st.selectbox('1st blank',options)
+                    b3_in = st.selectbox('2nd blank',options)
+                    b2_in = st.selectbox('3rd blank',options)
+                    b1_in = st.selectbox('4th blank',options)
+                    b0_in = st.selectbox('5th blank',options)
+                    if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                         st.write('Try again.')
-                        chk4 = False
+                        chk5 = False
                     else:
-                        st.write('Nicely done! We now have a cubic equation:')
-                        st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                        chk4 = True
+                        st.write('Nicely done! We now have a quartic equation:')
+                        st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                        chk5 = True
                 else:
                     numer, denom = decimal_to_fraction(root)
                     st.write(f'One rational root is {root}, or {numer}/{denom}.')
-                    st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
+                    st.write('Even though this is a fraction, we can still use synthetic division to reduce this quintic equation to a quartic;')
                     st.write(f' we just have to divide by {denom} at the end.')
                     sdiv_df = pd.DataFrame({
                         '0': [f'{root} __|', '', '', ''],
+                        '' : [c5, '', '---', '[  ]'],
                         ' ' : [c4, '', '---', '[  ]'],
                         '  ' : [c3, '', '---', '[  ]'],
                         '   ' : [c2, '', '---', '[  ]'],
@@ -2737,49 +2508,44 @@ elif eqn_type == 'Polynomial Equations':
                     })
                     sdiv_df.set_index('0',inplace=True)
                     st.table(sdiv_df)
-                    b3 = c4
+                    b4 = c5
+                    b3 = b4*root + c4
                     b2 = b3*root + c3
                     b1 = b2*root + c2
                     b0 = b1*root + c1
-                    m = max([b3, b2, b1, b0, 11])
+                    m = max([b4, b3, b2, b1, b0, 12])
                     options = list(range(-2*m,2*m+1))
-                    b3_in = st.selectbox('1st blank',options)
-                    b2_in = st.selectbox('2nd blank',options)
-                    b1_in = st.selectbox('3rd blank',options)
-                    b0_in = st.selectbox('4th blank',options)
-                    if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                    b4_in = st.selectbox('1st blank',options)
+                    b3_in = st.selectbox('2nd blank',options)
+                    b2_in = st.selectbox('3rd blank',options)
+                    b1_in = st.selectbox('4th blank',options)
+                    b0_in = st.selectbox('5th blank',options)
+                    if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                         st.write('Try again.')
-                        chk4 = False
+                        chk5 = False
                     else:
+                        b4 = int(b4/denom)
                         b3 = int(b3/denom)
                         b2 = int(b2/denom)
                         b1 = int(b1/denom)
                         b0 = int(b0/denom)
-                        st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
-                        st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                        chk4 = True
-                        
-                if chk4==True:
+                        st.write(f'Nicely done! After dividing those all by {denom}, we have a quartic equation:')
+                        st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                        chk5 = True
+                if chk5==True:
+                    c4 = b4
                     c3 = b3
                     c2 = b2
                     c1 = b1
                     c0 = b0
                     root = roots[1]
-                    if root==0:
-                        st.write(f'Another rational root is 0. So we can just divide the equation by x:')
-                        b2 = c3
-                        b1 = c2
-                        b0 = c1
-                        st.write('We now have a quadratic equation:')
-                        st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                        chk3 = True
-                      
-                    if (root%1 == 0) and (root!=0):
+                    if root%1 == 0:
                         root = int(root)
                         st.write(f'Another rational root is: {root}')
-                        st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
+                        st.write('Use synthetic division to reduce this quartic equation to a cubic:')
                         sdiv_df = pd.DataFrame({
                             '0': [f'{root} __|', '', '', ''],
+                            ' ' : [c4, '', '---', '[  ]'],
                             '  ' : [c3, '', '---', '[  ]'],
                             '   ' : [c2, '', '---', '[  ]'],
                             '    ' : [c1, '', '---', '[  ]'],
@@ -2787,28 +2553,31 @@ elif eqn_type == 'Polynomial Equations':
                         })
                         sdiv_df.set_index('0',inplace=True)
                         st.table(sdiv_df)
-                        b2 = c3
+                        b3 = c4
+                        b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b2, b1, b0, 10])
+                        m = max([b3, b2, b1, b0, 11])
                         options = list(range(-2*m,2*m+1))
-                        b2_in = st.selectbox('1st blank',options)
-                        b1_in = st.selectbox('2nd blank',options)
-                        b0_in = st.selectbox('3rd blank',options)
-                        if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                        b3_in = st.selectbox('1st blank',options)
+                        b2_in = st.selectbox('2nd blank',options)
+                        b1_in = st.selectbox('3rd blank',options)
+                        b0_in = st.selectbox('4th blank',options)
+                        if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                             st.write('Try again.')
-                            chk3 = False
+                            chk4 = False
                         else:
-                            st.write('Nicely done! We now have a quadratic equation:')
-                            st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                            chk3 = True
-                    elif (root!=0):
+                            st.write(f'Nicely done! We now have a cubic equation:')
+                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                            chk4 = True
+                    else:
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'Another rational root is {root}, or {numer}/{denom}.')
-                        st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
+                        st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
                         st.write(f' we just have to divide by {denom} at the end.')
                         sdiv_df = pd.DataFrame({
                             '0': [f'{root} __|', '', '', ''],
+                            ' ' : [c4, '', '---', '[  ]'],
                             '  ' : [c3, '', '---', '[  ]'],
                             '   ' : [c2, '', '---', '[  ]'],
                             '    ' : [c1, '', '---', '[  ]'],
@@ -2816,50 +2585,120 @@ elif eqn_type == 'Polynomial Equations':
                         })
                         sdiv_df.set_index('0',inplace=True)
                         st.table(sdiv_df)
-                        b2 = c3
+                        b3 = c4
+                        b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0, 10])
+                        m = max([b3, b2, b1, b0, 11])
                         options = list(range(-2*m,2*m+1))
-                        b2_in = st.selectbox('1st blank',options)
-                        b1_in = st.selectbox('2nd blank',options)
-                        b0_in = st.selectbox('3rd blank',options)
-                        if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                        b3_in = st.selectbox('1st blank',options)
+                        b2_in = st.selectbox('2nd blank',options)
+                        b1_in = st.selectbox('3rd blank',options)
+                        b0_in = st.selectbox('4th blank',options)
+                        if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                             st.write('Try again.')
-                            chk3 = False
+                            chk4 = False
                         else:
+                            b3 = int(b3/denom)
                             b2 = int(b2/denom)
                             b1 = int(b1/denom)
                             b0 = int(b0/denom)
-                            st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                            st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
+                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                            chk4 = True
+
+                    if chk4==True:
+                        c3 = b3
+                        c2 = b2
+                        c1 = b1
+                        c0 = b0
+                        root = roots[2]
+                        if root==0:
+                            st.write(f'Another rational root is 0. So we can just divide the equation by x:')
+                            b2 = c3
+                            b1 = c2
+                            b0 = c1
+                            st.write('We now have a quadratic equation:')
                             st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
                             chk3 = True
 
-        else:
-            chk5 = True
-            if chk5==True:
-                chk4 = True
-                if chk4==True:
+                        if (root%1 == 0) and (root!=0):
+                            root = int(root)
+                            st.write(f'Another rational root is: {root}')
+                            st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
+                            sdiv_df = pd.DataFrame({
+                                '0': [f'{root} __|', '', '', ''],
+                                '  ' : [c3, '', '---', '[  ]'],
+                                '   ' : [c2, '', '---', '[  ]'],
+                                '    ' : [c1, '', '---', '[  ]'],
+                                '     ' : [c0, '', '---', ''],
+                            })
+                            sdiv_df.set_index('0',inplace=True)
+                            st.table(sdiv_df)
+                            b2 = c3
+                            b1 = b2*root + c2
+                            b0 = b1*root + c1
+                            m = max([b2, b1, b0, 10])
+                            options = list(range(-2*m,2*m+1))
+                            b2_in = st.selectbox('1st blank',options)
+                            b1_in = st.selectbox('2nd blank',options)
+                            b0_in = st.selectbox('3rd blank',options)
+                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk3 = False
+                            else:
+                                st.write('Nicely done! We now have a quadratic equation:')
+                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                chk3 = True
+                        elif (root!=0):
+                            numer, denom = decimal_to_fraction(root)
+                            st.write(f'Another rational root is {root}, or {numer}/{denom}.')
+                            st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
+                            st.write(f' we just have to divide by {denom} at the end.')
+                            sdiv_df = pd.DataFrame({
+                                '0': [f'{root} __|', '', '', ''],
+                                '  ' : [c3, '', '---', '[  ]'],
+                                '   ' : [c2, '', '---', '[  ]'],
+                                '    ' : [c1, '', '---', '[  ]'],
+                                '     ' : [c0, '', '---', ''],
+                            })
+                            sdiv_df.set_index('0',inplace=True)
+                            st.table(sdiv_df)
+                            b2 = c3
+                            b1 = b2*root + c2
+                            b0 = b1*root + c1
+                            m = max([b3, b2, b1, b0, 10])
+                            options = list(range(-2*m,2*m+1))
+                            b2_in = st.selectbox('1st blank',options)
+                            b1_in = st.selectbox('2nd blank',options)
+                            b0_in = st.selectbox('3rd blank',options)
+                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk3 = False
+                            else:
+                                b2 = int(b2/denom)
+                                b1 = int(b1/denom)
+                                b0 = int(b0/denom)
+                                st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                chk3 = True
+
+            elif c4!=0:
+                chk5 = True
+                if chk5==True:
+                    c4 = b4
                     c3 = b3
                     c2 = b2
                     c1 = b1
                     c0 = b0
-                    root = roots
-                    if root==0:
-                        st.write(f'Another rational root is 0. So we can just divide the equation by x:')
-                        b2 = c3
-                        b1 = c2
-                        b0 = c1
-                        st.write('We now have a quadratic equation:')
-                        st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                        chk3 = True
-                      
-                    if (root%1 == 0) and (root!=0): 
+                    root = roots[0]
+                    if root%1 == 0:
                         root = int(root)
                         st.write(f'One rational root is: {root}')
-                        st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
+                        st.write('Use synthetic division to reduce this quartic equation to a cubic:')
                         sdiv_df = pd.DataFrame({
                             '0': [f'{root} __|', '', '', ''],
+                            ' ' : [c4, '', '---', '[  ]'],
                             '  ' : [c3, '', '---', '[  ]'],
                             '   ' : [c2, '', '---', '[  ]'],
                             '    ' : [c1, '', '---', '[  ]'],
@@ -2867,28 +2706,31 @@ elif eqn_type == 'Polynomial Equations':
                         })
                         sdiv_df.set_index('0',inplace=True)
                         st.table(sdiv_df)
-                        b2 = c3
+                        b3 = c4
+                        b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b2, b1, b0, 10])
+                        m = max([b3, b2, b1, b0, 11])
                         options = list(range(-2*m,2*m+1))
-                        b2_in = st.selectbox('1st blank',options)
-                        b1_in = st.selectbox('2nd blank',options)
-                        b0_in = st.selectbox('3rd blank',options)
-                        if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                        b3_in = st.selectbox('1st blank',options)
+                        b2_in = st.selectbox('2nd blank',options)
+                        b1_in = st.selectbox('3rd blank',options)
+                        b0_in = st.selectbox('4th blank',options)
+                        if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                             st.write('Try again.')
-                            chk3 = False
+                            chk4 = False
                         else:
-                            st.write('Nicely done! We now have a quadratic equation:')
-                            st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                            chk3 = True
-                    elif (root!=0):
+                            st.write('Nicely done! We now have a cubic equation:')
+                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                            chk4 = True
+                    else:
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'One rational root is {root}, or {numer}/{denom}.')
-                        st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
+                        st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
                         st.write(f' we just have to divide by {denom} at the end.')
                         sdiv_df = pd.DataFrame({
                             '0': [f'{root} __|', '', '', ''],
+                            ' ' : [c4, '', '---', '[  ]'],
                             '  ' : [c3, '', '---', '[  ]'],
                             '   ' : [c2, '', '---', '[  ]'],
                             '    ' : [c1, '', '---', '[  ]'],
@@ -2896,108 +2738,267 @@ elif eqn_type == 'Polynomial Equations':
                         })
                         sdiv_df.set_index('0',inplace=True)
                         st.table(sdiv_df)
-                        b2 = c3
+                        b3 = c4
+                        b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0, 10])
+                        m = max([b3, b2, b1, b0, 11])
                         options = list(range(-2*m,2*m+1))
-                        b2_in = st.selectbox('1st blank',options)
-                        b1_in = st.selectbox('2nd blank',options)
-                        b0_in = st.selectbox('3rd blank',options)
-                        if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                        b3_in = st.selectbox('1st blank',options)
+                        b2_in = st.selectbox('2nd blank',options)
+                        b1_in = st.selectbox('3rd blank',options)
+                        b0_in = st.selectbox('4th blank',options)
+                        if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                             st.write('Try again.')
-                            chk3 = False
+                            chk4 = False
                         else:
+                            b3 = int(b3/denom)
                             b2 = int(b2/denom)
                             b1 = int(b1/denom)
                             b0 = int(b0/denom)
-                            st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                            st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
+                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                            chk4 = True
+
+                    if chk4==True:
+                        c3 = b3
+                        c2 = b2
+                        c1 = b1
+                        c0 = b0
+                        root = roots[1]
+                        if root==0:
+                            st.write(f'Another rational root is 0. So we can just divide the equation by x:')
+                            b2 = c3
+                            b1 = c2
+                            b0 = c1
+                            st.write('We now have a quadratic equation:')
                             st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
                             chk3 = True
-        
-        if chk3==True:
-            st.write('Almost done! Solve the quadratic by the method of your choice (square roots, factoring, completing the square, quadratic formula)')
-            st.write('Select all CORRECT solutions below.')
 
-            negb = -1*b1
-            twoa = 2*b2
-            disc = b1*b1 - 4*b2*b0
-            vertex_x = negb/twoa
-            if vertex_x == 0:
-                vert_str = ''
-            if vertex_x%1 == 0:
-                vert_str = f'{vertex_x}'
-            else:
-                numer, denom = decimal_to_fraction(vertex_x)
-                vert_str = f'{numer}/{denom}'
+                        if (root%1 == 0) and (root!=0):
+                            root = int(root)
+                            st.write(f'Another rational root is: {root}')
+                            st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
+                            sdiv_df = pd.DataFrame({
+                                '0': [f'{root} __|', '', '', ''],
+                                '  ' : [c3, '', '---', '[  ]'],
+                                '   ' : [c2, '', '---', '[  ]'],
+                                '    ' : [c1, '', '---', '[  ]'],
+                                '     ' : [c0, '', '---', ''],
+                            })
+                            sdiv_df.set_index('0',inplace=True)
+                            st.table(sdiv_df)
+                            b2 = c3
+                            b1 = b2*root + c2
+                            b0 = b1*root + c1
+                            m = max([b2, b1, b0, 10])
+                            options = list(range(-2*m,2*m+1))
+                            b2_in = st.selectbox('1st blank',options)
+                            b1_in = st.selectbox('2nd blank',options)
+                            b0_in = st.selectbox('3rd blank',options)
+                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk3 = False
+                            else:
+                                st.write('Nicely done! We now have a quadratic equation:')
+                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                chk3 = True
+                        elif (root!=0):
+                            numer, denom = decimal_to_fraction(root)
+                            st.write(f'Another rational root is {root}, or {numer}/{denom}.')
+                            st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
+                            st.write(f' we just have to divide by {denom} at the end.')
+                            sdiv_df = pd.DataFrame({
+                                '0': [f'{root} __|', '', '', ''],
+                                '  ' : [c3, '', '---', '[  ]'],
+                                '   ' : [c2, '', '---', '[  ]'],
+                                '    ' : [c1, '', '---', '[  ]'],
+                                '     ' : [c0, '', '---', ''],
+                            })
+                            sdiv_df.set_index('0',inplace=True)
+                            st.table(sdiv_df)
+                            b2 = c3
+                            b1 = b2*root + c2
+                            b0 = b1*root + c1
+                            m = max([b3, b2, b1, b0, 10])
+                            options = list(range(-2*m,2*m+1))
+                            b2_in = st.selectbox('1st blank',options)
+                            b1_in = st.selectbox('2nd blank',options)
+                            b0_in = st.selectbox('3rd blank',options)
+                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk3 = False
+                            else:
+                                b2 = int(b2/denom)
+                                b1 = int(b1/denom)
+                                b0 = int(b0/denom)
+                                st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                chk3 = True
 
-            if disc==0:
-                sqrt_str = ''
-                wrong = f'{b0}'
-                correct = [vert_str]
             else:
-                if disc>0:
-                    out_rad, in_rad, denom = simplify_radical(disc/(twoa*twoa))
-                else:
-                    out_rad, in_rad, denom = simplify_radical(-1*disc/(twoa*twoa))
-                if out_rad==1:
-                    if in_rad==1:
-                        if denom==1:
-                            str1 = '1'
-                            str2 = 'i'
-                        else:
-                            str1 = f'1 / {denom}'
-                            str2 = f'i / {denom}'
-                    else:
-                        if denom==1:
-                            str1 = f'square_root( {in_rad} )'
-                            str2 = f'i square_root( {in_rad} )'
-                        else:
-                            str1 = f'square_root( {in_rad} ) / {denom}'
-                            str2 = f'i square_root( {in_rad} ) / {denom}'
-                else:
-                    if in_rad==1:
-                        if denom==1:
-                            str1 = f'{out_rad}'
-                            str2 = f'{out_rad}i'
-                        else:
-                            str1 = f'{out_rad} / {denom}'
-                            str2 = f'{out_rad}i / {denom}'
-                    else:
-                        if denom==1:
-                            str1 = f'{out_rad} square_root( {in_rad} )'
-                            str2 = f'{out_rad}i square_root( {in_rad} )'
-                        else:
-                            str1 = f'{out_rad} square_root( {in_rad} ) / {denom}'
-                            str2 = f'{out_rad}i square_root( {in_rad} ) / {denom}'
-                if disc>0:
-                    sqrt_str = str1
-                    wrong = str2
-                else:
-                    sqrt_str = str2
-                    wrong = str1
+                chk5 = True
+                if chk5==True:
+                    chk4 = True
+                    if chk4==True:
+                        c3 = b3
+                        c2 = b2
+                        c1 = b1
+                        c0 = b0
+                        root = roots
+                        if root==0:
+                            st.write(f'Another rational root is 0. So we can just divide the equation by x:')
+                            b2 = c3
+                            b1 = c2
+                            b0 = c1
+                            st.write('We now have a quadratic equation:')
+                            st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                            chk3 = True
+
+                        if (root%1 == 0) and (root!=0): 
+                            root = int(root)
+                            st.write(f'One rational root is: {root}')
+                            st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
+                            sdiv_df = pd.DataFrame({
+                                '0': [f'{root} __|', '', '', ''],
+                                '  ' : [c3, '', '---', '[  ]'],
+                                '   ' : [c2, '', '---', '[  ]'],
+                                '    ' : [c1, '', '---', '[  ]'],
+                                '     ' : [c0, '', '---', ''],
+                            })
+                            sdiv_df.set_index('0',inplace=True)
+                            st.table(sdiv_df)
+                            b2 = c3
+                            b1 = b2*root + c2
+                            b0 = b1*root + c1
+                            m = max([b2, b1, b0, 10])
+                            options = list(range(-2*m,2*m+1))
+                            b2_in = st.selectbox('1st blank',options)
+                            b1_in = st.selectbox('2nd blank',options)
+                            b0_in = st.selectbox('3rd blank',options)
+                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk3 = False
+                            else:
+                                st.write('Nicely done! We now have a quadratic equation:')
+                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                chk3 = True
+                        elif (root!=0):
+                            numer, denom = decimal_to_fraction(root)
+                            st.write(f'One rational root is {root}, or {numer}/{denom}.')
+                            st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
+                            st.write(f' we just have to divide by {denom} at the end.')
+                            sdiv_df = pd.DataFrame({
+                                '0': [f'{root} __|', '', '', ''],
+                                '  ' : [c3, '', '---', '[  ]'],
+                                '   ' : [c2, '', '---', '[  ]'],
+                                '    ' : [c1, '', '---', '[  ]'],
+                                '     ' : [c0, '', '---', ''],
+                            })
+                            sdiv_df.set_index('0',inplace=True)
+                            st.table(sdiv_df)
+                            b2 = c3
+                            b1 = b2*root + c2
+                            b0 = b1*root + c1
+                            m = max([b3, b2, b1, b0, 10])
+                            options = list(range(-2*m,2*m+1))
+                            b2_in = st.selectbox('1st blank',options)
+                            b1_in = st.selectbox('2nd blank',options)
+                            b0_in = st.selectbox('3rd blank',options)
+                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk3 = False
+                            else:
+                                b2 = int(b2/denom)
+                                b1 = int(b1/denom)
+                                b0 = int(b0/denom)
+                                st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                chk3 = True
+
+            if chk3==True:
+                st.write('Almost done! Solve the quadratic by the method of your choice (square roots, factoring, completing the square, quadratic formula)')
+                st.write('Select all CORRECT solutions below.')
+
+                negb = -1*b1
+                twoa = 2*b2
+                disc = b1*b1 - 4*b2*b0
+                vertex_x = negb/twoa
                 if vertex_x == 0:
-                    correct = [sqrt_str, '-' + sqrt_str]
+                    vert_str = ''
+                if vertex_x%1 == 0:
+                    vert_str = f'{vertex_x}'
                 else:
-                    correct = [vert_str + ' + ' + sqrt_str, vert_str + ' - ' + sqrt_str]
-                correct = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
-                incorrect = [vert_str + ' + ' + wrong, vert_str + ' - ' + wrong]
-                incorrect = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
-                solution_options = correct + incorrect
-                solution_options.sort()
+                    numer, denom = decimal_to_fraction(vertex_x)
+                    vert_str = f'{numer}/{denom}'
 
-                sel1 = st.checkbox(solution_options[0])
-                sel2 = st.checkbox(solution_options[1])
-                sel3 = st.checkbox(solution_options[2])
-                sel4 = st.checkbox(solution_options[3])
-                if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
-                elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
-                elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
-                elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
-                elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
-                elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
-                elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
-                elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
+                if disc==0:
+                    sqrt_str = ''
+                    wrong = f'{b0}'
+                    correct = [vert_str]
                 else:
-                    st.write('You did it!')
-                    st.balloons()
+                    if disc>0:
+                        out_rad, in_rad, denom = simplify_radical(disc/(twoa*twoa))
+                    else:
+                        out_rad, in_rad, denom = simplify_radical(-1*disc/(twoa*twoa))
+                    if out_rad==1:
+                        if in_rad==1:
+                            if denom==1:
+                                str1 = '1'
+                                str2 = 'i'
+                            else:
+                                str1 = f'1 / {denom}'
+                                str2 = f'i / {denom}'
+                        else:
+                            if denom==1:
+                                str1 = f'square_root( {in_rad} )'
+                                str2 = f'i square_root( {in_rad} )'
+                            else:
+                                str1 = f'square_root( {in_rad} ) / {denom}'
+                                str2 = f'i square_root( {in_rad} ) / {denom}'
+                    else:
+                        if in_rad==1:
+                            if denom==1:
+                                str1 = f'{out_rad}'
+                                str2 = f'{out_rad}i'
+                            else:
+                                str1 = f'{out_rad} / {denom}'
+                                str2 = f'{out_rad}i / {denom}'
+                        else:
+                            if denom==1:
+                                str1 = f'{out_rad} square_root( {in_rad} )'
+                                str2 = f'{out_rad}i square_root( {in_rad} )'
+                            else:
+                                str1 = f'{out_rad} square_root( {in_rad} ) / {denom}'
+                                str2 = f'{out_rad}i square_root( {in_rad} ) / {denom}'
+                    if disc>0:
+                        sqrt_str = str1
+                        wrong = str2
+                    else:
+                        sqrt_str = str2
+                        wrong = str1
+                    if vertex_x == 0:
+                        correct = [sqrt_str, '-' + sqrt_str]
+                    else:
+                        correct = [vert_str + ' + ' + sqrt_str, vert_str + ' - ' + sqrt_str]
+                    correct = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
+                    incorrect = [vert_str + ' + ' + wrong, vert_str + ' - ' + wrong]
+                    incorrect = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
+                    solution_options = correct + incorrect
+                    solution_options.sort()
+
+                    sel1 = st.checkbox(solution_options[0])
+                    sel2 = st.checkbox(solution_options[1])
+                    sel3 = st.checkbox(solution_options[2])
+                    sel4 = st.checkbox(solution_options[3])
+                    if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+                    elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+                    elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
+                    elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
+                    elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+                    elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+                    elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
+                    elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
+                    else:
+                        st.write('You did it!')
+                        st.balloons()
