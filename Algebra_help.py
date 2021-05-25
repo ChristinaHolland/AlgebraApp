@@ -2352,6 +2352,7 @@ elif eqn_type == 'Quadratic Equations':
                         else:
                             equation5 = equation4
                             sqrt_str = f' sqrt( {new_rhs} )'
+                            step3 = True
                         if step3:
                             st.write('Step 4: Almost done! Solve for x by selecting all CORRECT solutions below.')
 
