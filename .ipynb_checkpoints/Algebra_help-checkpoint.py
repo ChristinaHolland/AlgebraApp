@@ -2924,7 +2924,6 @@ elif eqn_type == 'Polynomial Equations':
                 twoa = 2*b2
                 disc = b1*b1 - 4*b2*b0
                 vertex_x = negb/twoa
-                st.write(negb, twoa, disc, vertex_x)
                 if vertex_x == 0:
                     vert_str = ''
                 if vertex_x%1 == 0:
@@ -2932,8 +2931,6 @@ elif eqn_type == 'Polynomial Equations':
                 else:
                     numer, denom = decimal_to_fraction(vertex_x)
                     vert_str = f'{numer}/{denom}'
-                st.write(numer,denom)
-                st.write(vert_str)
                 if disc==0:
                     sqrt_str = ''
                     wrong = f'{b0}'
@@ -2943,6 +2940,7 @@ elif eqn_type == 'Polynomial Equations':
                         out_rad, in_rad, denom = simplify_radical(disc/(twoa*twoa))
                     else:
                         out_rad, in_rad, denom = simplify_radical(-1*disc/(twoa*twoa))
+                    st.write(out_rad,in_rad,denom)
                     if out_rad==1:
                         if in_rad==1:
                             if denom==1:
