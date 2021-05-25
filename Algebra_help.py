@@ -2182,12 +2182,12 @@ elif eqn_type == 'Quadratic Equations':
                 if step2:
                     st.write('Step 3: Take the square root:')
                     if h<0:
-                        equation3 = f'$x + {-1*h} = \pm \sqrt( {new_rhs} )$'            
+                        equation3 = f'x + {-1*h} = \pm \sqrt( {new_rhs} )'            
                     elif h==0:
-                        equation3 = f'$x = \pm \sqrt( {new_rhs} )$'
+                        equation3 = f'x = \pm \sqrt( {new_rhs} )'
                     else:
-                        equation3 = f'$x - {h} = \pm \sqrt( {new_rhs} )$'
-                    st.write(equation3)
+                        equation3 = f'x - {h} = \pm \sqrt( {new_rhs} )'
+                    st.latex(equation3)
                     if new_rhs<0:
                         st.write('Uh oh! There are no REAL numbers that can square to give a negative number.')
                         st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
