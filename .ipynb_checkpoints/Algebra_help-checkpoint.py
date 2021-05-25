@@ -2628,6 +2628,7 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
+                        st.write('testing')
                         b3_in = st.text_intput('1st blank',value = '')
                         b2_in = st.text_intput('2nd blank',value = '')
                         b1_in = st.text_intput('3rd blank',value = '')
