@@ -2514,12 +2514,14 @@ elif eqn_type == 'Polynomial Equations':
                     b0 = b1*root + c1
                     m = max([b4, b3, b2, b1, b0, 10])
                     options = list(range(-2*m,2*m+1))
-                    b4_in = st.selectbox('1st blank',options)
-                    b3_in = st.selectbox('2nd blank',options)
-                    b2_in = st.selectbox('3rd blank',options)
-                    b1_in = st.selectbox('4th blank',options)
-                    b0_in = st.selectbox('5th blank',options)
-                    if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                    b4_in = st.selectbox('1st blank',['SELECT']+options) 
+                    b3_in = st.selectbox('2nd blank',['SELECT']+options)
+                    b2_in = st.selectbox('3rd blank',['SELECT']+options)
+                    b1_in = st.selectbox('4th blank',['SELECT']+options)
+                    b0_in = st.selectbox('5th blank',['SELECT']+options)
+                    if (b4_in=='SELECT') or (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
+                        st.write('')
+                    elif (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                         st.write('Try again.')
                         chk5 = False
                     else:
@@ -2549,12 +2551,14 @@ elif eqn_type == 'Polynomial Equations':
                     b0 = b1*root + c1
                     m = max([b4, b3, b2, b1, b0, 12])
                     options = list(range(-2*m,2*m+1))
-                    b4_in = st.selectbox('1st blank',options)
-                    b3_in = st.selectbox('2nd blank',options)
-                    b2_in = st.selectbox('3rd blank',options)
-                    b1_in = st.selectbox('4th blank',options)
-                    b0_in = st.selectbox('5th blank',options)
-                    if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                    b4_in = st.selectbox('1st blank',['SELECT']+options)
+                    b3_in = st.selectbox('2nd blank',['SELECT']+options)
+                    b2_in = st.selectbox('3rd blank',['SELECT']+options)
+                    b1_in = st.selectbox('4th blank',['SELECT']+options)
+                    b0_in = st.selectbox('5th blank',['SELECT']+options)
+                    if (b4_in=='SELECT') or (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
+                        st.write('')
+                    elif (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                         st.write('Try again.')
                         chk5 = False
                     else:
@@ -2593,11 +2597,13 @@ elif eqn_type == 'Polynomial Equations':
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0, 11])
                         options = list(range(-2*m,2*m+1))
-                        b3_in = st.selectbox('1st blank',options)
-                        b2_in = st.selectbox('2nd blank',options)
-                        b1_in = st.selectbox('3rd blank',options)
-                        b0_in = st.selectbox('4th blank',options)
-                        if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                        b3_in = st.selectbox('1st blank',['SELECT']+options)
+                        b2_in = st.selectbox('2nd blank',['SELECT']+options)
+                        b1_in = st.selectbox('3rd blank',['SELECT']+options)
+                        b0_in = st.selectbox('4th blank',['SELECT']+options)
+                        if (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
+                            st.write()
+                        elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                             st.write('Try again.')
                             chk4 = False
                         else:
@@ -2624,12 +2630,14 @@ elif eqn_type == 'Polynomial Equations':
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0, 11])
                         options = list(range(-2*m,2*m+1))
-                        b3_in = st.selectbox('1st blank',options)
-                        b2_in = st.selectbox('2nd blank',options)
-                        b1_in = st.selectbox('3rd blank',options)
-                        b0_in = st.selectbox('4th blank',options)
-                        if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                        b3_in = st.selectbox('1st blank',['SELECT']+options)
+                        b2_in = st.selectbox('2nd blank',['SELECT']+options)
+                        b1_in = st.selectbox('3rd blank',['SELECT']+options)
+                        b0_in = st.selectbox('4th blank',['SELECT']+options)
+                        if (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
                             st.write('Try again.')
+                        elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                            st.write()
                             chk4 = False
                         else:
                             b3 = int(b3/denom)
@@ -2673,10 +2681,12 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b2, b1, b0, 10])
                             options = list(range(-2*m,2*m+1))
-                            b2_in = st.selectbox('1st blank',options)
-                            b1_in = st.selectbox('2nd blank',options)
-                            b0_in = st.selectbox('3rd blank',options)
-                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                            b2_in = st.selectbox('1st blank',['SELECT']+options)
+                            b1_in = st.selectbox('2nd blank',['SELECT']+options)
+                            b0_in = st.selectbox('3rd blank',['SELECT']+options)
+                            if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
+                                st.write()
+                            elif (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                                 st.write('Try again.')
                                 chk3 = False
                             else:
@@ -2702,9 +2712,11 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b3, b2, b1, b0, 10])
                             options = list(range(-2*m,2*m+1))
-                            b2_in = st.selectbox('1st blank',options)
-                            b1_in = st.selectbox('2nd blank',options)
-                            b0_in = st.selectbox('3rd blank',options)
+                            b2_in = st.selectbox('1st blank',['SELECT']+options)
+                            b1_in = st.selectbox('2nd blank',['SELECT']+options)
+                            b0_in = st.selectbox('3rd blank',['SELECT']+options)
+                            if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
+                                st.write()
                             if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                                 st.write('Try again.')
                                 chk3 = False
