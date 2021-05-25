@@ -2317,7 +2317,7 @@ elif eqn_type == 'Quadratic Equations':
                                         else:
                                             sqrt_str = f'{out_rad} sqrt( {in_rad} ) / {denom}'
 
-                                equation5 = equation4.replace(f'\sqrt( {new_rhs} )', sqrt_str)
+                                equation5 = equation4.replace(f'\sqrt( {new_rhs} )', sqrt_str.replace('sqrt','\sqrt'))
                                 st.write(f'Good! So now we have: ')
                                 st.latex(equation5)
                         else:
