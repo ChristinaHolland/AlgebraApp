@@ -1786,9 +1786,6 @@ elif eqn_type == 'Quadratic Equations':
 
                         out_rad, in_rad, denom = simplify_radical(disc)
 
-                        st.write(out_rad)
-                        st.write(in_rad)
-                        st.write(denom)
                         if (out_rad!=None) and (in_rad!=disc):
 
                             st.write('Can you simplify the radical? You will probably need some scratch paper!')
@@ -1927,6 +1924,25 @@ elif eqn_type == 'Quadratic Equations':
 
                                             st.write(equation9a + ' and ' + equation9b)
                                             st.balloons()
+                        if in_rad==disc:
+                            
+                            equation9a = f'${negb}/{twoa} + \sqrt({disc})/{twoa}$'
+                            equation9b = f'${negb}/{twoa} - \sqrt({disc})/{twoa}$'
+                            st.write('That square root cannot be simplified, so we just have ' + equation9a + ' and ' + equation9b)
+                            numer1, denom1 = simplify_fraction(negb,twoa)
+                            if numer1!=negb:
+                                st.write('Simplify that first fraction:')
+                                n1_in = st.selectbox('new numerator',coef_options)
+                                d1_in = st.selectbox('new denominator',list(range(1,21)))
+                            else:
+                                n1_in = numer1
+                                d1_in = denom1
+
+                            if (n1_in!=numer1) or (d1_in!=denom1) :
+                                st.write('Try again.')
+                            else:
+                                st.write('You did it!')
+                                st.balloons()
     
     if Q1 == 'Factored':
         st.write('a(bx + c)(dx + e) = 0')
