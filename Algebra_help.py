@@ -1607,52 +1607,187 @@ elif eqn_type == 'Quadratic Equations':
             st.table(disc_df)
 
             disc = b*b - 4*a*c
-            disc_in_str = st.text_input('d = b^2 - 4ac = ', value='9999')
-            disc_in = int(disc_in_str)
-            
-            soln_opts = ['2 REAL solutions', 'Exactly 1 REAL solution', '0 REAL solutions, 2 COMPLEX solutions']
-            n_solns_in = st.selectbox('How many solutions should there be?',soln_opts)
-            if disc < 0: n_solns = soln_opts[2]
-            elif disc==0: n_solns = soln_opts[1]
-            else: n_solns = soln_opts[0]
-                        
-            if (disc_in!=disc) or (n_solns_in!=n_solns):
-                st.write('Not quite. Try again.')
-            else:
-                st.write(f'Great, so we now have: $x = [ [ ] \pm \sqrt( {disc} )] / [ ]$')
+            disc_in_str = st.text_input('d = b^2 - 4ac = ', value='')
+            if disc_in_str!='':
+                disc_in = int(disc_in_str)
 
-                negb = -1*b
-                twoa = 2*a
-                options = list({a, -1*a, twoa, -2*a, b, negb, 2*b, -2*b, c, -1*c, 2*c, -2*c})
-                options.sort()
-                negb_in = st.selectbox('what goes in the first blank?',options)
-                twoa_in = st.selectbox('What goes in the second blank, the one in the denominator?',options)
-                if (negb_in!=negb) or (twoa_in!=twoa):
-                    st.write('Try again.')
+                soln_opts = ['2 REAL solutions', 'Exactly 1 REAL solution', '0 REAL solutions, 2 COMPLEX solutions']
+                n_solns_in = st.selectbox('How many solutions should there be?',soln_opts)
+                if disc < 0: n_solns = soln_opts[2]
+                elif disc==0: n_solns = soln_opts[1]
+                else: n_solns = soln_opts[0]
+
+                if (disc_in!=disc) or (n_solns_in!=n_solns):
+                    st.write('Not quite. Try again.')
                 else:
-                    st.write(f'Good! So now we have: $x = [ {negb} \pm \sqrt( {disc} )] / {twoa}$')
-                    st.write(f'Or, two equations: $x = [ {negb} + \sqrt( {disc} )] / {twoa}$ and $x = [ {negb} - \sqrt( {disc} )] / {twoa}$')
-                if disc < 0:
-                    st.write('Uh oh! The discriminant is negative.')
-                    st.write('There are no REAL numbers that can square to give a negative number.')
-                    st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
-                    st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
-                    cont = st.selectbox('Continue on to find the 2 complex solutions?',['yes', 'no'])
-                    if cont == 'no':
-                        st.write('OK, good job on this problem!')
-                    else:
+                    st.write(f'Great, so we now have: $x = [ [ ] \pm \sqrt( {disc} )] / [ ]$')
 
-                        st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative.')
-                        st.write(f'$x = [ {negb} + i \sqrt( {-1*disc} )] / {twoa}$ and $x = [ {negb} - i \sqrt( {-1*disc} )] / {twoa}$')
-                                    
-                        out_rad, in_rad, denom = simplify_radical(-1*disc)
-                                    
-                                    
-                        if (out_rad!=None) and (in_rad!=-1*disc):
+                    negb = -1*b
+                    twoa = 2*a
+                    options = list({a, -1*a, twoa, -2*a, b, negb, 2*b, -2*b, c, -1*c, 2*c, -2*c})
+                    options.sort()
+                    negb_in = st.selectbox('what goes in the first blank?',options)
+                    twoa_in = st.selectbox('What goes in the second blank, the one in the denominator?',options)
+                    if (negb_in!=negb) or (twoa_in!=twoa):
+                        st.write('Try again.')
+                    else:
+                        st.write(f'Good! So now we have: $x = [ {negb} \pm \sqrt( {disc} )] / {twoa}$')
+                        st.write(f'Or, two equations: $x = [ {negb} + \sqrt( {disc} )] / {twoa}$ and $x = [ {negb} - \sqrt( {disc} )] / {twoa}$')
+                    if disc < 0:
+                        st.write('Uh oh! The discriminant is negative.')
+                        st.write('There are no REAL numbers that can square to give a negative number.')
+                        st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
+                        st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
+                        cont = st.selectbox('Continue on to find the 2 complex solutions?',['yes', 'no'])
+                        if cont == 'no':
+                            st.write('OK, good job on this problem!')
+                        else:
+
+                            st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative.')
+                            st.write(f'$x = [ {negb} + i \sqrt( {-1*disc} )] / {twoa}$ and $x = [ {negb} - i \sqrt( {-1*disc} )] / {twoa}$')
+
+                            out_rad, in_rad, denom = simplify_radical(-1*disc)
+
+
+                            if (out_rad!=None) and (in_rad!=-1*disc):
+
+                                st.write('Can you simplify the radical? You will probably need some scratch paper!')
+                                out_str = f'i \sqrt({-1*disc}) = [ ] i \sqrt( [ ] )/ [ ] '
+                                st.latex(out_str)
+                                choices = list(range(1,201))
+                                out1 = st.selectbox('First blank = ',choices)
+                                in1  = st.selectbox('Second blank = ',choices)
+                                den1 = st.selectbox('Last blank = ',choices)
+                                if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                                    st.write('Try again.')
+                                else:
+                                    st.write(f'Good! So now (separating the two parts of the fraction) we have: $x = {negb}/{twoa} \pm {out_rad}i \sqrt( {in_rad} ) / [ ]$')
+                                    denom_new = denom*twoa
+
+                                    if in_rad!=1:
+                                        if out_rad!=1:
+                                            if denom!=1:
+                                                equation8a = f'$x = {negb}/{twoa} + {out_rad}i \sqrt( {in_rad} ) / {denom_new}$'
+                                                equation8b = f'$x = {negb}/{twoa} - {out_rad}i \sqrt( {in_rad} ) / {denom_new}$'
+                                            else:
+                                                equation8a = f'$x = {negb}/{twoa} + {out_rad}i \sqrt( {in_rad} )$'
+                                                equation8b = f'$x = {negb}/{twoa} - {out_rad}i \sqrt( {in_rad} )$'
+                                        else:
+                                            if denom!=1:
+                                                equation8a = f'$x = {negb}/{twoa} + i \sqrt( {in_rad} ) / {denom_new}$'
+                                                equation8b = f'$x = {negb}/{twoa} - i \sqrt( {in_rad} ) / {denom_new}$'
+                                            else:
+                                                equation8a = f'$x = {negb}/{twoa} + i \sqrt( {in_rad} )$'
+                                                equation8b = f'$x = {negb}/{twoa} - i \sqrt( {in_rad} )$'
+                                    else:
+                                        if out_rad!=1:
+                                            if denom!=1:
+                                                equation8a = f'$x = {negb}/{twoa} + {out_rad}i / {denom_new}$'
+                                                equation8b = f'$x = {negb}/{twoa} - {out_rad}i / {denom_new}$'
+                                            else:
+                                                equation8a = f'$x = {negb}/{twoa} + {out_rad}i$'
+                                                equation8b = f'$x = {negb}/{twoa} - {out_rad}i$'
+                                        else:
+                                            if denom!=1:
+                                                equation8a = f'$x = {negb}/{twoa} + i / {denom_new}$'
+                                                equation8b = f'$x = {negb}/{twoa} - i / {denom_new}$'
+                                            else:
+                                                equation8a = f'$x = {negb}/{twoa} + i$'
+                                                equation8b = f'$x = {negb}/{twoa} - i$'
+
+
+
+                                    denom_new_in = st.selectbox('What goes in the denominator under the radical?',list(range(1,1001)))
+                                    if denom_new_in!=denom_new: 
+                                        st.write('Try again.')
+                                    else:
+                                        st.write('Awesome! Our equations are: ' + equation8a + ' and ' + equation8b + '.')
+                                        numer1, denom1 = simplify_fraction(negb,twoa)
+                                        numer2, denom2 = simplify_fraction(out_rad,denom_new)
+                                        if numer1!=negb:
+                                            st.write('Simplify the first fraction:')
+                                            n1_in = st.selectbox('new numerator',coef_options)
+                                            d1_in = st.selectbox('new denominator',list(range(1,21)))
+                                        else:
+                                            n1_in = numer1
+                                            d1_in = denom1
+                                        if numer2!=out_rad:
+                                            st.write('Simplify the second fraction:')
+                                            n2_in = st.selectbox('new numerator ',coef_options)
+                                            d2_in = st.selectbox('new denominator ',list(range(1,1001)))
+                                        else:
+                                            n2_in = numer2
+                                            d2_in = denom2
+                                        if (n1_in!=numer1) or (d1_in!=denom1) or (n2_in!=np.abs(numer2)) or (d2_in!=denom2):
+                                            st.write('Try again.')
+                                        else:
+                                            st.write('You did it!')
+                                            if denom1>1:
+                                                if denom2>1:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1}/{denom1} + i \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - i \sqrt( {in_rad} ) / {denom2}$'
+                                                else:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)}i \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)}i \sqrt( {in_rad} )$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1}/{denom1} + i \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - i \sqrt( {in_rad} )$'
+                                            else:
+                                                if denom2>1:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1} + {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1} - {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1} + i \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1} - i \sqrt( {in_rad} ) / {denom2}$'
+                                                else:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1} + {np.abs(numer2)}i \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1} - {np.abs(numer2)}i \sqrt( {in_rad} )$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1} + i \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1} - i \sqrt( {in_rad} )$'
+                                            st.write(equation9a + ' and ' + equation9b)
+                                            st.balloons()
+
+                    if disc == 0:
+                        st.write('But, the discriminant is zero, and plus or minus the square root of zero gives only one answer: zero.')
+
+                        st.write(f'x = [ {negb} + 0] / {twoa} = {negb}/{twoa} and x = [ {negb} - 0] / {twoa} = {negb}/{twoa}')
+
+                        numer1, denom1 = simplify_fraction(negb,twoa)
+
+                        if numer1!=negb:
+                            st.write('You can siplify that fraction, though:')
+                            st.write(f'{negb}/{twoa} = [ ]/[ ]')
+                            n1_in = st.selectbox('New numerator = ',list(range(-10,11)))
+                            d1_in = st.selectbox('New denominator = ',list(range(0,21)))
+                            if (n1_in!=numer1) or (d1_in!=denom1):
+                                st.write('Try again.')
+                            else:
+                                st.write('You rocked that!')
+                                st.write(f'x = {numer1}/{denom1}')
+                                st.balloons()
+                        else:
+                            st.write(f'So the answer is just x = {numer1}/{denom1}; you are all done!')
+                            st.balloons()
+
+                    if disc > 0:
+                        st.write('The discriminant is positive, so there are 2 REAL solutions.')
+
+                        out_rad, in_rad, denom = simplify_radical(disc)
+
+
+                        if (out_rad!=None) and (in_rad!=disc):
 
                             st.write('Can you simplify the radical? You will probably need some scratch paper!')
-                            out_str = f'i \sqrt({-1*disc}) = [ ] i \sqrt( [ ] )/ [ ] '
-                            st.latex(out_str)
+                            out_str = f'$\sqrt({disc}) = [ ] \sqrt( [ ] )/ [ ]$'
+                            st.write(out_str)
                             choices = list(range(1,201))
                             out1 = st.selectbox('First blank = ',choices)
                             in1  = st.selectbox('Second blank = ',choices)
@@ -1660,49 +1795,47 @@ elif eqn_type == 'Quadratic Equations':
                             if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                 st.write('Try again.')
                             else:
-                                st.write(f'Good! So now (separating the two parts of the fraction) we have: $x = {negb}/{twoa} \pm {out_rad}i \sqrt( {in_rad} ) / [ ]$')
+                                st.write(f'Good! So now (separating the two parts of the fraction) we have: $x = {negb}/{twoa} \pm {out_rad} \sqrt( {in_rad} ) / [ ]$')
                                 denom_new = denom*twoa
-                                
+
                                 if in_rad!=1:
                                     if out_rad!=1:
-                                        if denom!=1:
-                                            equation8a = f'$x = {negb}/{twoa} + {out_rad}i \sqrt( {in_rad} ) / {denom_new}$'
-                                            equation8b = f'$x = {negb}/{twoa} - {out_rad}i \sqrt( {in_rad} ) / {denom_new}$'
-                                        else:
-                                            equation8a = f'$x = {negb}/{twoa} + {out_rad}i \sqrt( {in_rad} )$'
-                                            equation8b = f'$x = {negb}/{twoa} - {out_rad}i \sqrt( {in_rad} )$'
+                                        if denom_new!=1:
+                                            equation8a = f'$x = {negb}/{twoa} + {out_rad} \sqrt( {in_rad} ) / {denom_new}$'
+                                            equation8b = f'$x = {negb}/{twoa} - {out_rad} \sqrt( {in_rad} ) / {denom_new}$'
+                                        else:    
+                                            equation8a = f'$x = {negb}/{twoa} + {out_rad} \sqrt( {in_rad} )$'
+                                            equation8b = f'$x = {negb}/{twoa} - {out_rad} \sqrt( {in_rad} )$'
                                     else:
-                                        if denom!=1:
-                                            equation8a = f'$x = {negb}/{twoa} + i \sqrt( {in_rad} ) / {denom_new}$'
-                                            equation8b = f'$x = {negb}/{twoa} - i \sqrt( {in_rad} ) / {denom_new}$'
-                                        else:
-                                            equation8a = f'$x = {negb}/{twoa} + i \sqrt( {in_rad} )$'
-                                            equation8b = f'$x = {negb}/{twoa} - i \sqrt( {in_rad} )$'
+                                        if denom_new!=1:
+                                            equation8a = f'$x = {negb}/{twoa} + 1 \sqrt( {in_rad} ) / {denom_new}$'
+                                            equation8b = f'$x = {negb}/{twoa} - 1 \sqrt( {in_rad} ) / {denom_new}$'
+                                        else:    
+                                            equation8a = f'$x = {negb}/{twoa} + 1 \sqrt( {in_rad} )$'
+                                            equation8b = f'$x = {negb}/{twoa} - 1 \sqrt( {in_rad} )$'
                                 else:
                                     if out_rad!=1:
-                                        if denom!=1:
-                                            equation8a = f'$x = {negb}/{twoa} + {out_rad}i / {denom_new}$'
-                                            equation8b = f'$x = {negb}/{twoa} - {out_rad}i / {denom_new}$'
-                                        else:
-                                            equation8a = f'$x = {negb}/{twoa} + {out_rad}i$'
-                                            equation8b = f'$x = {negb}/{twoa} - {out_rad}i$'
+                                        if denom_new!=1:
+                                            equation8a = 'x = ' + f'{negb}/{twoa} + {out_rad} / {denom_new}'
+                                            equation8b = 'x = ' + f'{negb}/{twoa} - {out_rad} / {denom_new}'
+                                        else:    
+                                            equation8a = 'x = ' + f'{negb}/{twoa} + {out_rad}'
+                                            equation8b = 'x = ' + f'{negb}/{twoa} - {out_rad}'
                                     else:
-                                        if denom!=1:
-                                            equation8a = f'$x = {negb}/{twoa} + i / {denom_new}$'
-                                            equation8b = f'$x = {negb}/{twoa} - i / {denom_new}$'
-                                        else:
-                                            equation8a = f'$x = {negb}/{twoa} + i$'
-                                            equation8b = f'$x = {negb}/{twoa} - i$'
-                                    
-                                            
-                                            
+                                        if denom_new!=1:
+                                            equation8a = 'x = ' + f'{negb}/{twoa} + 1 / {denom_new}'
+                                            equation8b = 'x = ' + f'{negb}/{twoa} - 1 / {denom_new}'
+                                        else:    
+                                            equation8a = 'x = ' + f'{negb}/{twoa} + 1'
+                                            equation8b = 'x = ' + f'{negb}/{twoa} - 1'
+
                                 denom_new_in = st.selectbox('What goes in the denominator under the radical?',list(range(1,1001)))
                                 if denom_new_in!=denom_new: 
                                     st.write('Try again.')
                                 else:
                                     st.write('Awesome! Our equations are: ' + equation8a + ' and ' + equation8b + '.')
+
                                     numer1, denom1 = simplify_fraction(negb,twoa)
-                                    numer2, denom2 = simplify_fraction(out_rad,denom_new)
                                     if numer1!=negb:
                                         st.write('Simplify the first fraction:')
                                         n1_in = st.selectbox('new numerator',coef_options)
@@ -1710,6 +1843,8 @@ elif eqn_type == 'Quadratic Equations':
                                     else:
                                         n1_in = numer1
                                         d1_in = denom1
+
+                                    numer2, denom2 = simplify_fraction(out_rad,denom_new)
                                     if numer2!=out_rad:
                                         st.write('Simplify the second fraction:')
                                         n2_in = st.selectbox('new numerator ',coef_options)
@@ -1721,205 +1856,71 @@ elif eqn_type == 'Quadratic Equations':
                                         st.write('Try again.')
                                     else:
                                         st.write('You did it!')
-                                        if denom1>1:
-                                            if denom2>1:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
+                                        if in_rad!=1:
+                                            if denom1>1:
+                                                if denom2>1:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} ) / {denom2}$'
                                                 else:
-                                                    equation9a = f'$x = {numer1}/{denom1} + i \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - i \sqrt( {in_rad} ) / {denom2}$'
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} )$'
                                             else:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)}i \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)}i \sqrt( {in_rad} )$'
+                                                if denom2>1:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1} + \sqrt( {in_rad} ) / {denom2}$'
+                                                        equation9b = f'$x = {numer1} - \sqrt( {in_rad} ) / {denom2}$'
                                                 else:
-                                                    equation9a = f'$x = {numer1}/{denom1} + i \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - i \sqrt( {in_rad} )$'
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
+                                                    else:
+                                                        equation9a = f'$x = {numer1} + \sqrt( {in_rad} )$'
+                                                        equation9b = f'$x = {numer1} - \sqrt( {in_rad} )$'
                                         else:
-                                            if denom2>1:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1} + {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1} - {np.abs(numer2)}i \sqrt( {in_rad} ) / {denom2}$'
+                                            if denom1>1:
+                                                if denom2>1:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}/{denom2}') 
+                                                        equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
+                                                    else:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1/{denom2}') 
+                                                        equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1/{denom2}') + ' (after adding the fractions)'
                                                 else:
-                                                    equation9a = f'$x = {numer1} + i \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1} - i \sqrt( {in_rad} ) / {denom2}$'
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}') 
+                                                        equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}') + ' (after adding the fractions)'
+                                                    else:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1') 
+                                                        equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1') + ' (after adding the fractions)'
                                             else:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1} + {np.abs(numer2)}i \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1} - {np.abs(numer2)}i \sqrt( {in_rad} )$'
+                                                if denom2>1:
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}/{denom2}') 
+                                                        equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
+                                                    else:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1} + 1/{denom2}') 
+                                                        equation9b = 'x = ' + combine_string(f'{numer1} - 1/{denom2}') + ' (after adding the fractions)'
                                                 else:
-                                                    equation9a = f'$x = {numer1} + i \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1} - i \sqrt( {in_rad} )$'
-                                        st.write(equation9a + ' and ' + equation9b)
-                                        st.balloons()
+                                                    if np.abs(numer2)>1:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}') 
+                                                        equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}') + ' (after adding the fractions)'
+                                                    else:
+                                                        equation9a = 'x = ' + combine_string(f'{numer1} + 1')
+                                                        equation9b = 'x = ' + combine_string(f'{numer1} - 1') + ' (after adding the fractions)'
 
-                if disc == 0:
-                    st.write('But, the discriminant is zero, and plus or minus the square root of zero gives only one answer: zero.')
-
-                    st.write(f'x = [ {negb} + 0] / {twoa} = {negb}/{twoa} and x = [ {negb} - 0] / {twoa} = {negb}/{twoa}')
-                    
-                    numer1, denom1 = simplify_fraction(negb,twoa)
-                    
-                    if numer1!=negb:
-                        st.write('You can siplify that fraction, though:')
-                        st.write(f'{negb}/{twoa} = [ ]/[ ]')
-                        n1_in = st.selectbox('New numerator = ',list(range(-10,11)))
-                        d1_in = st.selectbox('New denominator = ',list(range(0,21)))
-                        if (n1_in!=numer1) or (d1_in!=denom1):
-                            st.write('Try again.')
-                        else:
-                            st.write('You rocked that!')
-                            st.write(f'x = {numer1}/{denom1}')
-                            st.balloons()
-                    else:
-                        st.write(f'So the answer is just x = {numer1}/{denom1}; you are all done!')
-                        st.balloons()
-                        
-                if disc > 0:
-                    st.write('The discriminant is positive, so there are 2 REAL solutions.')
-                                    
-                    out_rad, in_rad, denom = simplify_radical(disc)
-                                    
-                                    
-                    if (out_rad!=None) and (in_rad!=disc):
-
-                        st.write('Can you simplify the radical? You will probably need some scratch paper!')
-                        out_str = f'$\sqrt({disc}) = [ ] \sqrt( [ ] )/ [ ]$'
-                        st.write(out_str)
-                        choices = list(range(1,201))
-                        out1 = st.selectbox('First blank = ',choices)
-                        in1  = st.selectbox('Second blank = ',choices)
-                        den1 = st.selectbox('Last blank = ',choices)
-                        if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
-                            st.write('Try again.')
-                        else:
-                            st.write(f'Good! So now (separating the two parts of the fraction) we have: $x = {negb}/{twoa} \pm {out_rad} \sqrt( {in_rad} ) / [ ]$')
-                            denom_new = denom*twoa
-                            
-                            if in_rad!=1:
-                                if out_rad!=1:
-                                    if denom_new!=1:
-                                        equation8a = f'$x = {negb}/{twoa} + {out_rad} \sqrt( {in_rad} ) / {denom_new}$'
-                                        equation8b = f'$x = {negb}/{twoa} - {out_rad} \sqrt( {in_rad} ) / {denom_new}$'
-                                    else:    
-                                        equation8a = f'$x = {negb}/{twoa} + {out_rad} \sqrt( {in_rad} )$'
-                                        equation8b = f'$x = {negb}/{twoa} - {out_rad} \sqrt( {in_rad} )$'
-                                else:
-                                    if denom_new!=1:
-                                        equation8a = f'$x = {negb}/{twoa} + 1 \sqrt( {in_rad} ) / {denom_new}$'
-                                        equation8b = f'$x = {negb}/{twoa} - 1 \sqrt( {in_rad} ) / {denom_new}$'
-                                    else:    
-                                        equation8a = f'$x = {negb}/{twoa} + 1 \sqrt( {in_rad} )$'
-                                        equation8b = f'$x = {negb}/{twoa} - 1 \sqrt( {in_rad} )$'
-                            else:
-                                if out_rad!=1:
-                                    if denom_new!=1:
-                                        equation8a = 'x = ' + f'{negb}/{twoa} + {out_rad} / {denom_new}'
-                                        equation8b = 'x = ' + f'{negb}/{twoa} - {out_rad} / {denom_new}'
-                                    else:    
-                                        equation8a = 'x = ' + f'{negb}/{twoa} + {out_rad}'
-                                        equation8b = 'x = ' + f'{negb}/{twoa} - {out_rad}'
-                                else:
-                                    if denom_new!=1:
-                                        equation8a = 'x = ' + f'{negb}/{twoa} + 1 / {denom_new}'
-                                        equation8b = 'x = ' + f'{negb}/{twoa} - 1 / {denom_new}'
-                                    else:    
-                                        equation8a = 'x = ' + f'{negb}/{twoa} + 1'
-                                        equation8b = 'x = ' + f'{negb}/{twoa} - 1'
-                                
-                            denom_new_in = st.selectbox('What goes in the denominator under the radical?',list(range(1,1001)))
-                            if denom_new_in!=denom_new: 
-                                st.write('Try again.')
-                            else:
-                                st.write('Awesome! Our equations are: ' + equation8a + ' and ' + equation8b + '.')
-                                
-                                numer1, denom1 = simplify_fraction(negb,twoa)
-                                if numer1!=negb:
-                                    st.write('Simplify the first fraction:')
-                                    n1_in = st.selectbox('new numerator',coef_options)
-                                    d1_in = st.selectbox('new denominator',list(range(1,21)))
-                                else:
-                                    n1_in = numer1
-                                    d1_in = denom1
-                                    
-                                numer2, denom2 = simplify_fraction(out_rad,denom_new)
-                                if numer2!=out_rad:
-                                    st.write('Simplify the second fraction:')
-                                    n2_in = st.selectbox('new numerator ',coef_options)
-                                    d2_in = st.selectbox('new denominator ',list(range(1,1001)))
-                                else:
-                                    n2_in = numer2
-                                    d2_in = denom2
-                                if (n1_in!=numer1) or (d1_in!=denom1) or (n2_in!=np.abs(numer2)) or (d2_in!=denom2):
-                                    st.write('Try again.')
-                                else:
-                                    st.write('You did it!')
-                                    if in_rad!=1:
-                                        if denom1>1:
-                                            if denom2>1:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
-                                                else:
-                                                    equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} ) / {denom2}$'
-                                            else:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1}/{denom1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
-                                                else:
-                                                    equation9a = f'$x = {numer1}/{denom1} + \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1}/{denom1} - \sqrt( {in_rad} )$'
-                                        else:
-                                            if denom2>1:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} ) / {denom2}$'
-                                                else:
-                                                    equation9a = f'$x = {numer1} + \sqrt( {in_rad} ) / {denom2}$'
-                                                    equation9b = f'$x = {numer1} - \sqrt( {in_rad} ) / {denom2}$'
-                                            else:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = f'$x = {numer1} + {np.abs(numer2)} \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1} - {np.abs(numer2)} \sqrt( {in_rad} )$'
-                                                else:
-                                                    equation9a = f'$x = {numer1} + \sqrt( {in_rad} )$'
-                                                    equation9b = f'$x = {numer1} - \sqrt( {in_rad} )$'
-                                    else:
-                                        if denom1>1:
-                                            if denom2>1:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}/{denom2}') 
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
-                                                else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1/{denom2}') 
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1/{denom2}') + ' (after adding the fractions)'
-                                            else:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + {np.abs(numer2)}') 
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - {np.abs(numer2)}') + ' (after adding the fractions)'
-                                                else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1}/{denom1} + 1') 
-                                                    equation9b = 'x = ' + combine_string(f'{numer1}/{denom1} - 1') + ' (after adding the fractions)'
-                                        else:
-                                            if denom2>1:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}/{denom2}') 
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}/{denom2}') + ' (after adding the fractions)'
-                                                else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + 1/{denom2}') 
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - 1/{denom2}') + ' (after adding the fractions)'
-                                            else:
-                                                if np.abs(numer2)>1:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + {np.abs(numer2)}') 
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - {np.abs(numer2)}') + ' (after adding the fractions)'
-                                                else:
-                                                    equation9a = 'x = ' + combine_string(f'{numer1} + 1')
-                                                    equation9b = 'x = ' + combine_string(f'{numer1} - 1') + ' (after adding the fractions)'
-
-                                        st.write(equation9a + ' and ' + equation9b)
-                                        st.balloons()
+                                            st.write(equation9a + ' and ' + equation9b)
+                                            st.balloons()
     
     if Q1 == 'Factored':
         st.write('a(bx + c)(dx + e) = 0')
