@@ -2023,10 +2023,14 @@ elif eqn_type == 'Quadratic Equations':
             if N>1:
                 if equations[1]==equations[0]: N=1
             st.write(f'Since the only way to multiply factors to get zero is if at least one of them is equal to zero, this gives us {N} equations:')
-            solution_choices = solutions + list({c/b, e/d, c, e, -1*c, -1*e, c*b, d*e, -1*c*b, -1*d*e})
-            solution_choices.sort()
+            solution_choices = solutions + [c/b, e/d, c, e, -1*c, -1*e, c*b, d*e, -1*c*b, -1*d*e]
+            solution_choices = [int(s) if s%1==0 else s for s in solution_choices]
             solution_choices = [np.round(s,4) for s in solution_choices]
+            solution_choices = list({s for s in solution_choices})
+            solution_choices.sort()
+
             solutions = [np.round(s,4) for s in solutions]
+            solutions = [int(s) if s%1==0 else s for s in solutions]
 
             if N==1:
                 soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
