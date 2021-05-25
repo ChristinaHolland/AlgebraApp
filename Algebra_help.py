@@ -2984,6 +2984,8 @@ elif eqn_type == 'Polynomial Equations':
                     correct = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
                     incorrect = [vert_str + ' + ' + wrong, vert_str + ' - ' + wrong]
                     incorrect = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
+                    st.write(correct)
+                    st.write(incorrect)
                     solution_options = correct + incorrect
                     solution_options.sort()
 
