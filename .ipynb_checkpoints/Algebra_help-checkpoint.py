@@ -2686,6 +2686,7 @@ elif eqn_type == 'Polynomial Equations':
             elif c4!=0:
                 chk5 = True
                 if chk5==True:
+                    chk4 = False
                     c4 = b4
                     c3 = b3
                     c2 = b2
