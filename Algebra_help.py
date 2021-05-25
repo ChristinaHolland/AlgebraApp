@@ -2689,13 +2689,11 @@ elif eqn_type == 'Polynomial Equations':
                             options = list(range(-2*m,2*m+1))
                             # options = options.replace(-2*m,'SELECT')
                             st.write(options)
-                            st.write('testing')
+                            st.write(len(options))
+                            st.write(['SELECT'] + options)
                             b2_in = st.selectbox('1st blank',['SELECT'] + options)
-                            st.write('testing 1')
                             b1_in = st.selectbox('2nd blank',['SELECT'] + options)
-                            st.write('testing 12')
                             b0_in = st.selectbox('3rd blank',['SELECT'] + options)
-                            st.write('testing 123')
                             if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
                                 st.write()
                                 chk3 = False
