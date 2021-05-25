@@ -1163,7 +1163,9 @@ elif eqn_type == 'Quadratic Equations':
             equation1 = disp_a + f' + {b}x = {rhs}'
             
             
-            if rhs!=(-1*c):
+            if rhs=='SELECT':
+                st.write()
+            elif rhs!=(-1*c):
                 st.write('What happens to the sign of a number when you add or subtract to move it to the other side?')
             elif rhs==(-1*c):
                 st.latex(equation1)
@@ -1176,6 +1178,8 @@ elif eqn_type == 'Quadratic Equations':
                     b1_choices.sort()
                     msg_a = f'When you factor out {a}, what is the new coefficient of x?'
                     b1_in = st.selectbox(msg_a,['SELECT'] + b1_choices)
+                    if b1_in == 'SELECT':
+                        st.write()
                     if b1_in!=(b/a):
                         st.write('Try again.')
                     elif b1_in==(b/a):
@@ -1199,7 +1203,9 @@ elif eqn_type == 'Quadratic Equations':
                 if a!=1:
                     st.write(f"Be careful on the right hand side, don't forget we have that factor of {a}!")
                 add_inR = st.selectbox('What should you add on the right?',['SELECT'] + add_opt)
-                if (add_inL!=bover2sq) or (add_inR!=abover2sq):
+                if (add_inL=='SELECT') or (add_inR=='SELECT'):
+                    st.write()
+                elif (add_inL!=bover2sq) or (add_inR!=abover2sq):
                     st.write('Try again.')
                 elif (add_inL==bover2sq) and (add_inR==abover2sq):
                     st.write('Great!')
@@ -1214,6 +1220,8 @@ elif eqn_type == 'Quadratic Equations':
 
 
                     binom_in = st.selectbox('What should go in the blank?',['SELECT'] + add_opt)
+                    if binom_in=='SELECT':
+                        st.write()
                     if binom_in!=bover2:
                         st.write('Try again.')
                     elif binom_in==bover2:
@@ -1228,6 +1236,8 @@ elif eqn_type == 'Quadratic Equations':
                             rhs_opt.sort()
                             new_rhs_in = st.selectbox('What would be on the right hand side after dividing by "a"?',['SELECT'] + rhs_opt)
                             
+                            if new_rhs_in=='SELECT':
+                                st.write()
                             if new_rhs_in!=rhs2:
                                 st.write('Try again.')
                             elif new_rhs_in==rhs2: 
@@ -1243,6 +1253,8 @@ elif eqn_type == 'Quadratic Equations':
                         elif rhs2==0: soln = soln_opt[1]
                         else: soln = soln_opt[0]
                         num_sol = st.selectbox('Look at the right hand side -- how many and what type of solutions will this give?', ['SELECT'] + soln_opt)
+                        if num_sol=='SELECT':
+                            st.write()
                         if num_sol!=soln:
                             st.write('Try again.')
                         elif num_sol==soln:
@@ -1308,7 +1320,9 @@ elif eqn_type == 'Quadratic Equations':
                                         out1 = st.selectbox('First blank = ',['SELECT'] + choices)
                                         in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
                                         den1 = st.selectbox('Last blank = ',['SELECT'] + choices) 
-                                        if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                                        if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
+                                            st.write()
+                                        elif (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                             st.write('Try again.')
                                         elif (out1==out_rad) and (in1==in_rad) and (den1==denom):
                                             st.write('Great! So now we have: ' + equation8a + ' and ' + equation8b + '.')
@@ -1465,9 +1479,11 @@ elif eqn_type == 'Quadratic Equations':
                                     out_str = f'$i \sqrt({rhs2}) = [ ] i \sqrt( [ ] )/ [ ]$'
                                     st.write(out_str)
                                     choices = list(range(1,201))
-                                    out1 = st.selectbox('First blank = ',choices)
-                                    in1  = st.selectbox('Second blank = ',choices)
-                                    den1 = st.selectbox('Last blank = ',choices)
+                                    out1 = st.selectbox('First blank = ',['SELECT'] + choices)
+                                    in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
+                                    den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
+                                    if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
+                                        st.write()
                                     if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                         st.write('Try again.')
                                     else:
