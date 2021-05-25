@@ -1180,7 +1180,7 @@ elif eqn_type == 'Quadratic Equations':
                     b1_in = st.selectbox(msg_a,['SELECT'] + b1_choices)
                     if b1_in == 'SELECT':
                         st.write()
-                    if b1_in!=(b/a):
+                    elif b1_in!=(b/a):
                         st.write('Try again.')
                     elif b1_in==(b/a):
                         st.write('Nicely done!')
