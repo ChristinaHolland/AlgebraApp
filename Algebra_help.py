@@ -2181,6 +2181,8 @@ elif eqn_type == 'Quadratic Equations':
                 st.latex(equation2)
                 if step2:
                     st.write('Step 3: Take the square root:')
+                    st.write(h)
+                    st.write(new_rhs)
                     if h<0:
                         equation3 = f'x + {-1*h} = \pm \sqrt( {new_rhs} )'            
                     elif h==0:
