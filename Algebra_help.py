@@ -698,6 +698,7 @@ def simplify_radical(start):
     out_rad = int(out_rad)
     in_rad = int(in_rad)
     denom = int(denom)
+    out_rad, denom = simplify_fraction(out_rad,denom)
     
     return out_rad, in_rad, denom
 
