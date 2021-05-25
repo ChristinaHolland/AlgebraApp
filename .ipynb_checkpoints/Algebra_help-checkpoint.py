@@ -2212,6 +2212,7 @@ elif eqn_type == 'Quadratic Equations':
                                 out1 = st.selectbox('First blank = ',['SELECT'] + choices)
                                 in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
                                 den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
+                                st.write(out_rad, in_rad, denom)
                                 if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
                                     st.write()
                                 elif (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
