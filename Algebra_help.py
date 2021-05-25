@@ -2585,7 +2585,6 @@ elif eqn_type == 'Polynomial Equations':
                             '     ' : [c0, '', '---', ''],
                         })
                         sdiv_df.set_index('0',inplace=True)
-                        st.table(sdiv_df)
                         st.write(root)
                         b3 = c4
                         b2 = b3*root + c3
