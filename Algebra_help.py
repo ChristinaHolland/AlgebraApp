@@ -1628,9 +1628,11 @@ elif eqn_type == 'Quadratic Equations':
                     twoa = 2*a
                     options = list({a, -1*a, twoa, -2*a, b, negb, 2*b, -2*b, c, -1*c, 2*c, -2*c})
                     options.sort()
-                    negb_in = st.selectbox('what goes in the first blank?',options)
-                    twoa_in = st.selectbox('What goes in the second blank, the one in the denominator?',options)
-                    if (negb_in!=negb) or (twoa_in!=twoa):
+                    negb_in = st.selectbox('what goes in the first blank?',['SELECT'] + options)
+                    twoa_in = st.selectbox('What goes in the second blank, the one in the denominator?',['SELECT'] + options)
+                    if (negb_in=='SELECT') or (twoa_in=='SELECT'):
+                        st.write()
+                    elif (negb_in!=negb) or (twoa_in!=twoa):
                         st.write('Try again.')
                     else:
                         st.write(f'Good! So now we have: $x = [ {negb} \pm \sqrt( {disc} )] / {twoa}$')
