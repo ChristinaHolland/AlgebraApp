@@ -1612,12 +1612,14 @@ elif eqn_type == 'Quadratic Equations':
                 disc_in = int(disc_in_str)
 
                 soln_opts = ['2 REAL solutions', 'Exactly 1 REAL solution', '0 REAL solutions, 2 COMPLEX solutions']
-                n_solns_in = st.selectbox('How many solutions should there be?',soln_opts)
+                n_solns_in = st.selectbox('How many solutions should there be?',['SELECT'] + soln_opts)
                 if disc < 0: n_solns = soln_opts[2]
                 elif disc==0: n_solns = soln_opts[1]
                 else: n_solns = soln_opts[0]
 
-                if (disc_in!=disc) or (n_solns_in!=n_solns):
+                if n_solbs_in=='SELECT':
+                    st.write()
+                elif (disc_in!=disc) or (n_solns_in!=n_solns):
                     st.write('Not quite. Try again.')
                 else:
                     st.write(f'Great, so we now have: $x = [ [ ] \pm \sqrt( {disc} )] / [ ]$')
