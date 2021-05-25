@@ -2252,35 +2252,50 @@ elif eqn_type == 'Quadratic Equations':
                                 step3 = True
                             if step3:
                                 st.write('Step 4: Almost done! Solve for x.')
-                                soln1 = f'{h} + ' + sqrt_str.replace('\sqrt',' sqrt')
-                                soln2 = f'{h} - ' + sqrt_str.replace('\sqrt',' sqrt')
-                                wrong1= f'{-1*h} + ' + sqrt_str.replace('\sqrt',' sqrt')
-                                wrong2= f'{-1*h} - ' + sqrt_str.replace('\sqrt',' sqrt')
-                                solution_options = [soln1, soln2, wrong1, wrong2]
-                                correct = [soln1, soln2]
-                                solution_options.sort()
-                                sel1 = st.checkbox(solution_options[0])
-                                sel2 = st.checkbox(solution_options[1])
-                                sel3 = st.checkbox(solution_options[2])
-                                sel4 = st.checkbox(solution_options[3])
-                                if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
-                                elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
-                                elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
-                                elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
-                                elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
-                                elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
-                                elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
-                                elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
-                                else:
-                                    st.write('You did it!')
-                                    st.balloons()
+                                if h!=0:
+                                    soln1 = f'{h} + ' + sqrt_str.replace('\sqrt',' sqrt')
+                                    soln2 = f'{h} - ' + sqrt_str.replace('\sqrt',' sqrt')
+                                    wrong1= f'{-1*h} + ' + sqrt_str.replace('\sqrt',' sqrt')
+                                    wrong2= f'{-1*h} - ' + sqrt_str.replace('\sqrt',' sqrt')
+                                    solution_options = [soln1, soln2, wrong1, wrong2]
+                                    correct = [soln1, soln2]
+                                    solution_options.sort()
+                                    sel1 = st.checkbox(solution_options[0])
+                                    sel2 = st.checkbox(solution_options[1])
+                                    sel3 = st.checkbox(solution_options[2])
+                                    sel4 = st.checkbox(solution_options[3])
+                                    if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
+                                    elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
+                                    elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
+                                    elif (sel4==True) and (solution_options[3] not in correct): st.write('Try again.')
+                                    elif (sel1!=True) and (solution_options[0] in correct): st.write('Try again.')
+                                    elif (sel2!=True) and (solution_options[1] in correct): st.write('Try again.')
+                                    elif (sel3!=True) and (solution_options[2] in correct): st.write('Try again.')
+                                    elif (sel4!=True) and (solution_options[3] in correct): st.write('Try again.')
+                                    else:
+                                        st.write('You did it!')
+                                        st.balloons()
+                                elif h==0:
+                                    soln1 = sqrt_str.replace('\sqrt',' sqrt')
+                                    soln2 = '-' + sqrt_str.replace('\sqrt',' sqrt')
+                                    correct = [soln1, soln2]
+                                    sel1 = st.checkbox(correct[0])
+                                    sel2 = st.checkbox(correct[1])
+                                    if (sel1!=True): st.write('Try again.')
+                                    elif (sel2!=True): st.write('Try again.')
+                                    else:
+                                        st.write('You did it!')
+                                        st.balloons()
 
                     elif new_rhs==0:
                         if step3:
                             st.write('Step 4: Almost done! Solve for x.')
                             st.write('(The square root of zero is just zero, and -0 = +0, so there is only one solution.)')
                             soln1 = f'{h}'
-                            wrong1= f'{-1*h}'
+                            if h!=0:
+                                wrong1= f'{-1*h}'
+                            else:
+                                wrong1= f'{a}'
                             solution_options = [soln1, wrong1]
                             correct = [soln1]
                             solution_options.sort()
