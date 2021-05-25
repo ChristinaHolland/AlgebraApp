@@ -2177,12 +2177,11 @@ elif eqn_type == 'Quadratic Equations':
                 else:
                     st.write('Step 2 is to divide by "a", but since your a = 1, you can skip that step. Yay!')
                     equation2 = equation1
+                    new_rhs = -1*k
                     step2 = True
                 st.latex(equation2)
                 if step2:
                     st.write('Step 3: Take the square root:')
-                    st.write(h)
-                    st.write(new_rhs)
                     if h<0:
                         equation3 = f'x + {-1*h} = \pm \sqrt( {new_rhs} )'            
                     elif h==0:
