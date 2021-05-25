@@ -2981,15 +2981,11 @@ elif eqn_type == 'Polynomial Equations':
                         correct = [sqrt_str, '-' + sqrt_str]
                     else:
                         correct = [vert_str + ' + ' + sqrt_str, vert_str + ' - ' + sqrt_str]
-                    st.write(correct)
-                    correct = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
+                    correct = [c if ('square_root' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
                     incorrect = [vert_str + ' + ' + wrong, vert_str + ' - ' + wrong]
-                    st.write(incorrect)
-                    incorrect = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
+                    incorrect = [c if ('square_root' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
                     solution_options = correct + incorrect
                     solution_options.sort()
-                    st.write(incorrect)
-                    st.write(solution_options)
                     sel1 = st.checkbox(solution_options[0])
                     sel2 = st.checkbox(solution_options[1])
                     sel3 = st.checkbox(solution_options[2])
