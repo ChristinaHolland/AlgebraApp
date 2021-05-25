@@ -2689,7 +2689,7 @@ elif eqn_type == 'Polynomial Equations':
                             options = list(range(-2*m,2*m+1))
                             opt = ['SELECT'] + options
                             st.write(opt)
-                            b2_in = st.selectbox('1st blank',opt)
+                            b2_in = st.selectbox('1st blank',opt[:10])
                             b1_in = st.selectbox('2nd blank',opt)
                             b0_in = st.selectbox('3rd blank',opt)
                             if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
