@@ -1337,7 +1337,6 @@ elif eqn_type == 'Quadratic Equations':
                                     st.write('Select all correct solutions:')
                                     
                                     
-                                    solution_options.sort()
                                     if in_rad!=1:
                                         if (out_rad!=1) and (denom!=1):
                                             soln1 = f'{-1*bover2} + {out_rad}i square_root({in_rad})/{denom}'
@@ -1382,6 +1381,7 @@ elif eqn_type == 'Quadratic Equations':
                                             wrong2= f'{bover2} - i'
                                         
                                     solution_options = [soln1, soln2, wrong1, wrong2]
+                                    solution_options.sort()
                                     correct = [soln1, soln2]
 
                                     sel1 = st.checkbox(solution_options[0])
