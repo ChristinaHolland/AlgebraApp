@@ -1950,17 +1950,18 @@ elif eqn_type == 'Quadratic Equations':
         
         coef_options = list(range(-10,11))
         coef_options_pos = list(range(1,11))
-
-        a = st.sidebar.selectbox('Enter "a":',coef_options)
-        b = st.sidebar.selectbox('Enter "b":',coef_options_pos)
-        c = st.sidebar.selectbox('Enter "c":',coef_options)
-        d = st.sidebar.selectbox('Enter "d":',coef_options_pos)
-        e = st.sidebar.selectbox('Enter "e":',coef_options)
+        coef_options_a = list(range(-10,0)) + list(range(1,11))
+        a = st.sidebar.selectbox('Enter "a":',['SELECT'] + coef_options_a)
+        b = st.sidebar.selectbox('Enter "b":',['SELECT'] + coef_options_pos)
+        c = st.sidebar.selectbox('Enter "c":',['SELECT'] + coef_options)
+        d = st.sidebar.selectbox('Enter "d":',['SELECT'] + coef_options_pos)
+        e = st.sidebar.selectbox('Enter "e":',['SELECT'] + coef_options)
 
         st.write('')
         
-        
-        if c==0: 
+        if (a=='SELECT') or (b=='SELECT') or (c=='SELECT') or (d=='SELECT') or (e=='SELECT'):
+            st.write()
+        elif c==0: 
             if e==0: 
                 gcf = f'{a*b*d}x^2'
                 factorlist = [gcf]
@@ -2018,22 +2019,26 @@ elif eqn_type == 'Quadratic Equations':
         if N>1:
             if equations[1]==equations[0]: N=1
         st.write(f'Since the only way to multiply factors to get zero is if at least one of them is equal to zero, this gives us {N} equations:')
-        solution_choices = solutions + [c/b, e/d, c, e, -1*c, -1*e, c*b, d*e, -1*c*b, -1*d*e]
+        solution_choices = solutions + list({c/b, e/d, c, e, -1*c, -1*e, c*b, d*e, -1*c*b, -1*d*e})
         solution_choices.sort()
         solution_choices = [np.round(s,4) for s in solution_choices]
         solutions = [np.round(s,4) for s in solutions]
         
         if N==1:
-            soln1_in = st.selectbox('Solve '+ equations[0],solution_choices)
-            if soln1_in!=solutions[0]:
+            soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
+            if soln1_is=='SELECT:
+                st.write()
+            elif soln1_in!=solutions[0]:
                 st.write('Try again.')
             else:
                 st.write('You did it!')
                 st.balloons()
         else:
-            soln1_in = st.selectbox('Solve '+ equations[0],solution_choices)
-            soln2_in = st.selectbox('Solve '+ equations[1],solution_choices)
-            if (soln1_in!=solutions[0]) or (soln2_in!=solutions[1]):
+            soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
+            soln2_in = st.selectbox('Solve '+ equations[1],['SELECT'] + solution_choices)
+            if (soln1_in=='SELECT') or (soln2_in=='SELECT'):
+                st.write()
+            elif (soln1_in!=solutions[0]) or (soln2_in!=solutions[1]):
                 st.write('Try again.')
             else:
                 st.write('You did it!')
