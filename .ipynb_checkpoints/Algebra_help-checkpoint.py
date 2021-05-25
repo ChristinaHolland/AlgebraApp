@@ -2742,15 +2742,13 @@ elif eqn_type == 'Polynomial Equations':
                         })
                         sdiv_df.set_index('0',inplace=True)
                         st.table(sdiv_df)
-                        b3 = c4
-                        b2 = b3*root + c3
-                        b1 = b2*root + c2
-                        b0 = b1*root + c1
+                        b3 = int(c4)
+                        b2 = int(b3*root + c3)
+                        b1 = int(b2*root + c2)
+                        b0 = int(b1*root + c1)
                         m = max([b3, b2, b1, b0, 11])
-                        st.write(m)
 
                         options = list(range(-2*m,2*m+1))
-                        st.write(options)
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
                         b2_in = st.selectbox('2nd blank',['SELECT']+options)
                         b1_in = st.selectbox('3rd blank',['SELECT']+options)
