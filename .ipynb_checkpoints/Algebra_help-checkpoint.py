@@ -2156,7 +2156,9 @@ elif eqn_type == 'Quadratic Equations':
                 if a!=1:
                     st.write('Step 2: Divide by "a".')
                     options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
+                    st.write(options)
                     options = [c if c!=0 else 0.0 for c in options]
+                    st.write(options)
                     options = [int(c) if c%1==0 else np.round(c,4) for c in options]
                     st.write(options)
                     new_rhs = options[0]
