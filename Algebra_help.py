@@ -724,7 +724,24 @@ def simplify_fraction(n0, d0):
     
     return n1, d1
 
-
+def synthetic_division(c5,c4,c3,c2,c1,c0,r):
+    b5 = int(c5)
+    b4 = int(c4 + b5*r)
+    b3 = int(c3 + b4*r)
+    b2 = int(c2 + b3*r)
+    b1 = int(c1 + b2*r)
+    b0 = int(c0 + b1*r)
+    if r%1!=0:
+        n,d = decimal_to_fraction(r)
+        b5 = int(b5/d)
+        b4 = int(b4/d)
+        b3 = int(b3/d)
+        b2 = int(b2/d)
+        b1 = int(b1/d)
+        b0 = int(b0/d)
+    return b5, b4, b3, b2, b1, b0
+    
+    
 # APP CODE:
 
 
@@ -2445,13 +2462,30 @@ elif eqn_type == 'Polynomial Equations':
         rat_root_list += [-1*c for c in rat_root_list]
         roots = [r for r in rat_root_list if np.round(c5*np.power(r,5)+c4*np.power(r,4)+c3*np.power(r,3)+c2*np.power(r,2)+c1*r+c0,6)==0]
         if c0==0: roots.append(0)
-
+        ## NEED A CHECK FOR MULTIPLICITY!
+        new_roots = []
+        for r in roots:
+            r5,r4,r3,r2,r1,chk0 = synthetic_division(c5,c4,c3,c2,c1,c0,r)
+            r5,r4,r3,r2,r1,chk1 = synthetic_division(r5,r4,r3,r2,r1,chk0,r)
+            r5,r4,r3,r2,r1,chk2 = synthetic_division(r5,r4,r3,r2,r1,chk1,r)
+            if (chk1==0): 
+                new_roots.append(r)
+            if (chk2==0):
+                new_roots.append(r)
+        roots = roots + new_roots
+        
         if ((c5!=0) and (len(roots)<3)):
             st.write('For a quintic equation, you need to have at least 3 rational roots (from the $\pm$ p/q list).')
-            st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
+            if len(roots)<1:
+                st.write('This equation has none; please change your selections in the sidebar to get a solvable equation.')
+            else:
+                st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
         elif ((c4!=0) and (len(roots)<2)):
             st.write('For a quartic equation, you need to have at least 2 rational roots (from the $\pm$ p/q list).')
-            st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
+            if len(roots)<1:
+                st.write('This equation has none; please change your selections in the sidebar to get a solvable equation.')
+            else:
+                st.write(f'This equation only has {len(roots)}; please change your selections in the sidebar to get a solvable equation.')
         elif (len(roots)<1):
             st.write('For a cubic equation, you need to have at least 1 rational roots (from the $\pm$ p/q list).')
             st.write('This equation has none; please change your selections in the sidebar to get a solvable equation.')
