@@ -2571,7 +2571,6 @@ elif eqn_type == 'Polynomial Equations':
                             st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
                             chk4 = True
                     else:
-                        st.write(root)
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'Another rational root is {root}, or {numer}/{denom}.')
                         st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
@@ -2585,7 +2584,6 @@ elif eqn_type == 'Polynomial Equations':
                             '     ' : [c0, '', '---', ''],
                         })
                         sdiv_df.set_index('0',inplace=True)
-                        st.write(root)
                         b3 = c4
                         b2 = b3*root + c3
                         b1 = b2*root + c2
@@ -2752,6 +2750,7 @@ elif eqn_type == 'Polynomial Equations':
                         st.write(m)
 
                         options = list(range(-2*m,2*m+1))
+                        st.write(options)
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
                         b2_in = st.selectbox('2nd blank',['SELECT']+options)
                         b1_in = st.selectbox('3rd blank',['SELECT']+options)
