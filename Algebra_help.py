@@ -2687,13 +2687,10 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b2, b1, b0, 10])
                             options = list(range(-2*m,2*m+1))
-                            # options = options.replace(-2*m,'SELECT')
-                            st.write(options)
-                            st.write(len(options))
-                            st.write(['SELECT'] + options)
-                            b2_in = st.selectbox('1st blank',['SELECT'] + options)
-                            b1_in = st.selectbox('2nd blank',['SELECT'] + options)
-                            b0_in = st.selectbox('3rd blank',['SELECT'] + options)
+                            opt = ['SELECT'] + options
+                            b2_in = st.selectbox('1st blank',opt)
+                            b1_in = st.selectbox('2nd blank',opt)
+                            b0_in = st.selectbox('3rd blank',opt)
                             if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
                                 st.write()
                                 chk3 = False
