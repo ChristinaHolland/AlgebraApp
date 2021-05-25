@@ -2162,8 +2162,6 @@ elif eqn_type == 'Quadratic Equations':
                     new_rhs = options[0]
                     options.sort()
                     new_rhs_in = st.selectbox('What is the right hand side equal to now?',['SELECT'] + options)
-                    st.write(new_rhs)
-                    st.write(h)
                     if new_rhs_in !='SELECT':
                         if new_rhs_in!=new_rhs:
                             st.write('Try again.')
@@ -2181,9 +2179,8 @@ elif eqn_type == 'Quadratic Equations':
                     equation2 = equation1
                     new_rhs = -1*k
                     step2 = True
-                st.write(equation2)
-                st.latex(equation2)
                 if step2:
+                    st.latex(equation2)
                     st.write('Step 3: Take the square root:')
                     if h<0:
                         equation3 = f'x + {-1*h} = \pm \sqrt( {new_rhs} )'            
