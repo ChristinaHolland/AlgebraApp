@@ -2026,7 +2026,7 @@ elif eqn_type == 'Quadratic Equations':
         
         if N==1:
             soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
-            if soln1_is=='SELECT:
+            if soln1_in=='SELECT:
                 st.write()
             elif soln1_in!=solutions[0]:
                 st.write('Try again.')
