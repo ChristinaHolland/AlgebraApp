@@ -2972,6 +2972,7 @@ elif eqn_type == 'Polynomial Equations':
                             else:
                                 str1 = f'{out_rad} square_root( {in_rad} ) / {denom}'
                                 str2 = f'{out_rad}i square_root( {in_rad} ) / {denom}'
+                    st.write(str1,str2)
                     if disc>0:
                         sqrt_str = str1
                         wrong = str2
