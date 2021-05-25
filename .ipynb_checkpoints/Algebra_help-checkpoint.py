@@ -2813,8 +2813,13 @@ elif eqn_type == 'Polynomial Equations':
                                 st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
                                 chk3 = True
                         elif (root!=0):
-                            numer, denom = decimal_to_fraction(root)
-                            st.write(f'Another rational root is {root}, or {numer}/{denom}.')
+                            if root>0:
+                                numer, denom = decimal_to_fraction(root)
+                                st.write(f'Another rational root is {root}, or {numer}/{denom}.')
+                            else:
+                                numer, denom = decimal_to_fraction(-1*root)
+                                st.write(f'Another rational root is {root}, or -{numer}/{denom}.')
+                               
                             st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
                             st.write(f' we just have to divide by {denom} at the end.')
                             sdiv_df = pd.DataFrame({
