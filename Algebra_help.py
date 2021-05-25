@@ -1660,8 +1660,10 @@ elif eqn_type == 'Quadratic Equations':
                         st.write('There are no REAL numbers that can square to give a negative number.')
                         st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
                         st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
-                        cont = st.selectbox('Continue on to find the 2 complex solutions?',['yes', 'no'])
-                        if cont == 'no':
+                        cont = st.selectbox('Continue on to find the 2 complex solutions?',['SELECT', 'yes', 'no'])
+                        if cont == 'SELECT':
+                            st.write()
+                        elif cont == 'no':
                             st.write('OK, good job on this problem!')
                         else:
 
@@ -1676,11 +1678,14 @@ elif eqn_type == 'Quadratic Equations':
                                 st.write('Can you simplify the radical? You will probably need some scratch paper!')
                                 out_str = f'i \sqrt({-1*disc}) = [ ] i \sqrt( [ ] )/ [ ] '
                                 st.latex(out_str)
-                                choices = list(range(1,201))
-                                out1 = st.selectbox('First blank = ',choices)
-                                in1  = st.selectbox('Second blank = ',choices)
-                                den1 = st.selectbox('Last blank = ',choices)
-                                if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                                choices = list(range(1,21))
+                                if np.abs(disc)>20: choices.append(np.abs(disc))
+                                out1 = st.selectbox('First blank = ',['SELECT'] + choices)
+                                in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
+                                den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
+                                if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
+                                    st.write()
+                                elif (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                     st.write('Try again.')
                                 else:
                                     st.write(f'Good! So now (separating the two parts of the fraction) we have: $x = {negb}/{twoa} \pm {out_rad}i \sqrt( {in_rad} ) / [ ]$')
@@ -1718,9 +1723,13 @@ elif eqn_type == 'Quadratic Equations':
                                                 equation8b = f'$x = {negb}/{twoa} - i$'
 
 
-
-                                    denom_new_in = st.selectbox('What goes in the denominator under the radical?',list(range(1,1001)))
-                                    if denom_new_in!=denom_new: 
+                                    options = list(range(1,21))
+                                    if twoa>20: options.append(twoa)
+                                    if denom_new>twoa: options.append(denom_new)
+                                    denom_new_in = st.selectbox('What goes in the denominator under the radical?',['SELECT' + options])
+                                    if denom_new_in=='SELECT': 
+                                        st.write()
+                                    elif denom_new_in!=denom_new: 
                                         st.write('Try again.')
                                     else:
                                         st.write('Awesome! Our equations are: ' + equation8a + ' and ' + equation8b + '.')
@@ -1728,19 +1737,21 @@ elif eqn_type == 'Quadratic Equations':
                                         numer2, denom2 = simplify_fraction(out_rad,denom_new)
                                         if numer1!=negb:
                                             st.write('Simplify the first fraction:')
-                                            n1_in = st.selectbox('new numerator',coef_options)
-                                            d1_in = st.selectbox('new denominator',list(range(1,21)))
+                                            n1_in = st.selectbox('new numerator',['SELECT' + options])
+                                            d1_in = st.selectbox('new denominator',['SELECT' + options])
                                         else:
                                             n1_in = numer1
                                             d1_in = denom1
                                         if numer2!=out_rad:
                                             st.write('Simplify the second fraction:')
-                                            n2_in = st.selectbox('new numerator ',coef_options)
-                                            d2_in = st.selectbox('new denominator ',list(range(1,1001)))
+                                            n2_in = st.selectbox('new numerator ',['SELECT' + options])
+                                            d2_in = st.selectbox('new denominator ',['SELECT' + options])
                                         else:
                                             n2_in = numer2
                                             d2_in = denom2
-                                        if (n1_in!=numer1) or (d1_in!=denom1) or (n2_in!=np.abs(numer2)) or (d2_in!=denom2):
+                                        if (n1_in=='SELECT') or (d1_in=='SELECT') or (n2_in=='SELECT') or (d2_in=='SELECT'):
+                                            st.write()
+                                        elif (n1_in!=numer1) or (d1_in!=denom1) or (n2_in!=np.abs(numer2)) or (d2_in!=denom2):
                                             st.write('Try again.')
                                         else:
                                             st.write('You did it!')
@@ -1787,9 +1798,11 @@ elif eqn_type == 'Quadratic Equations':
                         if numer1!=negb:
                             st.write('You can siplify that fraction, though:')
                             st.write(f'{negb}/{twoa} = [ ]/[ ]')
-                            n1_in = st.selectbox('New numerator = ',list(range(-10,11)))
-                            d1_in = st.selectbox('New denominator = ',list(range(0,21)))
-                            if (n1_in!=numer1) or (d1_in!=denom1):
+                            n1_in = st.selectbox('New numerator = ',['SELECT'] + list(range(-10,11)))
+                            d1_in = st.selectbox('New denominator = ',['SELECT'] + list(range(0,21)))
+                            if (n1_in=='SELECT') or (d1_in=='SELECT'):
+                                st.write()
+                            elif (n1_in!=numer1) or (d1_in!=denom1):
                                 st.write('Try again.')
                             else:
                                 st.write('You rocked that!')
@@ -1809,11 +1822,16 @@ elif eqn_type == 'Quadratic Equations':
                             st.write('Can you simplify the radical? You will probably need some scratch paper!')
                             out_str = f'$\sqrt({disc}) = [ ] \sqrt( [ ] )/ [ ]$'
                             st.write(out_str)
-                            choices = list(range(1,201))
-                            out1 = st.selectbox('First blank = ',choices)
-                            in1  = st.selectbox('Second blank = ',choices)
-                            den1 = st.selectbox('Last blank = ',choices)
-                            if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                            choices = list(range(1,21))
+                            if out_rad>20: choices.append(out_rad)
+                            if in_rad>max([out_rad, 20]):  choices.append(in_rad)
+                            if denom>max([20, out_rad, in_rad]): choices.append(denom)
+                            out1 = st.selectbox('First blank = ',['SELECT'] + choices)
+                            in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
+                            den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
+                            if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
+                                st.write()
+                            elif (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                 st.write('Try again.')
                             else:
                                 st.write(f'Good! So now (separating the two parts of the fraction) we have: $x = {negb}/{twoa} \pm {out_rad} \sqrt( {in_rad} ) / [ ]$')
@@ -1850,8 +1868,12 @@ elif eqn_type == 'Quadratic Equations':
                                             equation8a = 'x = ' + f'{negb}/{twoa} + 1'
                                             equation8b = 'x = ' + f'{negb}/{twoa} - 1'
 
-                                denom_new_in = st.selectbox('What goes in the denominator under the radical?',list(range(1,1001)))
-                                if denom_new_in!=denom_new: 
+                                options = list(range(1,21))
+                                if denom_new > 20: options.append(denom_new)
+                                denom_new_in = st.selectbox('What goes in the denominator under the radical?',['SELECT'] + options)
+                                if denom_new_in=='SELECT': 
+                                    st.write()
+                                elif denom_new_in!=denom_new: 
                                     st.write('Try again.')
                                 else:
                                     st.write('Awesome! Our equations are: ' + equation8a + ' and ' + equation8b + '.')
@@ -1859,8 +1881,8 @@ elif eqn_type == 'Quadratic Equations':
                                     numer1, denom1 = simplify_fraction(negb,twoa)
                                     if numer1!=negb:
                                         st.write('Simplify the first fraction:')
-                                        n1_in = st.selectbox('new numerator',coef_options)
-                                        d1_in = st.selectbox('new denominator',list(range(1,21)))
+                                        n1_in = st.selectbox('new numerator',['SELECT'] + coef_options)
+                                        d1_in = st.selectbox('new denominator',['SELECT'] + coef_options)
                                     else:
                                         n1_in = numer1
                                         d1_in = denom1
@@ -1868,12 +1890,14 @@ elif eqn_type == 'Quadratic Equations':
                                     numer2, denom2 = simplify_fraction(out_rad,denom_new)
                                     if numer2!=out_rad:
                                         st.write('Simplify the second fraction:')
-                                        n2_in = st.selectbox('new numerator ',coef_options)
-                                        d2_in = st.selectbox('new denominator ',list(range(1,1001)))
+                                        n2_in = st.selectbox('new numerator ',['SELECT'] + coef_options)
+                                        d2_in = st.selectbox('new denominator ',['SELECT'] + coef_options)
                                     else:
                                         n2_in = numer2
                                         d2_in = denom2
-                                    if (n1_in!=numer1) or (d1_in!=denom1) or (n2_in!=np.abs(numer2)) or (d2_in!=denom2):
+                                    if (n1_in=='SELECT') or (d1_in=='SELECT') or (n2_in=='SELECT') or (d2_in=='SELECT'):
+                                        st.write()
+                                    elif (n1_in!=numer1) or (d1_in!=denom1) or (n2_in!=np.abs(numer2)) or (d2_in!=denom2):
                                         st.write('Try again.')
                                     else:
                                         st.write('You did it!')
@@ -1950,13 +1974,15 @@ elif eqn_type == 'Quadratic Equations':
                             numer1, denom1 = simplify_fraction(negb,twoa)
                             if numer1!=negb:
                                 st.write('Simplify that first fraction:')
-                                n1_in = st.selectbox('new numerator',coef_options)
-                                d1_in = st.selectbox('new denominator',list(range(1,21)))
+                                n1_in = st.selectbox('new numerator',['SELECT'] + coef_options)
+                                d1_in = st.selectbox('new denominator',['SELECT'] + coef_options)
                             else:
                                 n1_in = numer1
                                 d1_in = denom1
 
-                            if (n1_in!=numer1) or (d1_in!=denom1) :
+                            if (n1_in=='SELECT') or (d1_in=='SELECT') :
+                                st.write()
+                            elif (n1_in!=numer1) or (d1_in!=denom1) :
                                 st.write('Try again.')
                             else:
                                 st.write('You did it!')
@@ -2599,7 +2625,7 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0, 11])
+                        m = max([b3, b2, b1, b0])
                         options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
                         b2_in = st.selectbox('2nd blank',['SELECT']+options)
@@ -2633,7 +2659,7 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0, 11])
+                        m = max([b3, b2, b1, b0])
                         options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
                         b2_in = st.selectbox('2nd blank',['SELECT']+options)
@@ -2718,7 +2744,7 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b3, b2, b1, b0, 10])
+                            m = max([b3, b2, b1, b0])
                             options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',['SELECT']+options)
                             b1_in = st.selectbox('2nd blank',['SELECT']+options)
@@ -2765,7 +2791,7 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = b3*root + c3
                         b1 = b2*root + c2
                         b0 = b1*root + c1
-                        m = max([b3, b2, b1, b0, 11])
+                        m = max([b3, b2, b1, b0])
                         options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT'] + options)
                         b2_in = st.selectbox('2nd blank',['SELECT'] + options)
@@ -2801,7 +2827,7 @@ elif eqn_type == 'Polynomial Equations':
                         b2 = int(b3*root + c3)
                         b1 = int(b2*root + c2)
                         b0 = int(b1*root + c1)
-                        m = max([b3, b2, b1, b0, 11])
+                        m = max([b3, b2, b1, b0])
 
                         options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
@@ -2855,12 +2881,15 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b2, b1, b0, 10])
+                            m = max([b2, b1, b0])
                             options = list(range(-1*m,m+1))
-                            b2_in = st.selectbox('1st blank',options)
-                            b1_in = st.selectbox('2nd blank',options)
-                            b0_in = st.selectbox('3rd blank',options)
-                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                            b2_in = st.selectbox('1st blank',['SELECT'] + options)
+                            b1_in = st.selectbox('2nd blank',['SELECT'] + options)
+                            b0_in = st.selectbox('3rd blank',['SELECT'] + options)
+                            if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
+                                st.write()
+                                chk3 = False
+                            elif (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                                 st.write('Try again.')
                                 chk3 = False
                             else:
@@ -2889,7 +2918,7 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b3, b2, b1, b0, 10])
+                            m = max([b3, b2, b1, b0])
                             options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',['SELECT']+options)
                             b1_in = st.selectbox('2nd blank',['SELECT']+options)
@@ -2942,7 +2971,7 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b2, b1, b0, 10])
+                            m = max([b2, b1, b0])
                             options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',['SELECT'] + options)
                             b1_in = st.selectbox('2nd blank',['SELECT'] + options)
@@ -2972,7 +3001,7 @@ elif eqn_type == 'Polynomial Equations':
                             b2 = c3
                             b1 = b2*root + c2
                             b0 = b1*root + c1
-                            m = max([b3, b2, b1, b0, 10])
+                            m = max([b3, b2, b1, b0])
                             options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',options)
                             b1_in = st.selectbox('2nd blank',options)
