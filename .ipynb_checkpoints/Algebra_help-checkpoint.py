@@ -2515,7 +2515,7 @@ elif eqn_type == 'Polynomial Equations':
                     b1 = b2*root + c2
                     b0 = b1*root + c1
                     m = max([b4, b3, b2, b1, b0, 10])
-                    options = list(range(-2*m,2*m+1))
+                    options = list(range(-1*m,m+1))
                     b4_in = st.selectbox('1st blank',['SELECT']+options) 
                     b3_in = st.selectbox('2nd blank',['SELECT']+options)
                     b2_in = st.selectbox('3rd blank',['SELECT']+options)
@@ -2553,7 +2553,7 @@ elif eqn_type == 'Polynomial Equations':
                     b1 = b2*root + c2
                     b0 = b1*root + c1
                     m = max([b4, b3, b2, b1, b0, 12])
-                    options = list(range(-2*m,2*m+1))
+                    options = list(range(-1*m,m+1))
                     b4_in = st.selectbox('1st blank',['SELECT']+options)
                     b3_in = st.selectbox('2nd blank',['SELECT']+options)
                     b2_in = st.selectbox('3rd blank',['SELECT']+options)
@@ -2600,7 +2600,7 @@ elif eqn_type == 'Polynomial Equations':
                         b1 = b2*root + c2
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0, 11])
-                        options = list(range(-2*m,2*m+1))
+                        options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
                         b2_in = st.selectbox('2nd blank',['SELECT']+options)
                         b1_in = st.selectbox('3rd blank',['SELECT']+options)
@@ -2634,7 +2634,7 @@ elif eqn_type == 'Polynomial Equations':
                         b1 = b2*root + c2
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0, 11])
-                        options = list(range(-2*m,2*m+1))
+                        options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
                         b2_in = st.selectbox('2nd blank',['SELECT']+options)
                         b1_in = st.selectbox('3rd blank',['SELECT']+options)
@@ -2688,7 +2688,6 @@ elif eqn_type == 'Polynomial Equations':
                             m = max([b2, b1, b0, 10])
                             options = list(range(-1*m,m+1))
                             opt = ['SELECT'] + options
-                            st.write(opt)
                             b2_in = st.selectbox('1st blank',opt)
                             b1_in = st.selectbox('2nd blank',opt)
                             b0_in = st.selectbox('3rd blank',opt)
@@ -2720,7 +2719,7 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             m = max([b3, b2, b1, b0, 10])
-                            options = list(range(-2*m,2*m+1))
+                            options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',['SELECT']+options)
                             b1_in = st.selectbox('2nd blank',['SELECT']+options)
                             b0_in = st.selectbox('3rd blank',['SELECT']+options)
@@ -2767,7 +2766,7 @@ elif eqn_type == 'Polynomial Equations':
                         b1 = b2*root + c2
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0, 11])
-                        options = list(range(-2*m,2*m+1))
+                        options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT'] + options)
                         b2_in = st.selectbox('2nd blank',['SELECT'] + options)
                         b1_in = st.selectbox('3rd blank',['SELECT'] + options)
@@ -2804,7 +2803,7 @@ elif eqn_type == 'Polynomial Equations':
                         b0 = int(b1*root + c1)
                         m = max([b3, b2, b1, b0, 11])
 
-                        options = list(range(-2*m,2*m+1))
+                        options = list(range(-1*m,m+1))
                         b3_in = st.selectbox('1st blank',['SELECT']+options)
                         b2_in = st.selectbox('2nd blank',['SELECT']+options)
                         b1_in = st.selectbox('3rd blank',['SELECT']+options)
@@ -2857,7 +2856,7 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             m = max([b2, b1, b0, 10])
-                            options = list(range(-2*m,2*m+1))
+                            options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',options)
                             b1_in = st.selectbox('2nd blank',options)
                             b0_in = st.selectbox('3rd blank',options)
@@ -2891,7 +2890,7 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             m = max([b3, b2, b1, b0, 10])
-                            options = list(range(-2*m,2*m+1))
+                            options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',['SELECT']+options)
                             b1_in = st.selectbox('2nd blank',['SELECT']+options)
                             b0_in = st.selectbox('3rd blank',['SELECT']+options)
@@ -2944,7 +2943,7 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             m = max([b2, b1, b0, 10])
-                            options = list(range(-2*m,2*m+1))
+                            options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',['SELECT'] + options)
                             b1_in = st.selectbox('2nd blank',['SELECT'] + options)
                             b0_in = st.selectbox('3rd blank',['SELECT'] + options)
@@ -2974,7 +2973,7 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             m = max([b3, b2, b1, b0, 10])
-                            options = list(range(-2*m,2*m+1))
+                            options = list(range(-1*m,m+1))
                             b2_in = st.selectbox('1st blank',options)
                             b1_in = st.selectbox('2nd blank',options)
                             b0_in = st.selectbox('3rd blank',options)
