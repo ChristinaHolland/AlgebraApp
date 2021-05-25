@@ -2643,7 +2643,7 @@ elif eqn_type == 'Polynomial Equations':
                             b2_in = int(b2_in)
                             b1_in = int(b1_in)
                             b0_in = int(b0_in)
-                            elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                            if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                                 st.write('Try again.')
                                 chk4 = False
                             else:
