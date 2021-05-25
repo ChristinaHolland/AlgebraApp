@@ -1476,8 +1476,8 @@ elif eqn_type == 'Quadratic Equations':
                                         
                                         
                                     st.write('Can you simplify the radical? You will probably need some scratch paper!')
-                                    out_str = f'$ \sqrt({rhs2}) = [ ] \sqrt( [ ] )/ [ ]$'
-                                    st.write(out_str)
+                                    out_str = f'\sqrt({rhs2}) = [ ] \sqrt( [ ] )/ [ ]'
+                                    st.latex(out_str)
                                     choices = list(range(1,201))
                                     out1 = st.selectbox('First blank = ',['SELECT'] + choices)
                                     in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
