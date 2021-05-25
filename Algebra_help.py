@@ -2157,7 +2157,11 @@ elif eqn_type == 'Quadratic Equations':
                     st.write('Step 2: Divide by "a".')
                     new_rhs = np.round(-1*k/a,10)
                     if new_rhs%1==0: new_rhs = int(new_rhs)
-                    options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
+                    if h!=0:
+                        options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
+                    else:
+                        options = list({-1*k/a, k/a, -1*h/a, h/a})
+
                     options = [c if c!=0 else 0.0 for c in options]
                     options = [int(c) if c%1==0 else np.round(c,10) for c in options]
                     options.sort()
