@@ -2927,12 +2927,14 @@ elif eqn_type == 'Polynomial Equations':
                 vertex_x = negb/twoa
                 if vertex_x == 0:
                     vert_str = ''
-                if vertex_x%1 == 0:
+                elif vertex_x%1 == 0:
                     vert_str = f'{vertex_x}'
-                else:
+                elif vertex_x > 0
                     numer, denom = decimal_to_fraction(vertex_x)
                     vert_str = f'{numer}/{denom}'
-                    st.write(vertex_x,numer,denom)
+                elif vertex_x < 0
+                    numer, denom = decimal_to_fraction(-1*vertex_x)
+                    vert_str = f'-{numer}/{denom}'
                 if disc==0:
                     sqrt_str = ''
                     wrong = f'{b0}'
