@@ -2542,21 +2542,25 @@ elif eqn_type == 'Polynomial Equations':
                     b0 = b1*root + c1
                     m = max([b4, b3, b2, b1, b0, 10])
                     options = list(range(-1*m,m+1))
-                    b4_in = st.selectbox('1st blank',['SELECT']+options) 
-                    b3_in = st.selectbox('2nd blank',['SELECT']+options)
-                    b2_in = st.selectbox('3rd blank',['SELECT']+options)
-                    b1_in = st.selectbox('4th blank',['SELECT']+options)
-                    b0_in = st.selectbox('5th blank',['SELECT']+options)
-                    if (b4_in=='SELECT') or (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                        st.write('')
-                        chk5 = False
-                    elif (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                        st.write('Try again.')
-                        chk5 = False
-                    else:
-                        st.write('Nicely done! We now have a quartic equation:')
-                        st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                        chk5 = True
+                    b4_in = st.text_input('1st blank',value='') 
+                    b3_in = st.text_input('2nd blank',value='')
+                    b2_in = st.text_input('3rd blank',value='')
+                    b1_in = st.text_input('4th blank',value='')
+                    b0_in = st.text_input('5th blank',value='')
+                    chk5 = False
+                    if (b4_in.isnumeric) and (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                        b4_in = int(b4_in)
+                        b3_in = int(b3_in)
+                        b2_in = int(b2_in)
+                        b1_in = int(b1_in)
+                        b0_in = int(b0_in)
+                        if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                            st.write('Try again.')
+                            chk5 = False
+                        else:
+                            st.write('Nicely done! We now have a quartic equation:')
+                            st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                            chk5 = True
                 else:
                     numer, denom = decimal_to_fraction(root)
                     st.write(f'One rational root is {root}, or {numer}/{denom}.')
@@ -2580,26 +2584,29 @@ elif eqn_type == 'Polynomial Equations':
                     b0 = b1*root + c1
                     m = max([b4, b3, b2, b1, b0, 12])
                     options = list(range(-1*m,m+1))
-                    b4_in = st.selectbox('1st blank',['SELECT']+options)
-                    b3_in = st.selectbox('2nd blank',['SELECT']+options)
-                    b2_in = st.selectbox('3rd blank',['SELECT']+options)
-                    b1_in = st.selectbox('4th blank',['SELECT']+options)
-                    b0_in = st.selectbox('5th blank',['SELECT']+options)
-                    if (b4_in=='SELECT') or (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                        st.write('')
-                        chk5 = False
-                    elif (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                        st.write('Try again.')
-                        chk5 = False
-                    else:
-                        b4 = int(b4/denom)
-                        b3 = int(b3/denom)
-                        b2 = int(b2/denom)
-                        b1 = int(b1/denom)
-                        b0 = int(b0/denom)
-                        st.write(f'Nicely done! After dividing those all by {denom}, we have a quartic equation:')
-                        st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                        chk5 = True
+                    b4_in = st.text_input('1st blank',value = '')
+                    b3_in = st.text_input('2nd blank',value = '')
+                    b2_in = st.text_input('3rd blank',value = '')
+                    b1_in = st.text_input('4th blank',value = '')
+                    b0_in = st.text_input('5th blank',value = '')
+                    if (b4_in.isnumeric) and (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                        b4_in = int(b4_in)
+                        b3_in = int(b3_in)
+                        b2_in = int(b2_in)
+                        b1_in = int(b1_in)
+                        b0_in = int(b0_in)
+                        if (b4_in!=b4) or (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                            st.write('Try again.')
+                            chk5 = False
+                        else:
+                            b4 = int(b4/denom)
+                            b3 = int(b3/denom)
+                            b2 = int(b2/denom)
+                            b1 = int(b1/denom)
+                            b0 = int(b0/denom)
+                            st.write(f'Nicely done! After dividing those all by {denom}, we have a quartic equation:')
+                            st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                            chk5 = True
                 if chk5==True:
                     c4 = b4
                     c3 = b3
@@ -2627,20 +2634,22 @@ elif eqn_type == 'Polynomial Equations':
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0])
                         options = list(range(-1*m,m+1))
-                        b3_in = st.selectbox('1st blank',['SELECT']+options)
-                        b2_in = st.selectbox('2nd blank',['SELECT']+options)
-                        b1_in = st.selectbox('3rd blank',['SELECT']+options)
-                        b0_in = st.selectbox('4th blank',['SELECT']+options)
-                        if (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                            st.write()
-                            chk4 = False
-                        elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                            st.write('Try again.')
-                            chk4 = False
-                        else:
-                            st.write(f'Nicely done! We now have a cubic equation:')
-                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                            chk4 = True
+                        b3_in = st.text_intput('1st blank',value = '')
+                        b2_in = st.text_intput('2nd blank',value = '')
+                        b1_in = st.text_intput('3rd blank',value = '')
+                        b0_in = st.text_intput('4th blank',value = '')
+                        if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                            b3_in = int(b3_in)
+                            b2_in = int(b2_in)
+                            b1_in = int(b1_in)
+                            b0_in = int(b0_in)
+                            elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk4 = False
+                            else:
+                                st.write(f'Nicely done! We now have a cubic equation:')
+                                st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                                chk4 = True
                     else:
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'Another rational root is {root}, or {numer}/{denom}.')
@@ -2661,24 +2670,27 @@ elif eqn_type == 'Polynomial Equations':
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0])
                         options = list(range(-1*m,m+1))
-                        b3_in = st.selectbox('1st blank',['SELECT']+options)
-                        b2_in = st.selectbox('2nd blank',['SELECT']+options)
-                        b1_in = st.selectbox('3rd blank',['SELECT']+options)
-                        b0_in = st.selectbox('4th blank',['SELECT']+options)
-                        if (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                            st.write('Try again.')
-                            chk4 = False
-                        elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                            st.write()
-                            chk4 = False
-                        else:
-                            b3 = int(b3/denom)
-                            b2 = int(b2/denom)
-                            b1 = int(b1/denom)
-                            b0 = int(b0/denom)
-                            st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
-                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                            chk4 = True
+                        chk4 = False
+                        b3_in = st.text_input('1st blank',value = '')
+                        b2_in = st.text_input('2nd blank',value = '')
+                        b1_in = st.text_input('3rd blank',value = '')
+                        b0_in = st.text_input('4th blank',value = '')
+                        if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                            b3_in = int(b3_in)
+                            b2_in = int(b2_in)
+                            b1_in = int(b1_in)
+                            b0_in = int(b0_in)
+                            if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write()
+                                chk4 = False
+                            else:
+                                b3 = int(b3/denom)
+                                b2 = int(b2/denom)
+                                b1 = int(b1/denom)
+                                b0 = int(b0/denom)
+                                st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
+                                st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                                chk4 = True
 
                     if chk4==True:
                         c3 = b3
@@ -2714,19 +2726,21 @@ elif eqn_type == 'Polynomial Equations':
                             m = max([b2, b1, b0])
                             options = list(range(-1*m,m+1))
                             opt = ['SELECT'] + options
-                            b2_in = st.selectbox('1st blank',opt[:10])
-                            b1_in = st.selectbox('2nd blank',opt)
-                            b0_in = st.selectbox('3rd blank',opt)
-                            if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                                st.write()
-                                chk3 = False
-                            elif (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                                st.write('Try again.')
-                                chk3 = False
-                            else:
-                                st.write('Nicely done! We now have a quadratic equation:')
-                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                chk3 = True
+                            chk3 = False
+                            b2_in = st.text_input('1st blank',value = '')
+                            b1_in = st.text_input('2nd blank',value = '')
+                            b0_in = st.text_input('3rd blank',value = '')
+                            if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                                b2_in = int(b2_in)
+                                b1_in = int(b1_in)
+                                b0_in = int(b0_in)
+                                if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                    st.write('Try again.')
+                                    chk3 = False
+                                else:
+                                    st.write('Nicely done! We now have a quadratic equation:')
+                                    st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                    chk3 = True
                         elif (root!=0):
                             numer, denom = decimal_to_fraction(root)
                             st.write(f'Another rational root is {root}, or {numer}/{denom}.')
@@ -2746,22 +2760,24 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b3, b2, b1, b0])
                             options = list(range(-1*m,m+1))
-                            b2_in = st.selectbox('1st blank',['SELECT']+options)
-                            b1_in = st.selectbox('2nd blank',['SELECT']+options)
-                            b0_in = st.selectbox('3rd blank',['SELECT']+options)
-                            if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                                st.write()
-                                chk3 = False
-                            elif (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                                st.write('Try again.')
-                                chk3 = False
-                            else:
-                                b2 = int(b2/denom)
-                                b1 = int(b1/denom)
-                                b0 = int(b0/denom)
-                                st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
-                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                chk3 = True
+                            chk3 = False
+                            b2_in = st.text_input('1st blank',value = '')
+                            b1_in = st.text_input('2nd blank',value = '')
+                            b0_in = st.text_input('3rd blank',value = '')
+                            if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                                b2_in = int(b2_in)
+                                b1_in = int(b1_in)
+                                b0_in = int(b0_in)
+                                if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                    st.write('Try again.')
+                                    chk3 = False
+                                else:
+                                    b2 = int(b2/denom)
+                                    b1 = int(b1/denom)
+                                    b0 = int(b0/denom)
+                                    st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                                    st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                    chk3 = True
 
             elif c4!=0:
                 chk5 = True
@@ -2793,21 +2809,24 @@ elif eqn_type == 'Polynomial Equations':
                         b0 = b1*root + c1
                         m = max([b3, b2, b1, b0])
                         options = list(range(-1*m,m+1))
-                        b3_in = st.selectbox('1st blank',['SELECT'] + options)
-                        b2_in = st.selectbox('2nd blank',['SELECT'] + options)
-                        b1_in = st.selectbox('3rd blank',['SELECT'] + options)
-                        b0_in = st.selectbox('4th blank',['SELECT'] + options)
+                        chk4 = False
+                        b3_in = st.text_input('1st blank', value = '')
+                        b2_in = st.text_input('2nd blank', value = '')
+                        b1_in = st.text_input('3rd blank', value = '')
+                        b0_in = st.text_input('4th blank', value = '')
                     
-                        if (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                            st.write()
-                    
-                        elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                            st.write('Try again.')
-                            chk4 = False
-                        else:
-                            st.write('Nicely done! We now have a cubic equation:')
-                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                            chk4 = True
+                        if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):      
+                            b3_in = int(b3_in)
+                            b2_in = int(b2_in)
+                            b1_in = int(b1_in)
+                            b0_in = int(b0_in)
+                            if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk4 = False
+                            else:
+                                st.write('Nicely done! We now have a cubic equation:')
+                                st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                                chk4 = True
                     else:
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'One rational root is {root}, or {numer}/{denom}.')
@@ -2830,25 +2849,28 @@ elif eqn_type == 'Polynomial Equations':
                         m = max([b3, b2, b1, b0])
 
                         options = list(range(-1*m,m+1))
-                        b3_in = st.selectbox('1st blank',['SELECT']+options)
-                        b2_in = st.selectbox('2nd blank',['SELECT']+options)
-                        b1_in = st.selectbox('3rd blank',['SELECT']+options)
-                        b0_in = st.selectbox('4th blank',['SELECT']+options)
+                        chk4 = False
+                        b3_in = st.text_input('1st blank', value= '')
+                        b2_in = st.text_input('2nd blank', value= '')
+                        b1_in = st.text_input('3rd blank', value= '')
+                        b0_in = st.text_input('4th blank', value= '')
                          
-                        if (b3_in=='SELECT') or (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                            st.write()
-                       
-                        elif (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                            st.write('Try again.')
-                            chk4 = False
-                        else:
-                            b3 = int(b3/denom)
-                            b2 = int(b2/denom)
-                            b1 = int(b1/denom)
-                            b0 = int(b0/denom)
-                            st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
-                            st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                            chk4 = True
+                        if (b3_in.isnumeric) and (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):        
+                            b3_in = int(b3_in)
+                            b2_in = int(b2_in)
+                            b1_in = int(b1_in)
+                            b0_in = int(b0_in)
+                            if (b3_in!=b3) or (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                st.write('Try again.')
+                                chk4 = False
+                            else:
+                                b3 = int(b3/denom)
+                                b2 = int(b2/denom)
+                                b1 = int(b1/denom)
+                                b0 = int(b0/denom)
+                                st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
+                                st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                                chk4 = True
 
                     if chk4==True:
                         c3 = b3
@@ -2883,19 +2905,21 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b2, b1, b0])
                             options = list(range(-1*m,m+1))
-                            b2_in = st.selectbox('1st blank',['SELECT'] + options)
-                            b1_in = st.selectbox('2nd blank',['SELECT'] + options)
-                            b0_in = st.selectbox('3rd blank',['SELECT'] + options)
-                            if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                                st.write()
-                                chk3 = False
-                            elif (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                                st.write('Try again.')
-                                chk3 = False
-                            else:
-                                st.write('Nicely done! We now have a quadratic equation:')
-                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                chk3 = True
+                            chk3 = False
+                            b2_in = st.text_input('1st blank', value = '')
+                            b1_in = st.text_input('2nd blank', value = '')
+                            b0_in = st.text_input('3rd blank', value = '')
+                            if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                                b2_in = int(b2_in)
+                                b1_in = int(b1_in)
+                                b0_in = int(b0_in)
+                                if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                    st.write('Try again.')
+                                    chk3 = False
+                                else:
+                                    st.write('Nicely done! We now have a quadratic equation:')
+                                    st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                    chk3 = True
                         elif (root!=0):
                             if root>0:
                                 numer, denom = decimal_to_fraction(root)
@@ -2920,21 +2944,24 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b3, b2, b1, b0])
                             options = list(range(-1*m,m+1))
-                            b2_in = st.selectbox('1st blank',['SELECT']+options)
-                            b1_in = st.selectbox('2nd blank',['SELECT']+options)
-                            b0_in = st.selectbox('3rd blank',['SELECT']+options)
-                            if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
-                                st.write()
-                            elif (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                                st.write('Try again.')
-                                chk3 = False
-                            else:
-                                b2 = int(b2/denom)
-                                b1 = int(b1/denom)
-                                b0 = int(b0/denom)
-                                st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
-                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                chk3 = True
+                            chk3 = False
+                            b2_in = st.text_input('1st blank', value = '')
+                            b1_in = st.text_input('2nd blank', value = '')
+                            b0_in = st.text_input('3rd blank', value = '')
+                            if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                                b2_in = int(b2_in)
+                                b1_in = int(b1_in)
+                                b0_in = int(b0_in)
+                                if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                    st.write('Try again.')
+                                    chk3 = False
+                                else:
+                                    b2 = int(b2/denom)
+                                    b1 = int(b1/denom)
+                                    b0 = int(b0/denom)
+                                    st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                                    st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                    chk3 = True
 
             else:
                 chk5 = True
@@ -2973,10 +3000,14 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b2, b1, b0])
                             options = list(range(-1*m,m+1))
-                            b2_in = st.selectbox('1st blank',['SELECT'] + options)
-                            b1_in = st.selectbox('2nd blank',['SELECT'] + options)
-                            b0_in = st.selectbox('3rd blank',['SELECT'] + options)
-                            if (b2_in!='SELECT') and (b1_in!='SELECT') and (b0_in!='SELECT'):
+                            chk3 = False
+                            b2_in = st.text_input('1st blank', value = '')
+                            b1_in = st.text_input('2nd blank', value = '')
+                            b0_in = st.text_input('3rd blank', value = '')
+                            if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                                b2_in = int(b2_in)
+                                b1_in = int(b1_in)
+                                b0_in = int(b0_in)
                                 if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
                                     st.write('Try again.')
                                     chk3 = False
@@ -3003,19 +3034,24 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = b1*root + c1
                             m = max([b3, b2, b1, b0])
                             options = list(range(-1*m,m+1))
-                            b2_in = st.selectbox('1st blank',options)
-                            b1_in = st.selectbox('2nd blank',options)
-                            b0_in = st.selectbox('3rd blank',options)
-                            if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
-                                st.write('Try again.')
-                                chk3 = False
-                            else:
-                                b2 = int(b2/denom)
-                                b1 = int(b1/denom)
-                                b0 = int(b0/denom)
-                                st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
-                                st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                chk3 = True
+                            chk3 = False
+                            b2_in = st.text_input('1st blank', value= '')
+                            b1_in = st.text_input('2nd blank', value= '')
+                            b0_in = st.text_input('3rd blank', value= '')
+                            if (b2_in.isnumeric) and (b1_in.isnumeric) and (b0_in.isnumeric):
+                                b2_in = int(b2_in)
+                                b1_in = int(b1_in)
+                                b0_in = int(b0_in)
+                                if (b2_in!=b2) or (b1_in!=b1) or (b0_in!=b0):
+                                    st.write('Try again.')
+                                    chk3 = False
+                                else:
+                                    b2 = int(b2/denom)
+                                    b1 = int(b1/denom)
+                                    b0 = int(b0/denom)
+                                    st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
+                                    st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
+                                    chk3 = True
 
             if chk3==True:
                 st.write('Almost done! Solve the quadratic by the method of your choice (square roots, factoring, completing the square, quadratic formula)')
