@@ -2324,6 +2324,7 @@ elif eqn_type == 'Quadratic Equations':
                             equation5 = equation4
 
                         st.write('Step 4: Almost done! Solve for x by selecting all CORRECT solutions below.')
+                        st.write(sqrt_str)
                         soln1 = f'{h} + ' + sqrt_str
                         soln2 = f'{h} - ' + sqrt_str
 
