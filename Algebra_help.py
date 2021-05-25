@@ -2212,8 +2212,6 @@ elif eqn_type == 'Quadratic Equations':
                                 out1 = st.selectbox('First blank = ',['SELECT'] + choices)
                                 in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
                                 den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
-                                st.write(-1*new_rhs)
-                                st.write(out_rad, in_rad, denom)
                                 if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
                                     st.write()
                                 elif (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
@@ -2249,10 +2247,10 @@ elif eqn_type == 'Quadratic Equations':
                                 step3 = True
                             if step3:
                                 st.write('Step 4: Almost done! Solve for x.')
-                                soln1 = f'{h} + ' + sqrt_str
-                                soln2 = f'{h} - ' + sqrt_str
-                                wrong1= f'{-1*h} + ' + sqrt_str
-                                wrong2= f'{-1*h} - ' + sqrt_str
+                                soln1 = f'{h} + ' + sqrt_str.replace('\sqrt',' sqrt')
+                                soln2 = f'{h} - ' + sqrt_str.replace('\sqrt',' sqrt')
+                                wrong1= f'{-1*h} + ' + sqrt_str.replace('\sqrt',' sqrt')
+                                wrong2= f'{-1*h} - ' + sqrt_str.replace('\sqrt',' sqrt')
                                 solution_options = [soln1, soln2, wrong1, wrong2]
                                 correct = [soln1, soln2]
                                 solution_options.sort()
