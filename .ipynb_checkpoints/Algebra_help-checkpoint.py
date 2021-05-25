@@ -2302,9 +2302,9 @@ elif eqn_type == 'Quadratic Equations':
                                             sqrt_str = f'1 / {denom}'
                                     else:
                                         if denom==1:
-                                            sqrt_str = f'\sqrt( {in_rad} )'
+                                            sqrt_str = f'sqrt( {in_rad} )'
                                         else:
-                                            sqrt_str = f'\sqrt( {in_rad} ) / {denom}'
+                                            sqrt_str = f'sqrt( {in_rad} ) / {denom}'
                                 else:
                                     if in_rad==1:
                                         if denom==1:
@@ -2313,16 +2313,16 @@ elif eqn_type == 'Quadratic Equations':
                                             sqrt_str = f'{out_rad} / {denom}'
                                     else:
                                         if denom==1:
-                                            sqrt_str = f'{out_rad} \sqrt( {in_rad} )'
+                                            sqrt_str = f'{out_rad} sqrt( {in_rad} )'
                                         else:
-                                            sqrt_str = f'{out_rad} \sqrt( {in_rad} ) / {denom}'
+                                            sqrt_str = f'{out_rad} sqrt( {in_rad} ) / {denom}'
 
                                 equation5 = equation4.replace(f'\sqrt( {new_rhs} )', sqrt_str)
                                 st.write(f'Good! So now we have: ')
                                 st.latex(equation5)
                         else:
                             equation5 = equation4
-                            sqrt_str = f' \sqrt( {new_rhs} )'
+                            sqrt_str = f' sqrt( {new_rhs} )'
                         st.write('Step 4: Almost done! Solve for x by selecting all CORRECT solutions below.')
                         
                         soln1 = f'{h} + ' + sqrt_str
