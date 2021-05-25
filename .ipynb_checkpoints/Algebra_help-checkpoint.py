@@ -1476,7 +1476,7 @@ elif eqn_type == 'Quadratic Equations':
                                         
                                         
                                     st.write('Can you simplify the radical? You will probably need some scratch paper!')
-                                    out_str = f'$i \sqrt({rhs2}) = [ ] i \sqrt( [ ] )/ [ ]$'
+                                    out_str = f'$i \sqrt({rhs2}) = [ ] \sqrt( [ ] )/ [ ]$'
                                     st.write(out_str)
                                     choices = list(range(1,201))
                                     out1 = st.selectbox('First blank = ',['SELECT'] + choices)
