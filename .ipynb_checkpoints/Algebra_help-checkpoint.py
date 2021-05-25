@@ -2155,6 +2155,9 @@ elif eqn_type == 'Quadratic Equations':
                 step2 = False
                 if a!=1:
                     st.write('Step 2: Divide by "a".')
+                    st.write(k)
+                    st.write(a)
+                    st.write(-1*k/a)
                     options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
                     st.write(options)
                     options = [c if c!=0 else 0.0 for c in options]
