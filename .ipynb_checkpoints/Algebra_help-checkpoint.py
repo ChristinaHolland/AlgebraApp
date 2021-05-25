@@ -2929,10 +2929,10 @@ elif eqn_type == 'Polynomial Equations':
                     vert_str = ''
                 elif vertex_x%1 == 0:
                     vert_str = f'{vertex_x}'
-                elif vertex_x > 0
+                elif vertex_x > 0:
                     numer, denom = decimal_to_fraction(vertex_x)
                     vert_str = f'{numer}/{denom}'
-                elif vertex_x < 0
+                elif vertex_x < 0:
                     numer, denom = decimal_to_fraction(-1*vertex_x)
                     vert_str = f'-{numer}/{denom}'
                 if disc==0:
