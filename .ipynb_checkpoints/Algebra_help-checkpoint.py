@@ -1255,7 +1255,7 @@ elif eqn_type == 'Quadratic Equations':
                         num_sol = st.selectbox('Look at the right hand side -- how many and what type of solutions will this give?', ['SELECT'] + soln_opt)
                         if num_sol=='SELECT':
                             st.write()
-                        if num_sol!=soln:
+                        elif num_sol!=soln:
                             st.write('Try again.')
                         elif num_sol==soln:
                             if rhs2<0:
