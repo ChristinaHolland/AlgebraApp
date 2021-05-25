@@ -2060,13 +2060,15 @@ elif eqn_type == 'Quadratic Equations':
         
         coef_options = list(range(-10,11))
         a_options = list(range(-10,0))+list(range(1,11))
-        a = st.sidebar.selectbox('Enter "a":',a_options)
-        h = st.sidebar.selectbox('Enter "h":',coef_options)
-        k = st.sidebar.selectbox('Enter "k":',coef_options)
+        a = st.sidebar.selectbox('Enter "a":',['SELECT'] + a_options)
+        h = st.sidebar.selectbox('Enter "h":',['SELECT'] + coef_options)
+        k = st.sidebar.selectbox('Enter "k":',['SELECT'] + coef_options)
 
         st.write('')
         
-        if a==1: 
+        if (a=='SELECT') or (h=='SELECT') or (k=='SELECT'):
+            st.write()
+        elif a==1: 
             if h>0:
                 if k>0:
                     equation = f'(x - {h})^2 + {k} = 0'
