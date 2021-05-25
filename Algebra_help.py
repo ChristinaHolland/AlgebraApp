@@ -2334,10 +2334,12 @@ elif eqn_type == 'Quadratic Equations':
                             out_str = f'$\sqrt({new_rhs}) = [ ] \sqrt( [ ] )/ [ ]$'
                             st.write(out_str)
                             choices = list(range(1,201))
-                            out1 = st.selectbox('First blank = ',choices)
-                            in1  = st.selectbox('Second blank = ',choices)
-                            den1 = st.selectbox('Last blank = ',choices)
-                            if (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
+                            out1 = st.selectbox('First blank = ',['SELECT'] + choices)
+                            in1  = st.selectbox('Second blank = ',['SELECT'] + choices)
+                            den1 = st.selectbox('Last blank = ',['SELECT'] + choices)
+                            if (out1=='SELECT') or (in1=='SELECT') or (den1=='SELECT'):
+                                st.write()
+                            elif (out1!=out_rad) or (in1!=in_rad) or (den1!=denom):
                                 st.write('Try again.')
                             else:
                                 if out_rad==1:
@@ -2684,15 +2686,15 @@ elif eqn_type == 'Polynomial Equations':
                             b1 = b2*root + c2
                             b0 = b1*root + c1
                             m = max([b2, b1, b0, 10])
-                            options = list(range(-2*m,2*m))
+                            options = list(range(-2*m,2*m+1))
                             # options = options.replace(-2*m,'SELECT')
                             st.write(options)
                             st.write('testing')
-                            b2_in = st.selectbox('1st blank',options)
+                            b2_in = st.selectbox('1st blank',['SELECT'] + options)
                             st.write('testing 1')
-                            b1_in = st.selectbox('2nd blank',options)
+                            b1_in = st.selectbox('2nd blank',['SELECT'] + options)
                             st.write('testing 12')
-                            b0_in = st.selectbox('3rd blank',options)
+                            b0_in = st.selectbox('3rd blank',['SELECT'] + options)
                             st.write('testing 123')
                             if (b2_in=='SELECT') or (b1_in=='SELECT') or (b0_in=='SELECT'):
                                 st.write()
