@@ -1617,7 +1617,7 @@ elif eqn_type == 'Quadratic Equations':
                 elif disc==0: n_solns = soln_opts[1]
                 else: n_solns = soln_opts[0]
 
-                if n_solbs_in=='SELECT':
+                if n_solns_in=='SELECT':
                     st.write()
                 elif (disc_in!=disc) or (n_solns_in!=n_solns):
                     st.write('Not quite. Try again.')
