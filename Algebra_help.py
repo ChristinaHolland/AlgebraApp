@@ -1580,10 +1580,8 @@ elif eqn_type == 'Quadratic Equations':
                                                 st.write('You did it!')
                                                 st.balloons()
                                         else:
-                                            correct = [c.replace('-0.0 + ','') for c in correct]
-                                            correct = [c.replace('-0.0 - ','') for c in correct]
-                                            correct = [c.replace('0.0 + ','') for c in correct]
-                                            correct = [c.replace('0.0 + ','') for c in correct]
+                                            correct = [c.replace('-0.0 ','') for c in correct]
+                                            correct = [c.replace('0.0 ','') for c in correct]
                                             sel1 = st.checkbox(correct[0])
                                             sel2 = st.checkbox(correct[1])
                                             if (sel1!=True):   st.write('Try again.')
