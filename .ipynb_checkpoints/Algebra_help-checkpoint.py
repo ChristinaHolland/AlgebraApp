@@ -2158,7 +2158,7 @@ elif eqn_type == 'Quadratic Equations':
                     options = list({-1*k/a, k/a, -1*k/h, k/h, -1*h/a, h/a})
                     options = [np.round(c,10) for c in options]
                     options = [c if c!=0 else 0.0 for c in options]
-                    options = [int(c) if c%1==0 else c for c in options]
+                    options = [int(c) if c%1==0 else np.round(c,4) for c in options]
                     new_rhs = options[0]
                     options.sort()
                     new_rhs_in = st.selectbox('What is the right hand side equal to now?',['SELECT'] + options)
