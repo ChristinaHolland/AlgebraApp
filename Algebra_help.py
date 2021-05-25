@@ -2924,6 +2924,7 @@ elif eqn_type == 'Polynomial Equations':
                 twoa = 2*b2
                 disc = b1*b1 - 4*b2*b0
                 vertex_x = negb/twoa
+                st.write(negb, twoa, disc, vertex_x)
                 if vertex_x == 0:
                     vert_str = ''
                 if vertex_x%1 == 0:
@@ -2981,11 +2982,10 @@ elif eqn_type == 'Polynomial Equations':
                         correct = [sqrt_str, '-' + sqrt_str]
                     else:
                         correct = [vert_str + ' + ' + sqrt_str, vert_str + ' - ' + sqrt_str]
+                    
                     correct = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
                     incorrect = [vert_str + ' + ' + wrong, vert_str + ' - ' + wrong]
                     incorrect = [c if ('sqrt' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
-                    st.write(correct)
-                    st.write(incorrect)
                     solution_options = correct + incorrect
                     solution_options.sort()
 
