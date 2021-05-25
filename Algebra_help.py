@@ -2011,38 +2011,42 @@ elif eqn_type == 'Quadratic Equations':
             factorlist = [gcf+factor1, factor2]
             equations = [factor1 + ' = 0', factor2 + ' = 0']
             solutions = [-1*c/b, -1*e/d]
-        equation = factorlist[0]
-        if len(factorlist)>1: equation += factorlist[1]
-        equation += ' = 0'
-        st.write(equation)
-        N = len(equations)
-        if N>1:
-            if equations[1]==equations[0]: N=1
-        st.write(f'Since the only way to multiply factors to get zero is if at least one of them is equal to zero, this gives us {N} equations:')
-        solution_choices = solutions + list({c/b, e/d, c, e, -1*c, -1*e, c*b, d*e, -1*c*b, -1*d*e})
-        solution_choices.sort()
-        solution_choices = [np.round(s,4) for s in solution_choices]
-        solutions = [np.round(s,4) for s in solutions]
-        
-        if N==1:
-            soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
-            if soln1_in=='SELECT':
-                st.write()
-            elif soln1_in!=solutions[0]:
-                st.write('Try again.')
-            else:
-                st.write('You did it!')
-                st.balloons()
+            
+        if (a=='SELECT') or (b=='SELECT') or (c=='SELECT') or (d=='SELECT') or (e=='SELECT'):
+            st.write()
         else:
-            soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
-            soln2_in = st.selectbox('Solve '+ equations[1],['SELECT'] + solution_choices)
-            if (soln1_in=='SELECT') or (soln2_in=='SELECT'):
-                st.write()
-            elif (soln1_in!=solutions[0]) or (soln2_in!=solutions[1]):
-                st.write('Try again.')
+            equation = factorlist[0]
+            if len(factorlist)>1: equation += factorlist[1]
+            equation += ' = 0'
+            st.write(equation)
+            N = len(equations)
+            if N>1:
+                if equations[1]==equations[0]: N=1
+            st.write(f'Since the only way to multiply factors to get zero is if at least one of them is equal to zero, this gives us {N} equations:')
+            solution_choices = solutions + list({c/b, e/d, c, e, -1*c, -1*e, c*b, d*e, -1*c*b, -1*d*e})
+            solution_choices.sort()
+            solution_choices = [np.round(s,4) for s in solution_choices]
+            solutions = [np.round(s,4) for s in solutions]
+
+            if N==1:
+                soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
+                if soln1_in=='SELECT':
+                    st.write()
+                elif soln1_in!=solutions[0]:
+                    st.write('Try again.')
+                else:
+                    st.write('You did it!')
+                    st.balloons()
             else:
-                st.write('You did it!')
-                st.balloons()
+                soln1_in = st.selectbox('Solve '+ equations[0],['SELECT'] + solution_choices)
+                soln2_in = st.selectbox('Solve '+ equations[1],['SELECT'] + solution_choices)
+                if (soln1_in=='SELECT') or (soln2_in=='SELECT'):
+                    st.write()
+                elif (soln1_in!=solutions[0]) or (soln2_in!=solutions[1]):
+                    st.write('Try again.')
+                else:
+                    st.write('You did it!')
+                    st.balloons()
 
         
     if Q1 == 'Vertex':
