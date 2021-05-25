@@ -2993,8 +2993,6 @@ elif eqn_type == 'Polynomial Equations':
                     sel2 = st.checkbox(solution_options[1])
                     sel3 = st.checkbox(solution_options[2])
                     sel4 = st.checkbox(solution_options[3])
-                    st.write(correct)
-                    st.write(incorrect)
                     if   (sel1==True) and (solution_options[0] not in correct): st.write('Try again.')
                     elif (sel2==True) and (solution_options[1] not in correct): st.write('Try again.')
                     elif (sel3==True) and (solution_options[2] not in correct): st.write('Try again.')
