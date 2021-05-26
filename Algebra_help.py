@@ -514,7 +514,9 @@ def make_equation(x_on_both, distribution, combining):
     return equation
     
 def get_example(equation0):
+    # This function returns one of five examples to be displayed, depending on the type of linear equation chosen.
     if sum([1 for c in equation0 if c=='x'])==1:
+        # x on only one side
         example_txt = ['4x + 3 = 15']
         example_txt.append('SUBTRACT 3 FROM BOTH SIDES')
         example_txt.append('4x = 12')
@@ -524,6 +526,7 @@ def get_example(equation0):
     else:
         if sum([1 for c in equation0 if c=='('])>0:
             if sum([1 for c in equation0 if c=='x'])>2:
+                # both distribution and combining like terms
                 example_txt = ['4x + 3 + 2(x - 5) = -2x - 4 + 5(3x + 2)']
                 example_txt.append('DISTRUBUTE INTO EACH PARENTHESIS')
                 example_txt.append('4x + 3 + 2x - 10 = -2x - 4 + 15x + 10')
@@ -537,6 +540,7 @@ def get_example(equation0):
                 example_txt.append('THE SOLUTION IS:')
                 example_txt.append('x = -13/7')
             else:
+                # distribution, but no need to combine like terms
                 example_txt = ['2(x - 4) = 5(2x + 4)']
                 example_txt.append('DISTRUBUTE INTO EACH PARENTHESIS')
                 example_txt.append('2x - 8 = 10x + 20')
@@ -549,6 +553,7 @@ def get_example(equation0):
                 example_txt.append('x = -7/2 OR x = -3.5')
         else:
             if sum([1 for c in equation0 if c=='x'])>2:
+                # combining like terms but no distribution
                 example_txt = ['4x + 3 + 2x - 5 = -2x - 4 + 5x + 11']
                 example_txt.append('COMBINE LIKE TERMS')
                 example_txt.append('6x - 2 = 3x + 7')
@@ -560,6 +565,7 @@ def get_example(equation0):
                 example_txt.append('THE SOLUTION IS:')
                 example_txt.append('x = 3')
             else:
+                # x on both sides but no distribution, no combining like terms
                 example_txt = ['5x - 8 = 2x + 16']
                 example_txt.append('SUBTRACT 2x FROM BOTH SIDES')
                 example_txt.append('3x - 8 = 16')
@@ -571,25 +577,31 @@ def get_example(equation0):
     return example_txt
 
 def get_equation():
-    
+    # This function is called to get the equation the student wants to practice (linear equations)
     equation0 = 'Unknown; please select an equation'
 
     in0 = st.sidebar.selectbox('What do you want to do?', ['Type in an equation','See a random practice equation'])
 
     if in0 == 'Type in an equation':
+        # They will type in an equation:
         st.sidebar.write('Please note that equations must use "x" as the variable, and this beta version of the app does not yet support quadratic, polynomial, radical or rational equations: linear only. Thank you.')
         st.sidebar.write('')
         equation0 = st.sidebar.text_input('Please type in your equation:')
         valid, solved, output_str = check_input_equation(equation0)
         st.sidebar.write(output_str)
+        # don't display an example until the input equation has been checked and deemed valid
         if valid == True:
+            # give example
             st.sidebar.write('HERE IS A SIMILAR EXAMPLE:')
             example_txt = get_example(equation0)
             for txt in example_txt:
                 st.sidebar.write(txt.lower())
     else:
+        # They want a randomly generated equation (which they will need to copy/paste into the typing space)
+        # First, choose type:
         in1 = st.sidebar.selectbox('Select level:', ['x on one side','x on both sides'])
         if in1 == 'x on both sides':
+            # only ask about distribution and combining like terms if they choose x on both sides
             x_onboth = 1
             in2 = st.sidebar.selectbox('Distribution required:',['None', 'On only one side', 'On both sides'])
             if in2 == 'None': distr = 0
@@ -603,6 +615,7 @@ def get_equation():
             x_onboth = 0
             distr = 0
             comb = 0
+        # get the equation:
         equation0 = make_equation(x_onboth, distr, comb)
         st.sidebar.write(equation0)
         st.sidebar.write('Unfortunately streamlit completely refreshes at every step. To use this equation,')
@@ -613,24 +626,24 @@ def get_equation():
     return equation0,in0
     
 def diagnose(equation):
-    
-    if sum([1 for c in equation if c=='x'])==1:
+    # This function returns a hint based on the type of equation, if the student missed a step
+    if sum([1 for c in equation if c=='x'])==1: # if there is only one x
         diagnosis = 'Try adding or subtracting, and then dividing.'
     else:
-        if sum([1 for c in equation if c=='('])>0:
-            if sum([1 for c in equation if c=='x'])>2:
+        if sum([1 for c in equation if c=='('])>0: # there is distribution
+            if sum([1 for c in equation if c=='x'])>2: # there is combining like terms
                 diagnosis = 'Try distributing, then combining like terms.'
-            else:
+            else: # there is no combining like terms, but there is still distribution
                 diagnosis = 'Try distributing.'
-        else:
-            if sum([1 for c in equation if c=='x'])>2:
+        else: # there is no distribution
+            if sum([1 for c in equation if c=='x'])>2: # there is combining like terms
                 diagnosis = 'Try combining like terms.'
-            else:
+            else: # no distribution and no combining like terms
                 diagnosis = 'Try adding or subtracting, and then dividing.'
     return diagnosis
 
 def decimal_to_fraction(chk):
-    
+    # This function returns a simplified fraction for an input decimal value
     num_range = list(range(1,201))
     nums = [n for n in num_range for d in num_range]
     dens = [d for n in num_range for d in num_range]
@@ -648,57 +661,61 @@ def combine_string(start):
     
     # takes in a string that might be something like "-2 + 3/4", evaluates it and turns it back into a fraction if needed.
     
-    chk = eval(start)
-    if chk<0:
+    chk = eval(start) # get the numerical value of the string
+    if chk<0: # negative
         sign = -1
         chk = np.abs(chk)
-    else:
+    else: # positive
         sign = 1
-    numer, denom = decimal_to_fraction(chk)
+    numer, denom = decimal_to_fraction(chk) # get it as a fraction
     numer = sign*numer
     
-    if denom!=1:
+    if denom!=1: # if it is actually a fraction
         if numer<denom:
-            new_string = f'{numer}/{denom}'
+            new_string = f'{numer}/{denom}' # fraction
         else:
-            new_string = f'{numer//denom} {numer%denom}/{denom}'
-    else:
+            new_string = f'{numer//denom} {numer%denom}/{denom}' # improper fraction changed to a mixed number
+    else: # if it is a whole number
         new_string = f'{numer}'
     
     return new_string
 
    
 def simplify_radical(start):
+    # This function takes in a number from under a square root, and simplifes the radical
+    # for instance simplify_radical(20) --> 2,5,1, because sqrt(20) = 2 sqrt(5) / 1
+    # simplify_radical(8/5) --> 2,10,5, because sqrt(8/5) = sqrt(40/25) = 2 sqrt(10)/5
     
+    # get list of perfect squares to check against, largest first
     perf_squares = [c*c for c in list(range(100,0,-1))]
     num_range = list(range(1,201))
     
     chk = start%1
     
-    if chk != 0:
+    if chk != 0: # decimal value -- convert remainder to fraction
         chk, start_denom = decimal_to_fraction(chk)
         if chk==None:
             return None, None, None
     else:
         start_denom = 1
     
-    start_num = (start//1)*start_denom + chk
+    start_num = (start//1)*start_denom + chk # complete fraction
         
-    if start_denom not in perf_squares:
+    if start_denom not in perf_squares: # make there be a perfect square in the denominator, to avoid radicals in the denominator
         start_num = start_num*start_denom
         start_denom = start_denom*start_denom
 
-    denom = np.round(np.power(start_denom,0.5))
-    squares = [s for s in perf_squares if start_num%s==0]
-    in_rad = start_num// squares[0]
-    out_rad= np.power(squares[0],0.5)
+    denom = np.round(np.power(start_denom,0.5)) # since the denominator is now a perfect square, take the square root
+    squares = [s for s in perf_squares if start_num%s==0] # find the largest perfect square that is a factor of the numerator
+    in_rad = start_num// squares[0] # what is left in the radical
+    out_rad= np.power(squares[0],0.5) # take the square root of that perfect square out of the radical
     
     ## SQRT({start}) = {out_rad}SQRT({in_rad})/{denom}
     
     out_rad = int(out_rad)
     in_rad = int(in_rad)
     denom = int(denom)
-    out_rad, denom = simplify_fraction(out_rad,denom)
+    out_rad, denom = simplify_fraction(out_rad,denom) # simplify the fraction outside the radical if needed
     
     return out_rad, in_rad, denom
 
@@ -714,10 +731,10 @@ def simplify_fraction(n0, d0):
     
     m = max([n0, d0])
     common_factors = [j for j in range(2,(m+1)) if (n0%j==0) and (d0%j==0)]
-    if len(common_factors)<1:
+    if len(common_factors)<1: # no common factors, cannot be simplified, leave it alone
         n1 = int(sign*n0)
         d1 = d0
-    else:
+    else: # at least one common factor > 1, divide numerator and denominator by the greatest common factor
         gcf = max(common_factors)
         n1 = int(sign*n0/gcf)
         d1 = int(d0/gcf)
@@ -725,6 +742,7 @@ def simplify_fraction(n0, d0):
     return n1, d1
 
 def synthetic_division(c5,c4,c3,c2,c1,c0,r):
+    # returns the coeficients ot the result of doing synthetic division on {c5}x^5+{c4}x^4+{c3}x^3+{c2}x^2+{c1}x+{c0} by x-r for root r
     b5 = int(c5)
     b4 = int(c4 + b5*r)
     b3 = int(c3 + b4*r)
@@ -740,7 +758,7 @@ def synthetic_division(c5,c4,c3,c2,c1,c0,r):
         b1 = int(b1/d)
         b0 = int(b0/d)
     return b5, b4, b3, b2, b1, b0
-    
+    # result is {b5}x^4 + {b4}x^3 + {b3}x^2 + {b2}x + {b1} + {b0}/(x-r)
     
 # APP CODE:
 
@@ -757,10 +775,11 @@ st.header('Welcome!')
 
 st.write('New equations can be set using the side bar.')
 
+############################################### LINEAR EQUATIONS SECTION ###############################################
 if eqn_type == 'Linear Equations':
     
 
-
+    # Get the equation via user input (on the sidebar)
     equation0,in0 = get_equation()
     if in0=='Type in an equation':
 
@@ -956,11 +975,15 @@ if eqn_type == 'Linear Equations':
 
                                                                                                                                 st.write('You seem to be having trouble.')
                                                                                                                                 st.write('This problem should not take this many steps -- go back up and check your work.')
+
                                                                                                                                 
+############################################### QUADRATIC EQUATIONS SECTION ###############################################
+
 elif eqn_type == 'Quadratic Equations':
 
     Q1 = st.sidebar.selectbox('What form of equation to start?',['Standard', 'Factored', 'Vertex'])
     
+############################################### EQUATION IN STANDARD FORM ###############################################
     if Q1 == 'Standard':
         coef_options  = list(range(-10,11))
         coef_options2 = list(range(-20,21))
@@ -977,12 +1000,14 @@ elif eqn_type == 'Quadratic Equations':
         slv_mthd = st.selectbox('Which method would you like to practice?', ['Factoring', 'Completing the square', 'Quadratic Formula'])
         
         if slv_mthd == 'Factoring':
+        ############################################### SOLVE BY FACTORING ###############################################
+
             if a<0:
                 factorlist = [c for c in coef_options if c<0]
             else:
                 factorlist = [c for c in coef_options if c>0]
             
-            if (c==0) and (b==0):
+            if (c==0) and (b==0): # trivial case of ax^2 = 0
                 st.write(f'Since b = 0 and c = 0, we just have ${a}x^2 = 0$.')
                 st.write("You don't even need to factor this, actually. What is always the solution, when you have $ax^n = 0$?")
                 soln1_in = st.selectbox('Solution: ',['SELECT'] + coef_options)
@@ -993,8 +1018,8 @@ elif eqn_type == 'Quadratic Equations':
                     st.balloons()
                
 
-            elif c==0:
-                common = [f for f in factorlist if (a%f==0) and (b%f==0)]
+            elif c==0: # GCF case of ax^2 + bx = 0
+                common = [f for f in factorlist if (a%f==0) and (b%f==0)] # find the gcf
                 if len(common)>0: gcf = max(common)
                 else: gcf = 1
                 st.write('It looks like c = 0, so you can factor this with a simple GCF')
@@ -1003,44 +1028,34 @@ elif eqn_type == 'Quadratic Equations':
                     st.write('Not quite. Try again.')
                 elif gcf_in==gcf:
                     st.write('Great job!')
-                    if b>0:    equation1 = f'{gcf}x({a//gcf}x + {b//gcf})'
-                    elif b==0: equation1 = f'${a}x^2$'
+                    if b>0:    equation1 = f'{gcf}x({a//gcf}x + {b//gcf})' # new equation with {gcf}x factored out
                     else:      equation1 = f'{gcf}x({a//gcf}x - {-1*b//gcf})'
                     st.write(equation1)
-                    if b==0:
-                        st.write('There is only one solution. What is it?')
-                        soln1_in = st.selectbox('Solution: ',['SELECT'] + coef_options)
-                        if soln1_in != 0:
-                            st.write('Try again.')
-                        elif soln1_in == 0:
-                            st.write('Great job; you solved it!')
-                            st.balloons()
-                    else:
-                        st.write(f'One equation is {gcf}x = 0. What is the solution to that equation?')
-                        soln1_in = st.selectbox('Solution: ',['SELECT'] + coef_options)
-                        if soln1_in != 0:
-                            st.write('Try again.')
-                        elif soln1_in ==0:
-                            st.write('Great job; now what is the other equation?')
-                            factor_eqn1 = f'{a//gcf}x + {b//gcf} = 0'
-                            if b < 0: factor_eqn1 = factor_eqn1.replace(f'+ {b//gcf}', f'- {-1*b//gcf}')
-                            f_eqn1_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
-                            if (f_eqn1_in!=factor_eqn1):
-                                st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
-                            elif f_eqn1_in==factor_eqn1:
-                                st.write('Good! Now solve it:')
-                                ans = list({b//gcf, -1*b//gcf, a//gcf, -1*a//gcf, gcf, -1*gcf, a, -1*a, b, -1*b})
-                                ans.sort()
-                                soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',['SELECT'] + ans)
-                                if (soln1_in!=(-1*b//gcf)):
-                                    st.write('Try again.')
-                                elif soln1_in==-1*b//gcf:
-                                    st.write('Great job! You solved it!')
-                                    st.balloons()
+                    st.write(f'One equation is {gcf}x = 0. What is the solution to that equation?')
+                    soln1_in = st.selectbox('Solution: ',['SELECT'] + coef_options)
+                    if soln1_in != 0: # solution to {gcf}x = 0 is always x = 0
+                        st.write('Try again.')
+                    elif soln1_in ==0:
+                        st.write('Great job; now what is the other equation?')
+                        factor_eqn1 = f'{a//gcf}x + {b//gcf} = 0'
+                        if b < 0: factor_eqn1 = factor_eqn1.replace(f'+ {b//gcf}', f'- {-1*b//gcf}') # make it look prettier x - {} instead of x + -{}
+                        f_eqn1_in = st.selectbox('Which of these equations should you solve?',['SELECT', factor_eqn1.replace('-','+'), factor_eqn1.replace('+','-')])
+                        if (f_eqn1_in!=factor_eqn1):
+                            st.write('Try again. Hint: The factors should be set equal to zero because anything multiplied by zero is zero.')
+                        elif f_eqn1_in==factor_eqn1:
+                            st.write('Good! Now solve it:') # correct solution is 
+                            ans = list({b//a, -1*b//a, b//gcf, -1*b//gcf, a//gcf, -1*a//gcf, gcf, -1*gcf, a, -1*a, b, -1*b})
+                            ans.sort()
+                            soln1_in = st.selectbox('Solution to '+factor_eqn1+ ':',['SELECT'] + ans)
+                            if (soln1_in!=(-1*b//a)):
+                                st.write('Try again.')
+                            elif soln1_in==-1*b//a: # {a}/{gcf} x + {b}/{gcf} = 0 --> {a}/{gcf} x = -{b}/{gcf} -->  x = -({b}/{gcf})/({a}/{gcf}) = -{b}/{a}
+                                st.write('Great job! You solved it!')
+                                st.balloons()
 
-            else:
+            else: # a, b, and c all non-zero; trinomial factoring
 
-                common = [f for f in factorlist if (a%f==0) and (b%f==0) and (c%f==0)]
+                common = [f for f in factorlist if (a%f==0) and (b%f==0) and (c%f==0)] # look for a gcf
                 if len(common)>0:
                     if a<0:
                         gcf = min(common)
@@ -1072,21 +1087,23 @@ elif eqn_type == 'Quadratic Equations':
                         equation1 = f'{gcf}(' + disp_a1 + f' + {b1}x + {c1}) = 0'
                         st.latex(equation1)
 
+                    # factoring method (after gcf) -- look for pair of numbers that multiply to a*c and add to b. Then use area model to factor to binomials
                     st.write(f'a*c = {a1*c1}, and b = {b1}. Can you find a pair of numbers that multiply to give {a1*c1} and add to give {b1}?')
                     st.write('If so, select them here. If there is no such pair, try another solving method.')
                     num1 = st.selectbox('1st number',['SELECT'] + coef_options)
                     num2 = st.selectbox('2nd number',['SELECT'] + coef_options)
                     if (num1!='SELECT') and (num2!='SELECT'):
-                        if (np.abs(num1+num2-b1)>0.0001) or (np.abs((num1*num2)-(a1*c1))>0.0001):
+                        if (np.abs(num1+num2-b1)>0.0001) or (np.abs((num1*num2)-(a1*c1))>0.0001): # not a match (to within roundoff error)
                             st.write('Not quite. Keep trying or try another method.')
-                        elif (np.abs(num1+num2-b1)<=0.0001) and (np.abs((num1*num2)-(a1*c1))<=0.0001):
+                        elif (np.abs(num1+num2-b1)<=0.0001) and (np.abs((num1*num2)-(a1*c1))<=0.0001): # they found the right pair
                             st.write("You're going great! Scroll down to view the area model and fill in the row and column greatest common factors:")
+                            # the rows and columns refer to the area model, below
                             gcfR1 = st.selectbox('How many "x" can you factor out of the first row?',['SELECT'] + coef_options)
                             gcfR2 = st.selectbox('What is the greatest common factor of the second row?',['SELECT'] + coef_options)
                             gcfC1 = st.selectbox('How many "x" can you factor out of the first column?',['SELECT'] + coef_options)
                             gcfC2 = st.selectbox('What is the greatest common factor of the second column?',['SELECT'] + coef_options)
 
-
+                            # display the area model
                             if gcfR1 == 1:
                                 dispR1 = 'x'
                             else:
@@ -1108,7 +1125,8 @@ elif eqn_type == 'Quadratic Equations':
                                 st.write()
                             elif (gcfR1*gcfC1!=a1) or (gcfR1*gcfC2!=num1) or (gcfR2*gcfC1!=num2) or (gcfR2*gcfC2!=c1):
                                 st.write('Not quite; keep trying!')
-                            elif (gcfR1==gcfC1) and (gcfR2==-1*gcfC2):
+                            # otherwise, they have correctly factored using the area model:
+                            elif (gcfR1==gcfC1) and (gcfR2==-1*gcfC2):   # ax^2 - b, where a and b are perfect squares
                                 st.write('This looks like a special case, called "difference of squares". Select all correct solutions:')
                                 solution_options = list({gcfR2/gcfR1, -1*gcfR2/gcfR1, gcfR1/gcfR2, -1*gcfR1/gcfR2})
                                 solution_options.sort()
@@ -1132,7 +1150,7 @@ elif eqn_type == 'Quadratic Equations':
                                     st.write('You did it!')
                                     st.balloons()
 
-                            elif (gcfR1*gcfC1==a1) and (gcfR1*gcfC2==num1) and (gcfR2*gcfC1==num2) and (gcfR2*gcfC2==c1):
+                            elif (gcfR1*gcfC1==a1) and (gcfR1*gcfC2==num1) and (gcfR2*gcfC1==num2) and (gcfR2*gcfC2==c1): # correctly factored
                                 st.write('Good job! Almost there; we have our factors now.')
                                 if gcfR2<0:
                                     dispR2 = f' - {-1*gcfR2}'
@@ -1142,7 +1160,7 @@ elif eqn_type == 'Quadratic Equations':
                                     dispC2 = f' - {-1*gcfC2}'
                                 else:
                                     dispC2 = f' + {gcfC2}'
-                                if gcf==1:
+                                if gcf==1: # write out the new factored equation
                                     equation2 = '(' + dispR1 + dispR2 + ')(' + dispC1 + dispC2 + ') = 0'
                                 else:
                                     equation2 = f'{gcf}(' + dispR1 + dispR2 + ')(' + dispC1 + dispC2 + ') = 0'
@@ -1170,6 +1188,8 @@ elif eqn_type == 'Quadratic Equations':
                                     elif (soln1_in==(-1*gcfR2/gcfR1)) and (soln2_in==(-1*gcfC2/gcfC1)):
                                         st.write('Great job! You solved it!')
                                         st.balloons()
+                                        
+        ############################################### SOLVE BY COMPLETING THE SQUARE ###############################################
 
         if slv_mthd == 'Completing the square':
             
@@ -1178,7 +1198,7 @@ elif eqn_type == 'Quadratic Equations':
             rhs_choices.sort()
             rhs = st.selectbox('What number goes on the right?',['SELECT'] + rhs_choices)
             
-            equation1 = disp_a + f' + {b}x = {rhs}'
+            equation1 = disp_a + f' + {b}x = {rhs}' # ax^2+ bx = -c
             
             
             if rhs=='SELECT':
@@ -1191,7 +1211,7 @@ elif eqn_type == 'Quadratic Equations':
                 if a!=1:
                     st.write('Since a is not 1, we need to factor it out of the left hand side.')
                     b1 = b/a
-                    equation2 = f'{a}(x^2 + {b1}x) = {rhs}'
+                    equation2 = f'{a}(x^2 + {b1}x) = {rhs}' # a(x^2 + [b1]x) = -c where b1 = b/a
                     
                     b1_choices = list({b, -1*b, b1, -1*b1, a})
                     b1_choices.sort()
@@ -1215,7 +1235,7 @@ elif eqn_type == 'Quadratic Equations':
                     bover2sq = b1*b1/4
                     abover2sq = a*bover2sq
                     if a!=1:
-                        equation3 = f'{a}(x^2 + {b1}x + {bover2sq}) = {rhs+abover2sq}'
+                        equation3 = f'{a}(x^2 + {b1}x + {bover2sq}) = {rhs+abover2sq}' # a(x^2 + [b1]x + [b1/2]^2) = -c + a[b1/2]^2
                     else:
                         equation3 = f'(x^2 + {b1}x + {bover2sq}) = {rhs+abover2sq}'
 
@@ -1252,7 +1272,7 @@ elif eqn_type == 'Quadratic Equations':
                             step2 = False
                             if a!=1:
                                 rhs2 = rhs1/a
-                                equation5 = f'(x + {bover2})^2 = {rhs2}'
+                                equation5 = f'(x + {bover2})^2 = {rhs2}'    # (x + [b1/2])^2 = [-c + a[b1/2]^2]/a
 
                                 st.write('This is a good time to divide by "a".')
                                 rhs_opt = list({rhs1, rhs2, rhs1*a, rhs2/2, b/a, b/(2*a)})
@@ -1273,7 +1293,10 @@ elif eqn_type == 'Quadratic Equations':
                                 step2 = True
                             if step2:
                                 st.write("Step 3: Now it's time to take the square root of both sides.")
-
+                                
+                                # if the number under the square root is positive, there are two real solutions.  If it is 0, there is one real solution.
+                                # if it is negative, then there are no real solutions, 
+                                # but students who have learned complex numbers can continue to fine the two complex solutions
                                 soln_opt = ['2 REAL solutions', '1 REAL solution', 'No REAL solutions (2 COMPLEX solutions)']
                                 if rhs2<0: soln = soln_opt[2]
                                 elif rhs2==0: soln = soln_opt[1]
@@ -1284,15 +1307,15 @@ elif eqn_type == 'Quadratic Equations':
                                 elif num_sol!=soln:
                                     st.write('Try again.')
                                 elif num_sol==soln:
-                                    if rhs2<0:
+                                    if rhs2<0: # no real solutions, 2 complex solutions
                                         st.write('Uh oh! The right hand side is negative.')
                                         st.write('There are no REAL numbers that can square to give a negative number.')
                                         st.write("If you're in algebra 1 right now, you can stop here - the answer is 'no real solutions'.")
                                         st.write("But if you're in algebra 2 or another advanced math class, it's a little trickier.")
                                         cont = st.selectbox('Continue on to find the 2 complex solutions?',['SELECT', 'yes', 'no'])
                                         if cont == 'no':
-                                            st.write('OK, good job on this problem!')
-                                        elif cont== 'yes':
+                                            st.write('OK, good job on this problem!') # okay to stop here for algebra 1 students
+                                        elif cont== 'yes': # for those prepared to continue
                                             st.write('We know that the square root of -1 is "i". So we can take that out of the square root, and drop the negative.')
                                             equation6 = f'$x + {bover2} = \pm \sqrt({rhs2})$'
                                             equation7 = f'$x + {bover2} = \pm i \sqrt({-1*rhs2})$'
@@ -1301,12 +1324,12 @@ elif eqn_type == 'Quadratic Equations':
                                             st.write('So instead of : ' + equation6 + ', we can write : ' + equation7)
                                             st.write("and that's actually two equations, " + equation7a + ' and ' + equation7b + '.')
 
-                                            out_rad, in_rad, denom = simplify_radical(-1*rhs2)
+                                            out_rad, in_rad, denom = simplify_radical(-1*rhs2) # simplify the radical
 
 
-                                            if (out_rad!=None) and (in_rad!=-1*rhs2):
+                                            if (out_rad!=None) and (in_rad!=-1*rhs2): # note al of these will include "i"!
 
-                                                if in_rad!=1:
+                                                if in_rad!=1: # format the equations depending on whether there is still a square root, a number outside, and/or a denominator
                                                     if out_rad!=1:
                                                         if denom!=1:
                                                             equation8a= f'$x + {bover2} = {out_rad}i \sqrt({in_rad})/{denom}$'
@@ -1362,8 +1385,8 @@ elif eqn_type == 'Quadratic Equations':
                                             st.write('Step 4: Last step! Get x by itself on the left side of both equations.')
                                             st.write('Select all correct solutions:')
 
-
-                                            if in_rad!=1:
+                                            # format answers (correct and incorrect) according to whether there is a square root, a number outside, and/or a fraction
+                                            if in_rad!=1: 
                                                 if (out_rad!=1) and (denom!=1):
                                                     soln1 = f'{-1*bover2} + {out_rad}i square_root({in_rad})/{denom}'
                                                     soln2 = f'{-1*bover2} - {out_rad}i square_root({in_rad})/{denom}'
@@ -1427,7 +1450,7 @@ elif eqn_type == 'Quadratic Equations':
                                                 else:
                                                     st.write('You did it!')
                                                     st.balloons()
-                                            else:
+                                            else: # if b = 1, it's a simpler choice -- only 2 choices, and they should BOTH be selected
                                                 sel1 = st.checkbox(correct[0])
                                                 sel2 = st.checkbox(correct[1])
 
@@ -1437,7 +1460,7 @@ elif eqn_type == 'Quadratic Equations':
                                                     st.write('You did it!')
                                                     st.balloons()
 
-                                    elif rhs2==0:
+                                    elif rhs2==0: # case where the right hand side is zero. +/- SQRT(0) = 0, so there i just one solution
                                         st.write('Interesting -  The right hand side is zero.')
                                         st.write('The square root of zero is still zero, and negative zero is still zero.')
                                         st.write("So, there's only one equation (the 'plus or minus' part is gone), and only one solution!")
@@ -1464,51 +1487,51 @@ elif eqn_type == 'Quadratic Equations':
                                         else:
                                             st.write('You did it!')
                                             st.balloons()
-                                    else:
+                                    else: # case with two real solutions (no complex numbers needed)
                                         st.write('Correct, the right hand side is positive.')
                                         st.write("There is no problem taking the square root of a positive number, so we will have 2 REAL solutions because of the 'plus or minus'.")
-                                        equation6 = f'$x + {bover2} = \pm \sqrt({rhs2})$'
-                                        equation6a= f'$x + {bover2} =  \sqrt({rhs2})$'
-                                        equation6b= f'$x + {bover2} = - \sqrt({rhs2})$'
+                                        equation6 = f'$x + {bover2} = \pm \sqrt({rhs2})$' # x + b1/2 = +/- sqrt(right hand side)
+                                        equation6a= f'$x + {bover2} =  \sqrt({rhs2})$'    # x + b1/2 =     sqrt(right hand side)
+                                        equation6b= f'$x + {bover2} = - \sqrt({rhs2})$'   # x + b1/2 =   - sqrt(right hand side)
                                         st.write(equation6 + ' is actually two equations:')
                                         st.write(equation6a + ' and ' + equation6b + '.')
 
-                                        out_rad, in_rad, denom = simplify_radical(rhs2)
+                                        out_rad, in_rad, denom = simplify_radical(rhs2) # simplify the radical
 
 
-                                        if (out_rad!=None) and (in_rad!=rhs2):
+                                        if (out_rad!=None) and (in_rad!=rhs2): #format according to whether there is still a radical, and/or a fraction, etc.
                                             if in_rad!=1:
                                                 if out_rad!=1:
                                                     if denom!=1:
-                                                        equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})/{denom}$'
-                                                        equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})/{denom}$'
+                                                        equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})/{denom}$'  # x + b1/2 = [] sqrt([])/[] 
+                                                        equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})/{denom}$' # x + b1/2 =-[] sqrt([])/[]
                                                     else:
-                                                        equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})$'
-                                                        equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})$'
+                                                        equation8a= f'$x + {bover2} = {out_rad} \sqrt({in_rad})$'  # x + b1/2 = [] sqrt([])
+                                                        equation8b= f'$x + {bover2} = -{out_rad} \sqrt({in_rad})$' # x + b1/2 =-[] sqrt([])
 
                                                 else:
                                                     if denom!=1:
-                                                        equation8a= f'$x + {bover2} = \sqrt({in_rad})/{denom}$'
-                                                        equation8b= f'$x + {bover2} = -\sqrt({in_rad})/{denom}$'
+                                                        equation8a= f'$x + {bover2} = \sqrt({in_rad})/{denom}$'  # x + b1/2 = sqrt([])/[]
+                                                        equation8b= f'$x + {bover2} = -\sqrt({in_rad})/{denom}$' # x + b1/2 =-sqrt([])/[]
                                                     else:
-                                                        equation8a= f'$x + {bover2} = \sqrt({in_rad})$'
-                                                        equation8b= f'$x + {bover2} = -\sqrt({in_rad})$'
+                                                        equation8a= f'$x + {bover2} = \sqrt({in_rad})$'  # x + b1/2 = sqrt([])
+                                                        equation8b= f'$x + {bover2} = -\sqrt({in_rad})$' # x + b1/2 =-sqrt([])
 
                                             else:
                                                 if out_rad!=1:
                                                     if denom!=1:
-                                                        equation8a= f'$x + {bover2} = {out_rad}/{denom}$'
-                                                        equation8b= f'$x + {bover2} = -{out_rad}/{denom}$'
+                                                        equation8a= f'$x + {bover2} = {out_rad}/{denom}$'  # x + b1/2 = []/[]
+                                                        equation8b= f'$x + {bover2} = -{out_rad}/{denom}$' # x + b1/2 =-[]/[]
                                                     else:
-                                                        equation8a= f'$x + {bover2} = {out_rad}$'
-                                                        equation8b= f'$x + {bover2} = -{out_rad}$'
+                                                        equation8a= f'$x + {bover2} = {out_rad}$'  # x + b1/2 = []
+                                                        equation8b= f'$x + {bover2} = -{out_rad}$' # x + b1/2 =-[]
                                                 else:
                                                     if denom!=1:
-                                                        equation8a= f'$x + {bover2} = 1/{denom}$'
-                                                        equation8b= f'$x + {bover2} = -1/{denom}$'
+                                                        equation8a= f'$x + {bover2} = 1/{denom}$'  # x + b1/2 = 1/[]
+                                                        equation8b= f'$x + {bover2} = -1/{denom}$' # x + b1/2 =-1/[]
                                                     else:
-                                                        equation8a= f'$x + {bover2} = 1$'
-                                                        equation8b= f'$x + {bover2} = -1$'
+                                                        equation8a= f'$x + {bover2} = 1$'  # x + b1/2 = 1
+                                                        equation8b= f'$x + {bover2} = -1$' # x + b1/2 =-1
 
 
                                             st.write('Can you simplify the radical? You will probably need some scratch paper!')
@@ -1535,46 +1558,46 @@ elif eqn_type == 'Quadratic Equations':
                                         st.write('Select all correct solutions:')
                                         if in_rad!=1:
                                             if (out_rad!=1) and (denom!=1):
-                                                soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})/{denom}'
-                                                soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})/{denom}'
-                                                wrong1= f'{bover2} + {out_rad} square_root({in_rad})/{denom}'
-                                                wrong2= f'{bover2} - {out_rad} square_root({in_rad})/{denom}'
+                                                soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})/{denom}' # x = -b1/2 + [] sqrt([])/[]
+                                                soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})/{denom}' # x = -b1/2 - [] sqrt([])/[]
+                                                wrong1= f'{bover2} + {out_rad} square_root({in_rad})/{denom}' # x = b1/2 + [] sqrt([])/[]
+                                                wrong2= f'{bover2} - {out_rad} square_root({in_rad})/{denom}' # x = b1/2 - [] sqrt([])/[]
                                             elif out_rad!=1:
-                                                soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})'
-                                                soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})'
-                                                wrong1= f'{bover2} + {out_rad} square_root({in_rad})'
-                                                wrong2= f'{bover2} - {out_rad} square_root({in_rad})'
+                                                soln1 = f'{-1*bover2} + {out_rad} square_root({in_rad})' # x = -b1/2 + [] sqrt([])
+                                                soln2 = f'{-1*bover2} - {out_rad} square_root({in_rad})' # x = -b1/2 - [] sqrt([])
+                                                wrong1= f'{bover2} + {out_rad} square_root({in_rad})' # x = b1/2 + [] sqrt([])
+                                                wrong2= f'{bover2} - {out_rad} square_root({in_rad})' # x = b1/2 - [] sqrt([])
                                             elif denom!=1:
-                                                soln1 = f'{-1*bover2} + square_root({in_rad})/{denom}'
-                                                soln2 = f'{-1*bover2} - square_root({in_rad})/{denom}'
-                                                wrong1= f'{bover2} + square_root({in_rad})/{denom}'
-                                                wrong2= f'{bover2} - square_root({in_rad})/{denom}'
+                                                soln1 = f'{-1*bover2} + square_root({in_rad})/{denom}' # x = -b1/2 + sqrt([])/[]
+                                                soln2 = f'{-1*bover2} - square_root({in_rad})/{denom}' # x = -b1/2 - sqrt([])/[]
+                                                wrong1= f'{bover2} + square_root({in_rad})/{denom}' # x = b1/2 + sqrt([])/[]
+                                                wrong2= f'{bover2} - square_root({in_rad})/{denom}' # x = b1/2 - sqrt([])/[]
                                             else:
-                                                soln1 = f'{-1*bover2} + square_root({in_rad})'
-                                                soln2 = f'{-1*bover2} - square_root({in_rad})'
-                                                wrong1= f'{bover2} + square_root({in_rad})'
-                                                wrong2= f'{bover2} - square_root({in_rad})'
+                                                soln1 = f'{-1*bover2} + square_root({in_rad})' # x = -b1/2 + sqrt([])
+                                                soln2 = f'{-1*bover2} - square_root({in_rad})' # x = -b1/2 - sqrt([])
+                                                wrong1= f'{bover2} + square_root({in_rad})' # x = b1/2 + sqrt([])
+                                                wrong2= f'{bover2} - square_root({in_rad})' # x = b1/2 - sqrt([])
                                         else:
                                             if (out_rad!=1) and (denom!=1):
-                                                soln1 = combine_string(f'{-1*bover2} + {out_rad}/{denom}')                                        
-                                                soln2 = combine_string(f'{-1*bover2} - {out_rad}/{denom}')
-                                                wrong1= combine_string(f'{bover2} + {out_rad}/{denom}')
-                                                wrong2= combine_string(f'{bover2} - {out_rad}/{denom}')
+                                                soln1 = combine_string(f'{-1*bover2} + {out_rad}/{denom}') # x = -b1/2 + []/[]                                        
+                                                soln2 = combine_string(f'{-1*bover2} - {out_rad}/{denom}') # x = -b1/2 - []/[]
+                                                wrong1= combine_string(f'{bover2} + {out_rad}/{denom}') # x = b1/2 + []/[]
+                                                wrong2= combine_string(f'{bover2} - {out_rad}/{denom}') # x = b1/2 - []/[]
                                             elif out_rad!=1:
-                                                soln1 = combine_string(f'{-1*bover2} + {out_rad}')
-                                                soln2 = combine_string(f'{-1*bover2} - {out_rad}')
-                                                wrong1= combine_string(f'{bover2} + {out_rad}')
-                                                wrong2= combine_string(f'{bover2} - {out_rad}')
+                                                soln1 = combine_string(f'{-1*bover2} + {out_rad}') # x = -b1/2 + []
+                                                soln2 = combine_string(f'{-1*bover2} - {out_rad}') # x = -b1/2 - []
+                                                wrong1= combine_string(f'{bover2} + {out_rad}') # x = b1/2 + []
+                                                wrong2= combine_string(f'{bover2} - {out_rad}') # x = b1/2 - []
                                             elif denom!=1:
-                                                soln1 = combine_string(f'{-1*bover2} + 1')
-                                                soln2 = combine_string(f'{-1*bover2} - 1')
-                                                wrong1= combine_string(f'{bover2} + 1')
-                                                wrong2= combine_string(f'{bover2} - 1')
+                                                soln1 = combine_string(f'{-1*bover2} + 1/{denom}') # x = -b1/2 + 1/[]
+                                                soln2 = combine_string(f'{-1*bover2} - 1/{denom}') # x = -b1/2 - 1/[]
+                                                wrong1= combine_string(f'{bover2} + 1/{denom}') # x = b1/2 + 1/[]
+                                                wrong2= combine_string(f'{bover2} - 1/{denom}') # x = b1/2 - 1/[]
                                             else:
-                                                soln1 = combine_string(f'{-1*bover2} + 1')
-                                                soln2 = combine_string(f'{-1*bover2} - 1')
-                                                wrong1= combine_string(f'{bover2} + 1')
-                                                wrong2= combine_string(f'{bover2} - 1')
+                                                soln1 = combine_string(f'{-1*bover2} + 1') # x = -b1/2 + 1
+                                                soln2 = combine_string(f'{-1*bover2} - 1') # x = -b1/2 - 1
+                                                wrong1= combine_string(f'{bover2} + 1') # x = b1/2 + 1
+                                                wrong2= combine_string(f'{bover2} - 1') # x = b1/2 - 1
 
                                         solution_options = list({soln1, soln2, wrong1, wrong2})
                                         correct = [soln1, soln2]
@@ -1597,7 +1620,7 @@ elif eqn_type == 'Quadratic Equations':
                                             else:
                                                 st.write('You did it!')
                                                 st.balloons()
-                                        else:
+                                        else: # b = 0, only 2 answer choices, both are correct
                                             correct = [c.replace('-0.0 ','') for c in correct]
                                             correct = [c.replace('0.0 ','') for c in correct]
                                             sel1 = st.checkbox(correct[0])
@@ -1607,7 +1630,9 @@ elif eqn_type == 'Quadratic Equations':
                                             else:
                                                 st.write('You did it!')
                                                 st.balloons()
-                                             
+        
+        ############################################### SOLVE BY THE QUADRATIC FORMULA ###############################################
+                                     
         if slv_mthd == 'Quadratic Formula':
 
             st.write('The nice thing about the quadratic formula is, it will ALWAYS work.')
@@ -1987,6 +2012,9 @@ elif eqn_type == 'Quadratic Equations':
                             else:
                                 st.write('You did it!')
                                 st.balloons()
+
+############################################### EQUATION IN FACTORED FORM ###############################################
+############################################### SOLVE BY FACTORING ONLY ###############################################
     
     if Q1 == 'Factored':
         st.write('a(bx + c)(dx + e) = 0')
@@ -2096,6 +2124,8 @@ elif eqn_type == 'Quadratic Equations':
                     st.write('You did it!')
                     st.balloons()
 
+############################################### EQUATION IN VERTEX FORM ###############################################
+############################################### SOLVE BY COMPLETING THE SQUARE ONLY ###############################################
         
     if Q1 == 'Vertex':
         st.latex('a(x-h)^2 + k = 0')
@@ -2437,6 +2467,8 @@ elif eqn_type == 'Quadratic Equations':
                                     st.write('You did it!')
                                     st.balloons()
 
+############################################### POLYNOMIAL EQUATIONS SECTION ###############################################
+
 elif eqn_type == 'Polynomial Equations':
     chk3 = False
     degree = st.sidebar.selectbox('What degree?',['Cubic (x^3)', 'Quartic (x^4)', 'Quintic (x^5)'])
@@ -2482,26 +2514,29 @@ elif eqn_type == 'Polynomial Equations':
             p = np.abs(c4)
         else:
             p = np.abs(c5)
-
+        # all rational roots of a polynomial equation are in the list +/- [factors of p / factors of q],
+        # where p is the constant term and q is the leading coefficient
         st.latex(equation)
         q_list = [j for j in range(1,(q+1)) if q%j==0]
         p_list = [j for j in range(1,(p+1)) if p%j==0]
         rat_root_list = [p1/q1 for q1 in q_list for p1 in p_list]
         rat_root_list += [-1*c for c in rat_root_list]
+        # check all the values in the list of possible rational roots for values that make the polynomial equation true. Those are the roots.
         roots = [r for r in rat_root_list if np.round(c5*np.power(r,5)+c4*np.power(r,4)+c3*np.power(r,3)+c2*np.power(r,2)+c1*r+c0,6)==0]
         if c0==0: roots.append(0)
         ## NEED A CHECK FOR MULTIPLICITY!
         new_roots = []
-        for r in roots:
+        for r in roots: # check all roots in the list to see it they have multiplicity: e.g., x^3+3x^2+3x+1=0 has a root -1 with m3 because it equals (x+1)^3
             r5,r4,r3,r2,r1,chk0 = synthetic_division(c5,c4,c3,c2,c1,c0,r)
             r5,r4,r3,r2,r1,chk1 = synthetic_division(r5,r4,r3,r2,r1,chk0,r)
             r5,r4,r3,r2,r1,chk2 = synthetic_division(r5,r4,r3,r2,r1,chk1,r)
             if (chk1==0): 
-                new_roots.append(r)
+                new_roots.append(r) # if chk1==0, then the same root works at least twice -- append another copy of it to the root list
             if (chk2==0):
-                new_roots.append(r)
+                new_roots.append(r) # if chk2==0, then the same root works at least 3 times -- append a 3rd copy to the list
         roots = roots + new_roots
         
+        # Do we have enough rational roots to be able to solve the selected equation? If not alert the user to adjust choices.
         if ((c5!=0) and (len(roots)<3)):
             st.write('For a quintic equation, you need to have at least 3 rational roots (from the $\pm$ p/q list).')
             if len(roots)<1:
@@ -2517,10 +2552,11 @@ elif eqn_type == 'Polynomial Equations':
         elif (len(roots)<1):
             st.write('For a cubic equation, you need to have at least 1 rational roots (from the $\pm$ p/q list).')
             st.write('This equation has none; please change your selections in the sidebar to get a solvable equation.')
-        else:
-            if c5!=0:
-                root = roots[0]
-                if root%1 == 0:
+        else: # ready to solve
+            
+            if c5!=0: # we have a quintic (degree = 5) equation
+                root = roots[0] # get the first rational root
+                if root%1 == 0: # whole number root
                     root = int(root)
                     st.write(f'One rational root is: {root}')
                     st.write('Use synthetic division to reduce this quintic equation to a quartic:')
@@ -2558,8 +2594,8 @@ elif eqn_type == 'Polynomial Equations':
                         else:
                             st.write('Nicely done! We now have a quartic equation:')
                             st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                            chk5 = True
-                else:
+                            chk5 = True # set flag to indicate we are goot to continue with the quartic
+                else: # fraction root
                     numer, denom = decimal_to_fraction(root)
                     st.write(f'One rational root is {root}, or {numer}/{denom}.')
                     st.write('Even though this is a fraction, we can still use synthetic division to reduce this quintic equation to a quartic;')
@@ -2602,15 +2638,24 @@ elif eqn_type == 'Polynomial Equations':
                             b0 = int(b0/denom)
                             st.write(f'Nicely done! After dividing those all by {denom}, we have a quartic equation:')
                             st.latex(f'{b4}x^4 + {b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                            chk5 = True
-                if chk5==True:
-                    c4 = b4
+                            chk5 = True # set flag that we are good to continue with the quartic
+                if chk5==True: # continue with the quartic
+                    c4 = b4 # reset coefficients
                     c3 = b3
                     c2 = b2
                     c1 = b1
                     c0 = b0
-                    root = roots[1]
-                    if root%1 == 0:
+                    root = roots[1] # get the next root
+                    if root==0: # check to see if the root is zero. 
+                        st.write(f'Another rational root is 0. So we can just divide the equation by x:')
+                        b3 = c4
+                        b2 = c3
+                        b1 = c2
+                        b0 = c1
+                        st.write('We now have a cubic equation:')
+                        st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                        chk4 = True
+                    elif root%1 == 0: # whole number root
                         root = int(root)
                         st.write(f'Another rational root is: {root}')
                         st.write('Use synthetic division to reduce this quartic equation to a cubic:')
@@ -2644,7 +2689,7 @@ elif eqn_type == 'Polynomial Equations':
                                 st.write(f'Nicely done! We now have a cubic equation:')
                                 st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
                                 chk4 = True
-                    else:
+                    else: # fraction root
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'Another rational root is {root}, or {numer}/{denom}.')
                         st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
@@ -2682,15 +2727,15 @@ elif eqn_type == 'Polynomial Equations':
                                 b0 = int(b0/denom)
                                 st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
                                 st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                                chk4 = True
+                                chk4 = True # set the flag that we are good to continue with the cubic
 
-                    if chk4==True:
-                        c3 = b3
+                    if chk4==True: # continue
+                        c3 = b3 # reset coefficients
                         c2 = b2
                         c1 = b1
                         c0 = b0
-                        root = roots[2]
-                        if root==0:
+                        root = roots[2] # get the next root
+                        if root==0: # check to see if the root is zero. 
                             st.write(f'Another rational root is 0. So we can just divide the equation by x:')
                             b2 = c3
                             b1 = c2
@@ -2699,7 +2744,7 @@ elif eqn_type == 'Polynomial Equations':
                             st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
                             chk3 = True
 
-                        if (root%1 == 0) and (root!=0):
+                        elif (root%1 == 0): # whole number root
                             root = int(root)
                             st.write(f'Another rational root is: {root}')
                             st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
@@ -2730,7 +2775,7 @@ elif eqn_type == 'Polynomial Equations':
                                     st.write('Nicely done! We now have a quadratic equation:')
                                     st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
                                     chk3 = True
-                        elif (root!=0):
+                        elif (root%1!=0): # fraction root
                             numer, denom = decimal_to_fraction(root)
                             st.write(f'Another rational root is {root}, or {numer}/{denom}.')
                             st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
@@ -2764,19 +2809,23 @@ elif eqn_type == 'Polynomial Equations':
                                     b0 = int(b0/denom)
                                     st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
                                     st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                    chk3 = True
+                                    chk3 = True # set flag that we are good to continue with cubic
 
-            elif c4!=0:
+            elif c4!=0: # starting with a quartic equation (degree = 4)
                 chk5 = True
                 if chk5==True:
                     chk4 = False
-                    c4 = b4
-                    c3 = b3
-                    c2 = b2
-                    c1 = b1
-                    c0 = b0
-                    root = roots[0]
-                    if root%1 == 0:
+                    root = roots[0] # get first root
+                    if root==0: # check for root = 0
+                        st.write(f'Another rational root is 0. So we can just divide the equation by x:')
+                        b3 = c4
+                        b2 = c3
+                        b1 = c2
+                        b0 = c1
+                        st.write('We now have a cubic equation:')
+                        st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
+                        chk4 = True # set flag that we are good to continue with cubic
+                    elif root%1 == 0: # whole number root
                         root = int(root)
                         st.write(f'One rational root is: {root}')
                         st.write('Use synthetic division to reduce this quartic equation to a cubic:')
@@ -2811,8 +2860,8 @@ elif eqn_type == 'Polynomial Equations':
                             else:
                                 st.write('Nicely done! We now have a cubic equation:')
                                 st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                                chk4 = True
-                    else:
+                                chk4 = True # set flag that we are good to continue with the cubic
+                    else: # fraction root
                         numer, denom = decimal_to_fraction(root)
                         st.write(f'One rational root is {root}, or {numer}/{denom}.')
                         st.write('Even though this is a fraction, we can still use synthetic division to reduce this quartic equation to a cubic;')
@@ -2852,24 +2901,24 @@ elif eqn_type == 'Polynomial Equations':
                                 b0 = int(b0/denom)
                                 st.write(f'Nicely done! After dividing those all by {denom}, we have a cubic equation:')
                                 st.latex(f'{b3}x^3 + {b2}x^2 + {b1}x + {b0} = 0.')
-                                chk4 = True
+                                chk4 = True # set flag that we are good to continue with the cubic
 
-                    if chk4==True:
+                    if chk4==True: # continue with cubic
                         c3 = b3
                         c2 = b2
                         c1 = b1
                         c0 = b0
-                        root = roots[1]
-                        if root==0:
+                        root = roots[1] # get next root
+                        if root==0: # check for root = 0
                             st.write(f'Another rational root is 0. So we can just divide the equation by x:')
                             b2 = c3
                             b1 = c2
                             b0 = c1
                             st.write('We now have a quadratic equation:')
                             st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                            chk3 = True
+                            chk3 = True # set flag that we are ready to solve the quadratic
 
-                        if (root%1 == 0) and (root!=0):
+                        elif (root%1 == 0): # whole number root
                             root = int(root)
                             st.write(f'Another rational root is: {root}')
                             st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
@@ -2899,8 +2948,8 @@ elif eqn_type == 'Polynomial Equations':
                                 else:
                                     st.write('Nicely done! We now have a quadratic equation:')
                                     st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                    chk3 = True
-                        elif (root!=0):
+                                    chk3 = True # set flag that we are ready to solve the quadratic
+                        elif (root%1!=0): #fraction root
                             if root>0:
                                 numer, denom = decimal_to_fraction(root)
                                 st.write(f'Another rational root is {root}, or {numer}/{denom}.')
@@ -2939,9 +2988,9 @@ elif eqn_type == 'Polynomial Equations':
                                     b0 = int(b0/denom)
                                     st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
                                     st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                    chk3 = True
+                                    chk3 = True # set flag that we are ready to solve the quadratic
 
-            else:
+            else: # start with cubic
                 chk5 = True
                 if chk5==True:
                     chk4 = True
@@ -2951,16 +3000,16 @@ elif eqn_type == 'Polynomial Equations':
                         c1 = b1
                         c0 = b0
                         root = roots[0]
-                        if root==0:
+                        if root==0: # check for root = 0
                             st.write(f'One rational root is 0. So we can just divide the equation by x:')
                             b2 = c3
                             b1 = c2
                             b0 = c1
                             st.write('We now have a quadratic equation:')
                             st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                            chk3 = True
+                            chk3 = True # set flag that we are ready to solve the quadratic
 
-                        if (root%1 == 0) and (root!=0): 
+                        elif (root%1 == 0): # whole number root 
                             root = int(root)
                             st.write(f'One rational root is: {root}')
                             st.write('Use synthetic division to reduce this cubic equation to a quadratic:')
@@ -2990,8 +3039,8 @@ elif eqn_type == 'Polynomial Equations':
                                 else:
                                     st.write('Nicely done! We now have a quadratic equation:')
                                     st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                    chk3 = True
-                        elif (root!=0):
+                                    chk3 = True # set flag that we are ready to solve the quadratic
+                        elif (root%1!=0): # fraction root
                             numer, denom = decimal_to_fraction(root)
                             st.write(f'One rational root is {root}, or {numer}/{denom}.')
                             st.write('Even though this is a fraction, we can still use synthetic division to reduce this cubic equation to a quadratic;')
@@ -3025,12 +3074,13 @@ elif eqn_type == 'Polynomial Equations':
                                     b0 = int(b0/denom)
                                     st.write(f'Nicely done! After dividing those all by {denom}, we have a quadratic equation:')
                                     st.latex(f'{b2}x^2 + {b1}x + {b0} = 0.')
-                                    chk3 = True
+                                    chk3 = True # set flag that we are ready to solve the quadratic
 
-            if chk3==True:
+            if chk3==True: # solve the quadratic
                 st.write('Almost done! Solve the quadratic by the method of your choice (square roots, factoring, completing the square, quadratic formula)')
                 st.write('Select all CORRECT solutions below.')
 
+                # under the hood -- solve by quadratic formula. User can use whichever method they like
                 negb = -1*b1
                 twoa = 2*b2
                 disc = b1*b1 - 4*b2*b0
@@ -3045,7 +3095,7 @@ elif eqn_type == 'Polynomial Equations':
                 elif vertex_x < 0:
                     numer, denom = decimal_to_fraction(-1*vertex_x)
                     vert_str = f'-{numer}/{denom}'
-                if disc==0:
+                if disc==0: # discriminant = 0, only 1 real solution
                     sqrt_str = ''
                     wrong = f'{b0}'
                     correct = [vert_str]
@@ -3060,12 +3110,12 @@ elif eqn_type == 'Polynomial Equations':
                     else:
                         st.write('You did it!')
                         st.balloons()
-                else:
-                    if disc>0:
+                else: # 2 solutions
+                    if disc>0: #2 real solutions
                         out_rad, in_rad, denom = simplify_radical(disc/(twoa*twoa))
-                    else:
+                    else: # 2 complex solutions
                         out_rad, in_rad, denom = simplify_radical(-1*disc/(twoa*twoa))
-                    if out_rad==1:
+                    if out_rad==1: # format for whether there is a square root, a fraction, i
                         if in_rad==1:
                             if denom==1:
                                 str1 = '1'
@@ -3095,17 +3145,17 @@ elif eqn_type == 'Polynomial Equations':
                             else:
                                 str1 = f'{out_rad} square_root( {in_rad} ) / {denom}'
                                 str2 = f'{out_rad}i square_root( {in_rad} ) / {denom}'
-                    if disc>0:
+                    if disc>0: # solutions are real (no "i")
                         sqrt_str = str1
                         wrong = str2
-                    else:
+                    else: # solutions are complex ("i")
                         sqrt_str = str2
                         wrong = str1
-                    if vertex_x == 0:
+                    if vertex_x == 0: # correct formating if b=0
                         correct = [sqrt_str, '-' + sqrt_str]
-                    else:
+                    else: # or b not = 0
                         correct = [vert_str + ' + ' + sqrt_str, vert_str + ' - ' + sqrt_str]
-                    correct = [c if ('square_root' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct]
+                    correct = [c if ('square_root' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in correct] # get decimals where appropriate
                     incorrect = [vert_str + ' + ' + wrong, vert_str + ' - ' + wrong]
                     incorrect = [c if ('square_root' in c) or ('i' in c) else str(np.round(eval(c),4)) for c in incorrect]
                     solution_options = correct + incorrect
